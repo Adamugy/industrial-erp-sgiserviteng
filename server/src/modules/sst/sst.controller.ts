@@ -34,7 +34,7 @@ export class SSTController {
         const { status, planoAcaoCorretiva } = req.body;
 
         const incident = await prisma.incident.update({
-            where: { id },
+            where: { id: id as string },
             data: {
                 status,
                 planoAcaoCorretiva,
@@ -74,7 +74,7 @@ export class SSTController {
     static async approveAPR(req: Request, res: Response) {
         const { id } = req.params;
         const apr = await prisma.aPR.update({
-            where: { id },
+            where: { id: id as string },
             data: {
                 aprovado: true,
                 dataAprovacao: new Date()

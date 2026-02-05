@@ -1,36 +1,50 @@
-version: '3.8'
+# Docker Compose para Industrial ERP
 
 services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: sgi-postgres
+  # Banco de Dados
+  db:
+    image: postgres:15-alpine
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: sgi_erp
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: erp_db
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
 
+  # Cache e Real-time
   redis:
     image: redis:7-alpine
-    container_name: sgi-redis
     ports:
       - "6379:6379"
+
+  # Backend (API)
+  backend:
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile
+    ports:
+      - "8085:8080"
+    env_file:
+      - ./server/.env
+    depends_on:
+      - db
+      - redis
+
+  # Frontend (Web)
+  frontend:
+    image: node:20-alpine
+    working_dir: /app
+    ports:
+      - "8084:3000"
     volumes:
-      - redis_data:/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+      - .:/app
+    command: sh -c "npm install && cd client && npm install && npm run dev -- --host 0.0.0.0 --port 3000"
+    environment:
+      - VITE_API_URL=http://localhost:8085
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
-  redis_data:

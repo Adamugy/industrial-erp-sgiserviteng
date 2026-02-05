@@ -15,8 +15,8 @@ import SSTFormsPreOS from './components/SSTFormsPreOS';
 import LoginPage from './components/LoginPage';
 import UserProfileModule from './components/UserProfileModule';
 import { useAuth, RoleGuard } from './components/AuthContext';
-import { api } from './api/client';
-import { syncService } from './api/sync';
+import { api } from '../connectors/api/client';
+import { syncService } from '../connectors/api/sync';
 
 // Extracted Components
 import Sidebar from './components/layout/Sidebar';

@@ -285,7 +285,8 @@ async function main() {
     await prisma.asset.create({
         data: {
             numeroSerie: 'VH-2022-001',
-            marcaModelo: 'Ford Transit Connect',
+            marca: 'Ford',
+            modelo: 'Transit Connect',
             categoria: 'VIATURA',
             statusOperacional: 'OPERACIONAL',
             dataUltimaManutencao: new Date('2024-03-15'),
@@ -298,7 +299,8 @@ async function main() {
     await prisma.asset.create({
         data: {
             numeroSerie: 'MQ-2021-005',
-            marcaModelo: 'Miller Dynasty 350',
+            marca: 'Miller',
+            modelo: 'Dynasty 350',
             categoria: 'MAQUINA',
             statusOperacional: 'OPERACIONAL',
             dataUltimaManutencao: new Date('2024-01-10'),

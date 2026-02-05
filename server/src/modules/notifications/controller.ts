@@ -33,7 +33,7 @@ export class NotificationsController {
     static async markAsRead(req: Request, res: Response) {
         const { id } = req.params;
         const notification = await prisma.notification.update({
-            where: { id },
+            where: { id: id as string },
             data: { lido: true },
         });
 

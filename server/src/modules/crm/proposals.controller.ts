@@ -39,7 +39,7 @@ export class ProposalsController {
     static async getById(req: Request, res: Response) {
         const { id } = req.params;
         const proposal = await prisma.proposal.findUnique({
-            where: { id },
+            where: { id: id as string },
             include: {
                 client: true,
                 seller: { select: { id: true, name: true, email: true } },
@@ -81,7 +81,7 @@ export class ProposalsController {
         const data = proposalSchema.partial().parse(req.body);
 
         const proposal = await prisma.proposal.update({
-            where: { id },
+            where: { id: id as string },
             data: {
                 ...data,
                 dataValidade: data.dataValidade ? new Date(data.dataValidade) : undefined,
@@ -100,7 +100,7 @@ export class ProposalsController {
         const { numeroPO, condicoesPagamento } = req.body;
 
         const proposal = await prisma.proposal.update({
-            where: { id },
+            where: { id: id as string },
             data: {
                 status: 'ADJUDICADO',
                 numeroPO,
@@ -118,7 +118,7 @@ export class ProposalsController {
 
     static async delete(req: Request, res: Response) {
         const { id } = req.params;
-        await prisma.proposal.delete({ where: { id } });
+        await prisma.proposal.delete({ where: { id: id as string } });
         io.emit('proposal:deleted', { id });
         res.json({ message: 'Proposta eliminada com sucesso' });
     }

@@ -55,7 +55,7 @@ export class MaterialsController {
     static async getById(req: Request, res: Response) {
         const { id } = req.params;
         const material = await prisma.material.findUnique({
-            where: { id },
+            where: { id: id as string },
             include: {
                 movements: {
                     orderBy: { createdAt: 'desc' },
@@ -101,7 +101,7 @@ export class MaterialsController {
             documentacaoAdicional
         } = req.body;
 
-        const material = await prisma.material.findUnique({ where: { id } });
+        const material = await prisma.material.findUnique({ where: { id: id as string } });
         if (!material) throw new NotFoundError('Material não encontrado');
 
         const newQuantity = tipo === 'ENTRADA'
@@ -113,7 +113,7 @@ export class MaterialsController {
         const [movement, updated] = await prisma.$transaction([
             prisma.stockMovement.create({
                 data: {
-                    materialId: id,
+                    materialId: id as string,
                     tipo,
                     quantidade,
                     documentoRef,
@@ -125,7 +125,7 @@ export class MaterialsController {
                 } as any,
             }),
             prisma.material.update({
-                where: { id },
+                where: { id: id as string },
                 data: { quantidadeAtual: newQuantity },
             }),
         ]);
@@ -240,7 +240,7 @@ export class MaterialsController {
         const data = materialSchema.partial().parse(req.body);
 
         const material = await prisma.material.update({
-            where: { id },
+            where: { id: id as string },
             data: data as any,
         });
 
@@ -250,7 +250,7 @@ export class MaterialsController {
 
     static async delete(req: Request, res: Response) {
         const { id } = req.params;
-        await prisma.material.delete({ where: { id } });
+        await prisma.material.delete({ where: { id: id as string } });
         io.emit('material:deleted', { id });
         res.json({ message: 'Material eliminado com sucesso' });
     }

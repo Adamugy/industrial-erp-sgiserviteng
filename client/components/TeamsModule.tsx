@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { api } from '../api/client';
-import { syncService } from '../api/sync';
+import { api } from '../../connectors/api/client';
+import { syncService } from '../../connectors/api/sync';
 
 interface TeamMember {
   id: string;

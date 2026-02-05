@@ -123,8 +123,8 @@ export class TeamsController {
 
         await prisma.teamMember.create({
             data: {
-                teamId: id,
-                userId,
+                teamId: id as string,
+                userId: userId as string,
             },
         });
 
@@ -148,8 +148,8 @@ export class TeamsController {
 
         await prisma.teamMember.deleteMany({
             where: {
-                teamId: id,
-                userId: userId,
+                teamId: id as string,
+                userId: userId as string,
             },
         });
 

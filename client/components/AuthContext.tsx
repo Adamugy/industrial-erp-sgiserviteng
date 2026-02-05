@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { api } from '../api/client';
-import { syncService } from '../api/sync';
+import { api } from '../../connectors/api/client';
+import { syncService } from '../../connectors/api/sync';
 
 export enum UserRole {
   ADMIN = 'ADMIN',

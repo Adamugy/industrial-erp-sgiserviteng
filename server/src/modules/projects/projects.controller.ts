@@ -43,7 +43,7 @@ export class ProjectsController {
     static async getById(req: Request, res: Response) {
         const { id } = req.params;
         const project = await prisma.project.findUnique({
-            where: { id },
+            where: { id: id as string },
             include: {
                 client: true,
                 manager: { select: { id: true, name: true, email: true, avatar: true } },
@@ -94,7 +94,7 @@ export class ProjectsController {
         const data = projectSchema.partial().parse(req.body);
 
         const project = await prisma.project.update({
-            where: { id },
+            where: { id: id as string },
             data: {
                 ...data,
                 dataInicioPrevista: data.dataInicioPrevista ? new Date(data.dataInicioPrevista) : undefined,
@@ -115,7 +115,7 @@ export class ProjectsController {
         const { percentualProgresso } = req.body;
 
         const project = await prisma.project.update({
-            where: { id },
+            where: { id: id as string },
             data: { percentualProgresso },
         });
 
@@ -125,7 +125,7 @@ export class ProjectsController {
 
     static async delete(req: Request, res: Response) {
         const { id } = req.params;
-        await prisma.project.delete({ where: { id } });
+        await prisma.project.delete({ where: { id: id as string } });
         io.emit('project:deleted', { id });
         res.json({ message: 'Projeto eliminado com sucesso' });
     }
