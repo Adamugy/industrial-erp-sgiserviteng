@@ -1,0 +1,579 @@
+// Prisma Schema for Industrial ERP SGIServiteng
+// PostgreSQL with full ISO 9001/45001 compliance
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==================== AUTHENTICATION & USERS ====================
+
+enum UserRole {
+  ADMIN
+  MANAGER
+  SAFETY
+  TECH
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  avatar       String?
+  role         UserRole @default(TECH)
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  ledTeams        Team[]           @relation("TeamLeader")
+  teamMemberships TeamMember[]
+  timesheets      Timesheet[]
+  proposals       Proposal[]       @relation("ProposalSeller")
+  managedProjects Project[]        @relation("ProjectManager")
+  assignedAssets  Asset[]          @relation("AssetResponsible")
+  createdEvents   AgendaEvent[]    @relation("EventCreator")
+  eventAttendees  EventAttendee[]
+  notifications   Notification[]
+  auditLogs       AuditLog[]
+  stockMovements  StockMovement[]  @relation("MovementResponsible")
+
+  @@map("users")
+}
+
+// ==================== CRM & PROPOSALS ====================
+
+model Client {
+  id        String   @id @default(cuid())
+  name      String
+  nif       String?  @unique
+  address   String?
+  city      String?
+  country   String   @default("Portugal")
+  phone     String?
+  email     String?
+  website   String?
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  proposals Proposal[]
+  projects  Project[]
+
+  @@map("clients")
+}
+
+enum ProposalStatus {
+  PENDENTE
+  REVISAO
+  ADJUDICADO
+  RECUSADO
+}
+
+model Proposal {
+  id              String         @id @default(cuid())
+  refComercial    String         @unique // PROP-2024-001
+  clientId        String
+  client          Client         @relation(fields: [clientId], references: [id])
+  sellerId        String?
+  seller          User?          @relation("ProposalSeller", fields: [sellerId], references: [id])
+  descricaoEscopo String
+  valorEstimado   Decimal        @db.Decimal(12, 2)
+  moeda           String         @default("EUR")
+  status          ProposalStatus @default(PENDENTE)
+  dataValidade    DateTime?
+  ficheiroUrl     String?
+
+  // Adjudication data
+  numeroPO           String?
+  dataAdjudicacao    DateTime?
+  condicoesPagamento String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  project Project?
+
+  @@map("proposals")
+}
+
+// ==================== PROJECTS & WORK ORDERS ====================
+
+enum ProjectStatus {
+  PLANEAMENTO
+  EM_EXECUCAO
+  SUSPENSO
+  CONCLUIDO
+  CANCELADO
+}
+
+model Project {
+  id                String        @id @default(cuid())
+  codigoObra        String        @unique // OBR-2024-001
+  designacao        String
+  clientId          String
+  client            Client        @relation(fields: [clientId], references: [id])
+  managerId         String?
+  manager           User?         @relation("ProjectManager", fields: [managerId], references: [id])
+  proposalId        String?       @unique
+  proposal          Proposal?     @relation(fields: [proposalId], references: [id])
+  dataInicioPrevista DateTime?
+  dataFimPrevista   DateTime?
+  orcamentoAprovado Decimal?      @db.Decimal(12, 2)
+  percentualProgresso Int         @default(0)
+  status            ProjectStatus @default(PLANEAMENTO)
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  // Relations
+  workOrders   WorkOrder[]
+  invoices     Invoice[]
+  agendaEvents AgendaEvent[]
+
+  @@map("projects")
+}
+
+enum MaintenanceType {
+  PREVENTIVA
+  CORRETIVA
+  INSTALACAO
+}
+
+enum WorkOrderStatus {
+  ABERTA
+  EM_EXECUCAO
+  PAUSADA
+  CONCLUIDA
+  CANCELADA
+}
+
+enum Priority {
+  BAIXA
+  MEDIA
+  ALTA
+  URGENTE
+}
+
+model WorkOrder {
+  id                 String          @id @default(cuid())
+  codigo             String          @unique // OS-2024-001
+  projectId          String
+  project            Project         @relation(fields: [projectId], references: [id])
+  teamId             String?
+  team               Team?           @relation(fields: [teamId], references: [id])
+  descricao          String
+  tipoManutencao     MaintenanceType
+  prioridade         Priority        @default(MEDIA)
+  status             WorkOrderStatus @default(ABERTA)
+  sstValidado        Boolean         @default(false)
+  local              String?
+  dataAbertura       DateTime        @default(now())
+  dataInicioPrevista DateTime?
+  dataFimPrevista    DateTime?
+  dataInicioReal     DateTime?
+  dataFimReal        DateTime?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  // Relations
+  timesheets   Timesheet[]
+  aprs         APR[]
+  workPermits  WorkPermit[]
+  agendaEvents AgendaEvent[]
+
+  @@map("work_orders")
+}
+
+// ==================== TEAMS & TIMESHEETS ====================
+
+enum TeamSpecialty {
+  SERRALHARIA
+  ELETRICIDADE
+  MECANICA
+  SOLDADURA
+  PINTURA
+  GERAL
+}
+
+enum TeamAvailability {
+  DISPONIVEL
+  PARCIALMENTE
+  INDISPONIVEL
+}
+
+model Team {
+  id                    String           @id @default(cuid())
+  nome                  String
+  leaderId              String?
+  leader                User?            @relation("TeamLeader", fields: [leaderId], references: [id])
+  especialidadePrincipal TeamSpecialty   @default(GERAL)
+  statusDisponibilidade TeamAvailability @default(DISPONIVEL)
+  createdAt             DateTime         @default(now())
+  updatedAt             DateTime         @updatedAt
+
+  // Relations
+  members    TeamMember[]
+  workOrders WorkOrder[]
+
+  @@map("teams")
+}
+
+model TeamMember {
+  id           String   @id @default(cuid())
+  teamId       String
+  team         Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  dataAlocacao DateTime @default(now())
+
+  @@unique([teamId, userId])
+  @@map("team_members")
+}
+
+model Timesheet {
+  id                 String    @id @default(cuid())
+  userId             String
+  user               User      @relation(fields: [userId], references: [id])
+  workOrderId        String
+  workOrder          WorkOrder @relation(fields: [workOrderId], references: [id])
+  dataReferencia     DateTime  @db.Date
+  horaInicio         DateTime  @db.Time()
+  horaFim            DateTime  @db.Time()
+  horasTotais        Decimal   @db.Decimal(4, 2)
+  descricaoAtividades String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  @@map("timesheets")
+}
+
+// ==================== SST - ISO 45001 ====================
+
+model APR {
+  id                  String    @id @default(cuid())
+  workOrderId         String
+  workOrder           WorkOrder @relation(fields: [workOrderId], references: [id])
+  perigosIdentificados Json     // Array of hazards
+  medidasControlo     String?
+  aprovado            Boolean   @default(false)
+  dataAprovacao       DateTime?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  @@map("aprs")
+}
+
+enum WorkPermitType {
+  ALTURA
+  QUENTE
+  CONFINADO
+  ELETRICO
+  ESCAVACAO
+}
+
+model WorkPermit {
+  id                   String         @id @default(cuid())
+  workOrderId          String
+  workOrder            WorkOrder      @relation(fields: [workOrderId], references: [id])
+  tipoTrabalho         WorkPermitType
+  validadeInicio       DateTime
+  validadeFim          DateTime
+  isolamentoEnergiasLoto Boolean      @default(false)
+  testeAtmosferaGases  Json?          // Readings object
+  aprovado             Boolean        @default(false)
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+
+  @@map("work_permits")
+}
+
+enum IncidentType {
+  ACIDENTE
+  INCIDENTE
+  NC // Non-conformity
+}
+
+enum IncidentSeverity {
+  LEVE
+  MODERADO
+  GRAVE
+  FATAL
+}
+
+enum IncidentStatus {
+  ABERTO
+  EM_INVESTIGACAO
+  ACAO_CORRETIVA
+  FECHADO
+}
+
+model Incident {
+  id                   String           @id @default(cuid())
+  tipo                 IncidentType
+  severidade           IncidentSeverity
+  descricao            String
+  dataOcorrencia       DateTime
+  localOcorrencia      String?
+  evidenciaFotoUrl     String?
+  planoAcaoCorretiva   String?
+  status               IncidentStatus   @default(ABERTO)
+  dataFecho            DateTime?
+  createdAt            DateTime         @default(now())
+  updatedAt            DateTime         @updatedAt
+
+  @@map("incidents")
+}
+
+// ==================== INVENTORY & ASSETS ====================
+
+model Material {
+  id               String   @id @default(cuid())
+  codigoInterno    String   @unique
+  nome             String
+  unidadeMedida    String   @default("UN")
+  quantidadeAtual  Int      @default(0)
+  stockMinimo      Int      @default(0)
+  custoMedio       Decimal? @db.Decimal(10, 2)
+  localizacaoArmazem String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Relations
+  movements StockMovement[]
+
+  @@map("materials")
+}
+
+enum MovementType {
+  ENTRADA
+  SAIDA
+}
+
+model StockMovement {
+  id            String       @id @default(cuid())
+  materialId    String
+  material      Material     @relation(fields: [materialId], references: [id])
+  tipo          MovementType
+  quantidade    Int
+  documentoRef  String?      // Invoice, OS, or PO reference
+  observacao    String?
+  
+  // New tracking fields
+  localizacao   String?      // Oficina, Armazém, Escritório, Pátio
+  responsavelId String?
+  responsavel   User?        @relation("MovementResponsible", fields: [responsavelId], references: [id])
+  dataReferencia DateTime?    // Entry or Exit date
+  documentacaoAdicional String?
+
+  createdAt     DateTime     @default(now())
+
+  @@map("stock_movements")
+}
+
+enum AssetCategory {
+  VIATURA
+  MAQUINA
+  FERRAMENTA
+  EQUIPAMENTO_MEDICAO
+}
+
+enum AssetStatus {
+  OPERACIONAL
+  EM_MANUTENCAO
+  AVARIADO
+  ABATIDO
+}
+
+model Asset {
+  id                    String        @id @default(cuid())
+  numeroSerie           String        @unique
+  designacao            String        @default("")
+  marca                 String        @default("")
+  modelo                String        @default("")
+  referenciaInterna     String?
+  gama                  String?
+  entidadeCalibradora   String?
+  numeroCertificado     String?
+  dataCalibracao        DateTime?
+  validade              String?
+  proximaCalibracao     DateTime?
+  observacoes           String?
+  quantidade            Int           @default(1)
+  
+  categoria             AssetCategory
+  statusOperacional     AssetStatus   @default(OPERACIONAL)
+  dataUltimaManutencao  DateTime?
+  dataProximaRevisao    DateTime?
+  responsavelAtualId    String?
+  responsavelAtual      User?         @relation("AssetResponsible", fields: [responsavelAtualId], references: [id])
+  localizacao           String?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  @@map("assets")
+}
+
+// ==================== BILLING & INVOICES ====================
+
+enum InvoiceStatus {
+  RASCUNHO
+  EMITIDA
+  PAGA
+  ANULADA
+}
+
+model Invoice {
+  id              String        @id @default(cuid())
+  projectId       String
+  project         Project       @relation(fields: [projectId], references: [id])
+  numeroFatura    String        @unique
+  valorLiquido    Decimal       @db.Decimal(12, 2)
+  iva             Decimal       @db.Decimal(5, 2) @default(23)
+  valorTotal      Decimal       @db.Decimal(12, 2)
+  dataEmissao     DateTime
+  dataVencimento  DateTime
+  statusPagamento InvoiceStatus @default(RASCUNHO)
+  dataPagamento   DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@map("invoices")
+}
+
+// ==================== AGENDA & NOTIFICATIONS (PRIORITY) ====================
+
+enum EventType {
+  REUNIAO
+  PRAZO
+  OS
+  AUDITORIA
+  MANUTENCAO
+  FORMACAO
+  OUTRO
+}
+
+enum EventPriority {
+  BAIXA
+  NORMAL
+  ALTA
+  CRITICA
+}
+
+model AgendaEvent {
+  id          String        @id @default(cuid())
+  titulo      String
+  descricao   String?
+  tipo        EventType     @default(OUTRO)
+  prioridade  EventPriority @default(NORMAL)
+  dataInicio  DateTime
+  dataFim     DateTime?
+  diaInteiro  Boolean       @default(false)
+  local       String?
+  cor         String?       // Hex color for calendar
+  recorrencia Json?         // Recurrence rules (RRULE)
+  
+  // Relations
+  creatorId   String
+  creator     User          @relation("EventCreator", fields: [creatorId], references: [id])
+  projectId   String?
+  project     Project?      @relation(fields: [projectId], references: [id])
+  workOrderId String?
+  workOrder   WorkOrder?    @relation(fields: [workOrderId], references: [id])
+  attendees   EventAttendee[]
+  
+  // Sync
+  syncVersion Int           @default(1) // For optimistic locking
+  lastSyncAt  DateTime      @default(now())
+  
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([dataInicio])
+  @@index([tipo])
+  @@index([creatorId])
+  @@map("agenda_events")
+}
+
+model EventAttendee {
+  id        String      @id @default(cuid())
+  eventId   String
+  event     AgendaEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User        @relation(fields: [userId], references: [id])
+  confirmado Boolean    @default(false)
+  
+  @@unique([eventId, userId])
+  @@map("event_attendees")
+}
+
+enum NotificationType {
+  INFO
+  ALERTA
+  URGENTE
+  SST
+  PRAZO
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  userId    String
+  user      User             @relation(fields: [userId], references: [id])
+  tipo      NotificationType @default(INFO)
+  titulo    String
+  mensagem  String
+  lido      Boolean          @default(false)
+  linkUrl   String?          // Deep link to related entity
+  createdAt DateTime         @default(now())
+
+  @@index([userId, lido])
+  @@map("notifications")
+}
+
+// ==================== AUDIT LOG ====================
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  acao       String   // CREATE, UPDATE, DELETE
+  entidade   String   // Table name
+  entidadeId String   // Record ID
+  dadosAntes Json?    // Previous state
+  dadosDepois Json?   // New state
+  ip         String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  @@index([entidade, entidadeId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("audit_logs")
+}
+
+// ==================== CONTRACTORS ====================
+
+model Contractor {
+  id                String   @id @default(cuid())
+  nome              String
+  empresa           String
+  nif               String?
+  email             String?
+  telefone          String?
+  inducaoSST        Boolean  @default(false)
+  dataInducao       DateTime?
+  validadeInducao   DateTime?
+  epiEntregue       Boolean  @default(false)
+  epiLista          String?  // List of EPIs delivered
+  status            String   @default("ATIVO") // ATIVO, PENDENTE, BLOQUEADO
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("contractors")
+}

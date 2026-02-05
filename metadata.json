@@ -1,0 +1,8 @@
+{
+  "name": "Copy of Industrial ERP - SGIServiteng",
+  "description": "Integrated Management System for Industrial Maintenance, Metalworking, and Consulting. Modules for CRM, Projects, Stock, Billing, Quality Control (ISO 9001), and SST (ISO 45001).",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
