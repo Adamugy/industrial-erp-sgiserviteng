@@ -27,12 +27,12 @@ const UserProfileModule: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="space-y-8 stagger">
       {/* Header do Módulo */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
-          <h2 className="text-3xl font-black text-slate-900 tracking-tight italic">O meu Perfil</h2>
-          <p className="text-slate-500 text-sm font-medium">Gestão de identidade, segurança e preferências de acesso.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">O meu Perfil</h1>
+          <p className="text-slate-500 text-sm mt-1">Gestão de identidade, segurança e preferências de acesso.</p>
         </div>
         <div className="flex gap-2">
           <button 
@@ -49,7 +49,7 @@ const UserProfileModule: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Coluna de Identidade */}
         <div className="lg:col-span-1 space-y-8">
-          <div className="bg-white rounded-panel border border-slate-200 shadow-sm overflow-hidden text-center p-8 relative">
+          <div className="bg-white rounded-panel border border-slate-200 shadow-card overflow-hidden text-center p-5 sm:p-6 lg:p-8 relative">
             <div className="absolute top-0 inset-x-0 h-32 bg-slate-900 z-0"></div>
             <div className="relative z-10 flex flex-col items-center">
               <div className="w-32 h-32 rounded-panel bg-emerald-500 border-8 border-white text-white flex items-center justify-center text-5xl font-black shadow-2xl mb-4 group cursor-pointer overflow-hidden">
@@ -72,16 +72,16 @@ const UserProfileModule: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-slate-900 rounded-panel p-8 text-white shadow-2xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+          <div className="bg-slate-900 rounded-panel p-5 sm:p-6 lg:p-8 text-white shadow-2xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-5 sm:p-6 lg:p-8 opacity-5 group-hover:opacity-10 transition-opacity">
                <FaIcon name="fa-shield-halved" className="text-8xl" />
             </div>
             <h4 className="text-2xs font-black text-emerald-400 uppercase tracking-widest mb-6">Segurança da Conta</h4>
             <div className="space-y-4">
-              <button className="w-full py-4 bg-white/5 border border-white/10 rounded-2xl text-2xs font-black uppercase tracking-widest hover:bg-white/10 transition-colors flex items-center justify-center">
+              <button className="w-full h-11 bg-white/5 border border-white/10 rounded-control text-2xs font-black uppercase tracking-widest hover:bg-white/10 transition-colors flex items-center justify-center whitespace-nowrap">
                 <FaIcon name="fa-lock" className="mr-2 text-emerald-400" /> Alterar Password
               </button>
-              <button className="w-full py-4 bg-white/5 border border-white/10 rounded-2xl text-2xs font-black uppercase tracking-widest hover:bg-white/10 transition-colors flex items-center justify-center">
+              <button className="w-full h-11 bg-white/5 border border-white/10 rounded-control text-2xs font-black uppercase tracking-widest hover:bg-white/10 transition-colors flex items-center justify-center whitespace-nowrap">
                 <FaIcon name="fa-mobile-screen" className="mr-2 text-emerald-400" /> Ativar 2FA (SMS/App)
               </button>
             </div>
@@ -90,15 +90,15 @@ const UserProfileModule: React.FC = () => {
 
         {/* Coluna de Dados e Configurações */}
         <div className="lg:col-span-2 space-y-8">
-          <div className="bg-white rounded-panel border border-slate-200 shadow-sm overflow-hidden">
-            <div className="p-8 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+          <div className="bg-white rounded-panel border border-slate-200 shadow-card overflow-hidden">
+            <div className="p-5 sm:p-6 lg:p-8 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
               <h3 className="font-black text-slate-800 uppercase tracking-tight text-xs flex items-center">
                 <FaIcon name="fa-id-card" className="mr-2 text-blue-500" /> Informação Detalhada
               </h3>
               {!isEditing && <span className="text-3xs font-bold text-slate-400 uppercase">Modo de Visualização</span>}
             </div>
             
-            <form onSubmit={handleSave} className="p-8">
+            <form onSubmit={handleSave} className="p-5 sm:p-6 lg:p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
                   <label htmlFor="userprofilem-nome-completo" className="block text-2xs font-black text-slate-400 uppercase mb-2 tracking-widest">Nome Completo</label>
@@ -149,13 +149,13 @@ const UserProfileModule: React.FC = () => {
               {isEditing && (
                 <div className="mt-10 pt-8 border-t border-slate-100 flex justify-end gap-3">
                   <button type="button" onClick={() => setIsEditing(false)} className="px-8 py-4 border border-slate-200 rounded-2xl text-2xs font-black uppercase tracking-widest">Cancelar</button>
-                  <button type="submit" className="px-10 py-4 bg-emerald-500 text-white rounded-2xl text-2xs font-black uppercase tracking-widest shadow-xl shadow-emerald-100 hover:bg-emerald-600">Guardar Alterações</button>
+                  <button type="submit" className="px-10 h-11 bg-emerald-500 text-white rounded-control text-2xs font-black uppercase tracking-widest shadow-xl shadow-emerald-100 hover:bg-emerald-600 inline-flex items-center justify-center whitespace-nowrap">Guardar Alterações</button>
                 </div>
               )}
             </form>
           </div>
 
-          <div className="bg-white rounded-panel border border-slate-200 shadow-sm p-8">
+          <div className="bg-white rounded-panel border border-slate-200 shadow-card p-5 sm:p-6 lg:p-8">
             <h3 className="font-black text-slate-800 uppercase tracking-tight text-xs mb-6 flex items-center">
               <FaIcon name="fa-sliders" className="mr-2 text-blue-500" /> Preferências do Sistema
             </h3>
