@@ -75,7 +75,7 @@ O SGIServiteng tem três peças. Só a primeira vai para o Netlify:
 | `FRONTEND_URL` aceita **uma** origem | Deploy Previews do Netlify (URLs diferentes) são bloqueados pelo CORS | Testar previews contra uma API de staging, ou (mudança no backend, a aprovar) aceitar uma lista de origens |
 | Seed com palavra-passe `123456` | Acesso indevido | Não correr o seed em produção; criar utilizadores reais |
 | Render free adormece | Primeiro acesso lento | Plano pago ou keep-alive |
-| Bundle JS de ~520 KB | Carregamento inicial mais lento em 4G | Code-splitting por rota (`React.lazy`) — melhoria futura |
+| Bundle JS de ~570 KB (146 KB gzip) | Carregamento inicial mais lento em 4G | Code-splitting por rota (`React.lazy`) — melhoria futura |
 | Google Fonts externo | Depende de terceiros | Opcional: self-host das fontes Inter/Outfit |
 
 ## 6. Rollback
