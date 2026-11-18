@@ -19,15 +19,15 @@ const IntegrationsModule: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6 animate-in slide-in-from-bottom-2 duration-500">
+    <div className="space-y-6 stagger">
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800 tracking-tight">Middleware & Integrações</h2>
-          <p className="text-slate-500 text-sm italic">Configurações de backend para processamento de dados externos.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">Middleware & Integrações</h1>
+          <p className="text-slate-500 text-sm mt-1">Configurações de backend para processamento de dados externos.</p>
         </div>
       </div>
 
-      <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-3xl border border-slate-200 shadow-card overflow-hidden">
         <div className="p-6 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
           <h3 className="font-bold text-slate-800 text-sm uppercase tracking-widest">Serviços de Terceiros & Parsing</h3>
           <span className="text-2xs font-black bg-blue-100 text-blue-600 px-3 py-1 rounded-full">ESTADO: PRODUÇÃO</span>
@@ -36,7 +36,7 @@ const IntegrationsModule: React.FC = () => {
           {providers.map((p, i) => (
             <div key={i} className="p-5 flex items-center justify-between hover:bg-slate-50 transition-colors">
               <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center text-xl">
+                <div className="w-12 h-12 bg-white rounded-2xl shadow-card border border-slate-100 flex items-center justify-center text-xl">
                   <FaIcon name={p.icon} />
                 </div>
                 <div>
@@ -56,8 +56,8 @@ const IntegrationsModule: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-slate-900 rounded-3xl p-8 text-white relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+        <div className="bg-slate-900 rounded-3xl p-5 sm:p-6 lg:p-8 text-white relative overflow-hidden group">
+          <div className="absolute top-0 right-0 p-5 sm:p-6 lg:p-8 opacity-10 group-hover:opacity-20 transition-opacity">
             <FaIcon name="fa-server" className="text-7xl rotate-12" />
           </div>
           <h4 className="font-black uppercase text-2xs tracking-widest mb-6 text-emerald-400">Especificações Técnicas (Spring Boot)</h4>
@@ -71,7 +71,7 @@ const IntegrationsModule: React.FC = () => {
           </div>
         </div>
 
-        <div className="bg-emerald-600 rounded-3xl p-8 text-white shadow-xl flex flex-col justify-between">
+        <div className="bg-emerald-600 rounded-3xl p-5 sm:p-6 lg:p-8 text-white shadow-xl flex flex-col justify-between">
           <div>
             <h4 className="font-black uppercase text-2xs tracking-widest mb-1 opacity-80">WhatsApp Business API</h4>
             <p className="text-lg font-bold leading-tight">Canal de Alertas SST</p>
