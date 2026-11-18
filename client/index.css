@@ -60,6 +60,12 @@
 
   .tabular-nums { font-variant-numeric: tabular-nums; }
 
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  /* Hints that a horizontal chip row continues off-screen */
+  .scroll-fade { mask-image: linear-gradient(to right, black calc(100% - 2rem), transparent); }
+  @media (min-width: 768px) { .scroll-fade { mask-image: none; } }
+
   /* Entrance used by modals and panels (kept from the original stylesheet) */
   .animate-in { animation: sgi-enter 0.35s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
 

@@ -190,8 +190,8 @@ const AssetsModule: React.FC = () => {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
-          <p className="text-slate-400 text-sm">A carregar ativos...</p>
+          <div className="w-8 h-8 border-[3px] border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+          <p className="text-slate-500 text-sm">A carregar ativos…</p>
         </div>
       </div>
     );
@@ -199,68 +199,74 @@ const AssetsModule: React.FC = () => {
 
   return (
     <>
-      <div className="space-y-6 animate-in fade-in duration-500">
+      <div className="space-y-6 stagger">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-slate-800 tracking-tight">Gestão de Ativos & Metrologia</h2>
-            <p className="text-slate-500 text-sm font-medium italic">Frota, máquinas e equipamentos calibrados (ISO 9001).</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">Gestão de Ativos & Metrologia</h1>
+            <p className="text-slate-500 text-sm mt-1">Frota, máquinas e equipamentos calibrados (ISO 9001).</p>
           </div>
           <div className="flex gap-2 w-full sm:w-auto">
             <button 
               onClick={() => setViewMode(viewMode === 'CARDS' ? 'TABLE' : 'CARDS')}
-              className="flex-1 sm:flex-none py-2.5 bg-white border border-slate-200 text-slate-600 px-4 rounded-xl text-2xs font-black uppercase tracking-widest hover:bg-slate-50 flex items-center justify-center transition shadow-sm active:scale-95"
+              type="button"
+              className="flex-1 sm:flex-none h-11 bg-white border border-slate-200 text-slate-600 px-4 rounded-control text-2xs font-black uppercase tracking-widest hover:bg-slate-50 hover:border-slate-300 flex items-center justify-center transition shadow-sm active:scale-[0.98] whitespace-nowrap"
             >
               <FaIcon name={viewMode === 'CARDS' ? 'fa-table' : 'fa-grid-2'} className="mr-2 text-blue-400" /> {viewMode === 'CARDS' ? 'Vista de Tabela' : 'Vista de Cartões'}
             </button>
             <button 
               onClick={() => setShowAddModal(true)}
-              className="flex-1 sm:flex-none bg-slate-900 text-white px-5 py-2.5 rounded-xl text-2xs font-black uppercase tracking-widest hover:bg-slate-800 shadow-lg active:scale-95 transition flex items-center justify-center"
+              type="button"
+              className="flex-1 sm:flex-none h-11 bg-slate-900 text-white px-5 rounded-control text-2xs font-black uppercase tracking-widest hover:bg-slate-800 shadow-lg active:scale-[0.98] transition flex items-center justify-center whitespace-nowrap"
             >
               <FaIcon name="fa-plus" className="mr-2 text-emerald-400" /> Adicionar Ativo
             </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white border border-slate-200 p-5 rounded-3xl shadow-sm">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <div className="bg-white border border-slate-200/80 p-4 sm:p-5 rounded-card shadow-card hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo">
             <p className="text-2xs font-black text-slate-400 uppercase tracking-widest mb-1">Total Ativos</p>
-            <h4 className="text-2xl font-bold text-slate-800">{stats.total}</h4>
+            <p className="font-display text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-slate-800">{stats.total}</p>
           </div>
-          <div className="bg-white border border-slate-200 p-5 rounded-3xl shadow-sm">
+          <div className="bg-white border border-slate-200/80 p-4 sm:p-5 rounded-card shadow-card hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo">
             <p className="text-2xs font-black text-slate-400 uppercase tracking-widest mb-1">Em Manutenção</p>
-            <h4 className="text-2xl font-bold text-amber-500">{stats.manutencao}</h4>
+            <p className="font-display text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-amber-500">{stats.manutencao}</p>
           </div>
-          <div className="bg-white border border-slate-200 p-5 rounded-3xl shadow-sm">
+          <div className="bg-white border border-slate-200/80 p-4 sm:p-5 rounded-card shadow-card hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo">
             <p className="text-2xs font-black text-slate-400 uppercase tracking-widest mb-1">Checklist Pendente</p>
-            <h4 className="text-2xl font-bold text-amber-500">{stats.checklists}</h4>
+            <p className="font-display text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-amber-500">{stats.checklists}</p>
           </div>
-          <div className="bg-white border border-slate-200 p-5 rounded-3xl shadow-sm">
+          <div className="bg-white border border-slate-200/80 p-4 sm:p-5 rounded-card shadow-card hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo">
             <p className="text-2xs font-black text-slate-400 uppercase tracking-widest mb-1">Calibração em Breve</p>
-            <h4 className="text-2xl font-bold text-emerald-500">{stats.calibracoes}</h4>
+            <p className="font-display text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-emerald-500">{stats.calibracoes}</p>
           </div>
         </div>
 
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex space-x-2 overflow-x-auto pb-2 custom-scrollbar no-scrollbar">
+          <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scroll-fade">
             {['Todos', 'VIATURA', 'MAQUINA', 'FERRAMENTA', 'EQUIPAMENTO_MEDICAO'].map((cat) => (
               <button
                 key={cat}
+                type="button"
+                aria-pressed={filter === cat}
                 onClick={() => setFilter(cat)}
-                className={`px-6 py-2 rounded-full text-2xs font-black uppercase tracking-widest border transition whitespace-nowrap ${
-                  filter === cat ? 'bg-slate-900 text-white border-slate-900 shadow-md' : 'bg-white text-slate-400 border-slate-200 hover:border-slate-300'
+                className={`h-9 px-5 shrink-0 rounded-full text-2xs font-black uppercase tracking-widest border transition whitespace-nowrap ${
+                  filter === cat ? 'bg-slate-900 text-white border-slate-900 shadow-md' : 'bg-white text-slate-400 border-slate-200 hover:border-slate-300 hover:text-slate-600'
                 }`}
               >
                 {cat === 'Todos' ? 'Todos' : cat.replace('_', ' ')}
               </button>
             ))}
           </div>
-          <div className="flex space-x-2 overflow-x-auto pb-2 custom-scrollbar no-scrollbar">
+          <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 no-scrollbar scroll-fade">
             {['Todos', 'Oficina', 'Armazém', 'Escritório', 'Pátio'].map((loc) => (
               <button
                 key={loc}
+                type="button"
+                aria-pressed={locationFilter === loc}
                 onClick={() => setLocationFilter(loc)}
-                className={`px-4 py-2 rounded-xl text-3xs font-black uppercase tracking-widest border transition whitespace-nowrap ${
-                  locationFilter === loc ? 'bg-blue-600 text-white border-blue-600 shadow-md' : 'bg-white text-slate-400 border-slate-200 hover:border-slate-300'
+                className={`h-9 px-4 shrink-0 rounded-control text-3xs font-black uppercase tracking-widest border transition whitespace-nowrap ${
+                  locationFilter === loc ? 'bg-blue-600 text-white border-blue-600 shadow-md' : 'bg-white text-slate-400 border-slate-200 hover:border-slate-300 hover:text-slate-600'
                 }`}
               >
                 <FaIcon name="fa-location-dot" className="mr-1.5 opacity-50" /> {loc}
@@ -272,13 +278,13 @@ const AssetsModule: React.FC = () => {
         {viewMode === 'CARDS' ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredAssets.length === 0 ? (
-              <div className="col-span-full py-12 text-center bg-white border border-dashed rounded-3xl">
+              <div className="col-span-full py-16 text-center bg-white border border-dashed border-slate-200 rounded-panel">
                 <FaIcon name="fa-box-open" className="text-4xl text-slate-200 mb-4" />
                 <p className="text-slate-400 font-bold uppercase text-2xs tracking-widest">Nenhum ativo encontrado</p>
               </div>
             ) : filteredAssets.map((asset) => (
-              <div key={asset.id} className="bg-white border border-slate-200 rounded-panel p-6 hover:shadow-xl transition group relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full -mr-16 -mt-16 group-hover:bg-blue-50 transition-colors"></div>
+              <div key={asset.id} className="bg-white border border-slate-200/80 rounded-panel p-5 sm:p-6 shadow-card hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo group relative overflow-hidden">
+                <div aria-hidden="true" className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full -mr-16 -mt-16 group-hover:bg-blue-50 transition-colors"></div>
                 
                 <div className="relative z-10">
                   <div className="flex justify-between items-start mb-6">
@@ -356,7 +362,7 @@ const AssetsModule: React.FC = () => {
           </div>
         ) : (
           <div className="bg-white border border-slate-200 rounded-panel shadow-sm overflow-hidden">
-            <div className="overflow-x-auto custom-scrollbar">
+            <div className="overflow-x-auto custom-scrollbar" tabIndex={0} role="region" aria-label="Tabela de ativos">
               <table className="w-full text-left border-collapse min-w-[2000px]">
                 <thead>
                   <tr className="bg-slate-50/50">
@@ -747,7 +753,7 @@ const AssetsModule: React.FC = () => {
               <label htmlFor="assetsmodule-observacoes" className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Observações</label>
               <textarea id="assetsmodule-observacoes"
                 rows={2}
-                placeholder="Notas técnicas adicionais..."
+                placeholder="Notas técnicas adicionais…"
                 className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-xl px-4 py-3 text-sm transition outline-none resize-none"
                 value={newAsset.observacoes}
                 onChange={(e) => setNewAsset({ ...newAsset, observacoes: e.target.value })}
