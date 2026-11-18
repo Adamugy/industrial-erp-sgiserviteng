@@ -1,0 +1,51 @@
+# Render Blueprint — SGIServiteng (frontend + API no mesmo workspace)
+# O frontend é um Static Site: grátis e NÃO gasta as 750 h/mês de instâncias free.
+# Só a API (sgiserviteng-api) partilha essas horas com os outros serviços free.
+services:
+  - type: web
+    name: sgiserviteng-api
+    runtime: docker
+    region: frankfurt
+    plan: free            # mudar para "starter" para ficar sempre ligado
+    dockerfilePath: ./server/Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL       # connection string do Neon (com pooler)
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: FRONTEND_URL       # https://<sgiserviteng-web>.onrender.com
+        sync: false
+
+  - type: web
+    name: sgiserviteng-web
+    runtime: static
+    buildCommand: npm ci && cd client && npm ci && npm run build
+    staticPublishPath: ./client/dist
+    autoDeploy: true
+    envVars:
+      - key: VITE_API_URL       # https://<sgiserviteng-api>.onrender.com (sem barra final)
+        sync: false
+      - key: NODE_VERSION
+        value: "22"
+    headers:
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /sw.js
+        name: Cache-Control
+        value: no-cache
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

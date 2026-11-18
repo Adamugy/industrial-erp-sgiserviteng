@@ -1,22 +1,29 @@
-# Plano de deploy — Netlify
+# Plano de deploy
 
-O SGIServiteng tem três peças. Só a primeira vai para o Netlify:
+**Decisão:** tudo na Render (mesmo workspace do NeuralVault) + base de dados no Neon.
+O `render.yaml` na raiz cria os dois serviços de uma vez (Render → **New → Blueprint**).
 
-| Peça | Tecnologia | Onde correr | Porquê |
+| Peça | Serviço Render | Plano | Gasta horas free? |
 |---|---|---|---|
-| **Frontend** (`client/`) | Vite + React, build estático | **Netlify** | É HTML/CSS/JS estático — o caso ideal do Netlify |
-| **API** (`server/`) | Express + Socket.io + Prisma | **Render** (Web Service com o `server/Dockerfile`) | O Netlify não mantém servidores ligados nem WebSockets (Socket.io) |
-| **Base de dados** | PostgreSQL | **Neon** | O repositório já tem o workflow `.github/workflows/neon_workflow.yml` |
+| **Frontend** (`client/`) | `sgiserviteng-web` — Static Site | grátis | **Não** |
+| **API** (`server/`) | `sgiserviteng-api` — Web Service (Docker) | free → starter | Sim (partilha as 750 h/mês com o NeuralVault) |
+| **Base de dados** | Neon (`aws-eu-central-1`) | free | — |
 
-> Alternativas à Render para a API: Railway, Fly.io ou um VPS com o `docker-compose.yml`. O resto do plano não muda.
+> No plano free, a API adormece após ~15 min sem uso (primeiro pedido ~30–60 s).
+> Se as 750 h do workspace se esgotarem, **todos** os serviços free (incl. NeuralVault) ficam suspensos até ao mês seguinte.
+> Para uso real: API em `starter`.
 
----
+## ⛔ Bloqueador antes de publicar
 
-## 0. Pré-requisitos (feito neste branch)
+`POST /api/auth/register` é público e aceita `role: "ADMIN"` → qualquer pessoa cria um administrador.
+Também `JWT_SECRET` tem fallback `'secret'` no código. Corrigir antes de expor o app (ver roadmap, Fase 0).
 
-- [x] Tailwind compilado no build (antes vinha de CDN em runtime — não é suportado em produção).
-- [x] `netlify.toml` na raiz com base `client`, comando de build, Node 22, cache de assets e headers de segurança.
-- [x] Build testado num clone limpo: `npm ci --prefix .. && npm run build` → `client/dist`.
+## 0. Pré-requisitos (feito)
+
+- [x] Tailwind compilado no build; sem CDNs em runtime.
+- [x] App instalável (PWA): manifest, ícones, service worker.
+- [x] `render.yaml` (Blueprint) e `netlify.toml` (alternativa).
+- [x] Build do frontend testado num clone limpo.
 
 ## 1. Base de dados (Neon)
 
@@ -45,7 +52,11 @@ O SGIServiteng tem três peças. Só a primeira vai para o Netlify:
 
 > ⚠️ No plano gratuito da Render a API adormece após inatividade (primeiro pedido demora ~30–60 s). Para uso real, usar um plano pago.
 
-## 3. Frontend (Netlify)
+## 3. Frontend
+
+**Render (recomendado):** criado pelo Blueprint como `sgiserviteng-web`; definir `VITE_API_URL`.
+
+**Alternativa — Netlify:**
 
 1. **Add new site → Import an existing project → GitHub** → escolher o repositório.
 2. O Netlify lê o `netlify.toml` automaticamente (base `client`, publish `dist`). Não é preciso preencher nada no formulário de build.
@@ -60,7 +71,7 @@ O SGIServiteng tem três peças. Só a primeira vai para o Netlify:
 
 ## 4. Ligar as peças
 
-1. Depois do primeiro deploy, copiar a URL do Netlify para `FRONTEND_URL` na Render e reiniciar a API (CORS e Socket.io usam este valor).
+1. Depois do primeiro deploy, copiar a URL do frontend (Render ou Netlify) para `FRONTEND_URL` na Render e reiniciar a API (CORS e Socket.io usam este valor).
 2. Smoke test:
    - [ ] `https://<api>/health` responde `{"status":"ok"}`
    - [ ] Login com um utilizador funciona (sem erro de CORS na consola)
@@ -80,6 +91,6 @@ O SGIServiteng tem três peças. Só a primeira vai para o Netlify:
 
 ## 6. Rollback
 
-- Netlify: **Deploys → escolher deploy anterior → Publish deploy** (instantâneo).
+- Render (frontend e API): **Events → Rollback**. Netlify: **Deploys → Publish deploy** anterior.
 - Render: **Events → Rollback** para a versão anterior.
 - Código: o trabalho visual está isolado no branch `claude/kind-gates-djvang` (local: `melhoria-visual`).
