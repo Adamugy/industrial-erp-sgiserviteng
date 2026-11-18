@@ -13,10 +13,28 @@ O `render.yaml` na raiz cria os dois serviços de uma vez (Render → **New → 
 > Se as 750 h do workspace se esgotarem, **todos** os serviços free (incl. NeuralVault) ficam suspensos até ao mês seguinte.
 > Para uso real: API em `starter`.
 
-## ⛔ Bloqueador antes de publicar
+## ✅ Estado atual (publicado em 18/11/2026)
 
-`POST /api/auth/register` é público e aceita `role: "ADMIN"` → qualquer pessoa cria um administrador.
-Também `JWT_SECRET` tem fallback `'secret'` no código. Corrigir antes de expor o app (ver roadmap, Fase 0).
+| Peça | Onde | URL |
+|---|---|---|
+| Frontend | Render Static Site `sgiserviteng-web` (free) | https://sgiserviteng-web.onrender.com |
+| API | Render Web Service `sgiserviteng-api` (Docker, free, Frankfurt) | https://sgiserviteng-api.onrender.com |
+| Base de dados | Neon, projeto `sgiserviteng` (`aws-eu-central-1`), base `sgi_erp` | — |
+
+- Ambos fazem deploy automático a partir do branch `claude/kind-gates-djvang` (mudar para `master` depois do merge: Render → Settings → Branch).
+- Login apenas por email/palavra-passe (Google/Microsoft desativados até haver credenciais).
+- Primeiro administrador: `admin@smartgear.pt` (criado com a mesma lógica do `create-admin`). A palavra-passe inicial foi entregue uma única vez; **alterar no Perfil → Alterar Password**.
+- Base de dados começa vazia (sem seed de demonstração).
+- `FRONTEND_URL` já inclui `https://sgi.smartgear.pt` para o domínio próprio.
+
+### Domínio próprio `sgi.smartgear.pt`
+1. Render → `sgiserviteng-web` → **Settings → Custom Domains → Add** → `sgi.smartgear.pt`.
+2. No fornecedor DNS de `smartgear.pt`: registo **CNAME** `sgi` → `sgiserviteng-web.onrender.com`.
+3. Esperar a verificação e o certificado HTTPS (automático). Não é preciso mudar mais nada.
+
+### Segurança implementada (antes de publicar)
+O bloqueador do `/register` foi resolvido: contas novas ficam pendentes até aprovação de um ADMIN,
+`JWT_SECRET` é obrigatório, há rate limiting, CORS por lista e revisão de segurança feita.
 
 ## 0. Pré-requisitos (feito)
 
