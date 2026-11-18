@@ -12,7 +12,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, onClose, onLogout }) 
   return (
     <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[300] flex items-center justify-center p-4">
       <div className="bg-white dark:bg-slate-900 rounded-panel shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in duration-300 border border-slate-100 dark:border-slate-800">
-        <div className="p-8 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
+        <div className="p-5 sm:p-6 lg:p-8 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-800/50">
           <h3 className="font-black text-slate-800 dark:text-white uppercase tracking-tight text-2xs flex items-center gap-2">
             <UserIcon size={14} className="text-indigo-500" /> Perfil de Utilizador
           </h3>
@@ -21,7 +21,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, onClose, onLogout }) 
           </button>
         </div>
         
-        <div className="p-8 space-y-8">
+        <div className="p-5 sm:p-6 lg:p-8 space-y-8">
           <div className="flex flex-col items-center">
             <div className="w-24 h-24 rounded-3xl bg-slate-900 dark:bg-indigo-600 text-white flex items-center justify-center text-4xl font-black shadow-2xl shadow-indigo-200 dark:shadow-none mb-4">
               {user.avatar || user.name.charAt(0)}

@@ -34,7 +34,7 @@ const NewOSModal: React.FC<NewOSModalProps> = ({ onClose, onSubmit }) => {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-8 space-y-6">
+        <form onSubmit={handleSubmit} className="p-5 sm:p-6 lg:p-8 space-y-6">
           <div className="space-y-4">
             <div>
               <label htmlFor="newosmodal-designacao-da-tarefa" className="block text-2xs font-black text-slate-400 dark:text-slate-500 uppercase mb-2 tracking-widest lg:text-left">Designação da Tarefa</label>
