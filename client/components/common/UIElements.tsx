@@ -39,17 +39,17 @@ export const Card: React.FC<{
     footer?: React.ReactNode;
 }> = ({ children, title, subtitle, action, className = '', footer }) => {
     return (
-        <div className={`bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm ${className}`}>
+        <section className={`bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-panel overflow-hidden shadow-card ${className}`}>
             {(title || action) && (
-                <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
-                    <div>
+                <div className="px-5 lg:px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3">
+                    <div className="min-w-0">
                         {title && <h3 className="text-sm font-semibold text-slate-900 dark:text-white">{title}</h3>}
                         {subtitle && <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{subtitle}</p>}
                     </div>
                     {action && <div>{action}</div>}
                 </div>
             )}
-            <div className="p-5">
+            <div className="p-4 sm:p-5 lg:p-6">
                 {children}
             </div>
             {footer && (
@@ -57,7 +57,7 @@ export const Card: React.FC<{
                     {footer}
                 </div>
             )}
-        </div>
+        </section>
     );
 };
 
@@ -72,17 +72,17 @@ export const StatsCard: React.FC<{
     className?: string;
 }> = ({ label, value, icon, trend, className = '' }) => {
     return (
-        <div className={`bg-white dark:bg-slate-900 p-5 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm ${className}`}>
+        <div className={`group bg-white dark:bg-slate-900 p-4 sm:p-5 rounded-card border border-slate-200/70 dark:border-slate-800 shadow-card hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo ${className}`}>
             <div className="flex items-center justify-between mb-3">
-                <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{label}</span>
-                <div className="p-2 bg-slate-50 dark:bg-slate-800 rounded-lg text-slate-600 dark:text-slate-400 leading-none">
+                <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 truncate">{label}</span>
+                <div aria-hidden="true" className="p-2 bg-slate-50 dark:bg-slate-800 rounded-lg text-slate-600 dark:text-slate-400 leading-none shrink-0 group-hover:bg-slate-100 transition-colors">
                     {icon}
                 </div>
             </div>
-            <div className="flex items-end justify-between">
-                <span className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{value}</span>
+            <div className="flex items-end justify-between gap-2">
+                <span className="font-display text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white leading-none tabular-nums tracking-tight">{value}</span>
                 {trend && (
-                    <span className={`text-2xs font-semibold flex items-center ${trend.positive ? 'text-green-600' : 'text-red-600'}`}>
+                    <span className={`text-2xs font-semibold flex items-center tabular-nums whitespace-nowrap ${trend.positive ? 'text-green-600' : 'text-red-600'}`}>
                         {trend.positive ? '↑' : '↓'} {trend.value}
                     </span>
                 )}
@@ -132,9 +132,9 @@ export const Button: React.FC<{
             type={type}
             onClick={onClick}
             disabled={disabled}
-            className={`inline-flex items-center justify-center font-semibold rounded-lg transition active:scale-95 disabled:opacity-50 disabled:pointer-events-none ${variants[variant]} ${sizes[size]} ${className}`}
+            className={`inline-flex items-center justify-center font-semibold rounded-control transition active:scale-[0.97] disabled:opacity-50 disabled:pointer-events-none ${variants[variant]} ${sizes[size]} ${className}`}
         >
-            {icon && <span className="mr-2">{icon}</span>}
+            {icon && <span aria-hidden="true" className="mr-2 inline-flex">{icon}</span>}
             {children}
         </button>
     );

@@ -129,19 +129,19 @@ const Dashboard: React.FC = () => {
   const daysUntilAudit = getDaysUntilAudit();
 
   return (
-    <div className="space-y-6 lg:space-y-8 animate-in fade-in duration-500">
+    <div className="space-y-6 lg:space-y-8 stagger">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
         <div>
-          <h1 className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Painel de Controle</h1>
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">Painel de Controle</h1>
           <p className="text-slate-500 text-sm mt-1">Status operacional da empresa e indicadores ISO.</p>
         </div>
-        <div className="text-2xs font-mono text-slate-400 dark:text-slate-500 bg-white dark:bg-slate-900 px-3 py-1.5 border rounded-lg border-slate-100 dark:border-slate-800 shadow-sm whitespace-nowrap flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <div role="status" className="text-2xs font-mono tabular-nums text-slate-400 dark:text-slate-500 bg-white dark:bg-slate-900 px-3 py-1.5 border rounded-full border-slate-100 dark:border-slate-800 shadow-card whitespace-nowrap flex items-center gap-2">
+          <span aria-hidden="true" className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           SYNC: {syncTime.toLocaleTimeString('pt-PT')}
         </div>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
         <StatsCard 
           label="Obras Ativas" 
           value={stats.obrasAtivas} 
@@ -179,7 +179,7 @@ const Dashboard: React.FC = () => {
           >
             <div className="space-y-3 lg:space-y-4">
               {maintenances.length > 0 ? maintenances.map(os => (
-                <div key={os.id} className="flex items-center p-3 border border-slate-50 dark:border-slate-800/50 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
+                <div key={os.id} className="flex items-center p-3 border border-slate-100 dark:border-slate-800/50 rounded-control hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
                   <div className="w-10 h-10 lg:w-12 lg:h-12 bg-slate-50 dark:bg-slate-800 rounded-lg flex items-center justify-center font-bold text-slate-400 group-hover:bg-white dark:group-hover:bg-slate-700 group-hover:text-emerald-600 transition-colors shadow-sm shrink-0 text-xs">
                     {os.codigo?.split('-')[1] || '?'}
                   </div>
@@ -219,8 +219,8 @@ const Dashboard: React.FC = () => {
           </Card>
         </div>
 
-        <div className="bg-slate-900 dark:bg-indigo-950 text-white p-6 rounded-2xl shadow-xl flex flex-col justify-between overflow-hidden relative border border-slate-800 dark:border-indigo-900/50">
-          <div className="absolute -right-4 -top-4 opacity-10">
+        <div className="bg-slate-900 dark:bg-indigo-950 text-white p-6 lg:p-7 rounded-panel shadow-raised flex flex-col justify-between overflow-hidden relative border border-slate-800 dark:border-indigo-900/50">
+          <div aria-hidden="true" className="absolute -right-4 -top-4 opacity-10">
             <Shield size={160} />
           </div>
           
@@ -229,16 +229,16 @@ const Dashboard: React.FC = () => {
               <ShieldCheck size={16} />
               <span className="text-2xs font-bold tracking-widest uppercase">Certificação ISO</span>
             </div>
-            <h3 className="text-lg lg:text-2xl font-bold leading-tight">Auditoria em {daysUntilAudit} dias</h3>
+            <h3 className="text-xl lg:text-3xl font-bold leading-tight tracking-tight">Auditoria em {daysUntilAudit} dias</h3>
             <p className="text-slate-400 text-xs lg:text-sm mt-3 leading-relaxed italic">Prepare toda a documentação do SGQ e SST. O módulo de qualidade já sinalizou pendências.</p>
           </div>
           
           <div className="mt-8 space-y-4 relative z-10">
              <div className="flex justify-between text-2xs font-bold uppercase tracking-wider text-slate-300">
                <span>Compliance ISO 9001</span>
-               <span className="text-emerald-400 font-black">{stats.eficacia}%</span>
+               <span className="text-emerald-400 font-black tabular-nums">{stats.eficacia}%</span>
              </div>
-             <div className="h-2 w-full bg-slate-800 dark:bg-indigo-900 rounded-full overflow-hidden">
+             <div role="progressbar" aria-label="Compliance ISO 9001" aria-valuenow={stats.eficacia} aria-valuemin={0} aria-valuemax={100} className="h-2 w-full bg-slate-800 dark:bg-indigo-900 rounded-full overflow-hidden">
                <div className="h-full bg-emerald-500 transition-[width] duration-1000 shadow-[0_0_10px_rgba(16,185,129,0.5)]" style={{ width: `${stats.eficacia}%` }}></div>
              </div>
              <Button 
