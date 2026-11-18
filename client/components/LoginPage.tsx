@@ -43,18 +43,23 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="relative min-h-dvh overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 flex items-center justify-center px-4 py-10">
+      {/* Decorative engineering grid */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.07] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]"
+      />
+      <main className="relative w-full max-w-md stagger">
         {/* Logo */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-black text-white tracking-tighter">
+          <h1 className="text-5xl font-black text-white tracking-tighter leading-none" translate="no">
             SGI<span className="text-emerald-400">MAN</span>
           </h1>
-          <p className="text-slate-400 text-sm mt-2">Sistema de Gestão Industrial</p>
+          <p className="text-slate-400 text-sm mt-3">Sistema de Gestão Industrial</p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 shadow-2xl">
+        <div className="bg-white/10 backdrop-blur-xl rounded-panel p-6 sm:p-8 border border-white/20 shadow-overlay">
           <h2 className="text-xl font-bold text-white mb-6">Entrar na Plataforma</h2>
 
           <form onSubmit={handleSubmit} className="space-y-5">
@@ -64,9 +69,13 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
               </label>
               <input id="loginpage-email"
                 type="email"
+                name="email"
+                autoComplete="username"
+                inputMode="email"
+                spellCheck={false}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-emerald-400 transition-colors"
+                className="w-full h-12 bg-white/10 border border-white/20 hover:border-white/30 rounded-control px-4 text-white placeholder-slate-400 focus:outline-none focus:border-emerald-400 focus:bg-white/[0.14] transition-colors"
                 placeholder="seu@email.pt"
                 required
               />
@@ -78,30 +87,35 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
               </label>
               <input id="loginpage-palavra-passe"
                 type="password"
+                name="password"
+                autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:outline-none focus:border-emerald-400 transition-colors"
+                className="w-full h-12 bg-white/10 border border-white/20 hover:border-white/30 rounded-control px-4 text-white placeholder-slate-400 focus:outline-none focus:border-emerald-400 focus:bg-white/[0.14] transition-colors"
                 placeholder="••••••"
                 required
               />
             </div>
 
-            {error && (
-              <div className="bg-red-500/20 border border-red-500/50 rounded-xl p-3 text-red-200 text-sm">
-                <FaIcon name="fa-exclamation-circle" className="mr-2" />
-                {error}
-              </div>
-            )}
+            <div aria-live="polite">
+              {error && (
+                <div role="alert" className="flex items-start gap-2 bg-red-500/20 border border-red-500/50 rounded-control p-3 text-red-200 text-sm animate-fade-in">
+                  <FaIcon name="fa-exclamation-circle" className="mt-0.5" />
+                  <span>{error}</span>
+                </div>
+              )}
+            </div>
 
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-emerald-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-busy={isLoading}
+              className="w-full h-14 inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 active:scale-[0.99] text-white font-bold rounded-control transition shadow-lg shadow-emerald-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
-                <span><FaIcon name="fa-spinner fa-spin" className="mr-2" />A entrar...</span>
+                <><FaIcon name="fa-spinner fa-spin" />A entrar…</>
               ) : (
-                <span><FaIcon name="fa-sign-in-alt" className="mr-2" />Entrar</span>
+                <><FaIcon name="fa-sign-in-alt" />Entrar</>
               )}
             </button>
           </form>
@@ -113,28 +127,36 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
             </p>
             <div className="grid grid-cols-2 gap-2">
               <button
+                type="button"
                 onClick={() => quickLogin('admin@sgiman.pt')}
-                className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg py-2 px-3 text-xs text-slate-300 transition-colors"
+                disabled={isLoading}
+                className="h-10 inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 active:bg-white/15 border border-white/10 hover:border-white/20 rounded-control px-3 text-xs font-medium text-slate-300 hover:text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <FaIcon name="fa-user-shield" className="text-emerald-400 mr-1" /> Admin
+                <FaIcon name="fa-user-shield" className="text-emerald-400" /> Admin
               </button>
               <button
+                type="button"
                 onClick={() => quickLogin('gestor@sgiman.pt')}
-                className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg py-2 px-3 text-xs text-slate-300 transition-colors"
+                disabled={isLoading}
+                className="h-10 inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 active:bg-white/15 border border-white/10 hover:border-white/20 rounded-control px-3 text-xs font-medium text-slate-300 hover:text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <FaIcon name="fa-user-tie" className="text-blue-400 mr-1" /> Gestor
+                <FaIcon name="fa-user-tie" className="text-blue-400" /> Gestor
               </button>
               <button
+                type="button"
                 onClick={() => quickLogin('sst@sgiman.pt')}
-                className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg py-2 px-3 text-xs text-slate-300 transition-colors"
+                disabled={isLoading}
+                className="h-10 inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 active:bg-white/15 border border-white/10 hover:border-white/20 rounded-control px-3 text-xs font-medium text-slate-300 hover:text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <FaIcon name="fa-hard-hat" className="text-amber-400 mr-1" /> SST
+                <FaIcon name="fa-hard-hat" className="text-amber-400" /> SST
               </button>
               <button
+                type="button"
                 onClick={() => quickLogin('tecnico1@sgiman.pt')}
-                className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg py-2 px-3 text-xs text-slate-300 transition-colors"
+                disabled={isLoading}
+                className="h-10 inline-flex items-center justify-center gap-2 bg-white/5 hover:bg-white/10 active:bg-white/15 border border-white/10 hover:border-white/20 rounded-control px-3 text-xs font-medium text-slate-300 hover:text-white transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <FaIcon name="fa-wrench" className="text-slate-400 mr-1" /> Técnico
+                <FaIcon name="fa-wrench" className="text-slate-400" /> Técnico
               </button>
             </div>
           </div>
@@ -144,7 +166,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
         <p className="text-center text-slate-500 text-xs mt-6">
           © 2024 SGIServiteng. Todos os direitos reservados.
         </p>
-      </div>
+      </main>
     </div>
   );
 };
