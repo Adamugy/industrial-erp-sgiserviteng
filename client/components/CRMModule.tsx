@@ -130,8 +130,8 @@ const CRMModule: React.FC = () => {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
-          <p className="text-slate-400 text-sm">A carregar propostas...</p>
+          <div role="status" className="w-8 h-8 border-[3px] border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+          <p className="text-slate-500 text-sm">A carregar propostas…</p>
         </div>
       </div>
     );
@@ -139,65 +139,67 @@ const CRMModule: React.FC = () => {
 
   return (
     <>
-      <div className="space-y-6 animate-in slide-in-from-bottom-2 duration-500">
+      <div className="space-y-6 stagger">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800 tracking-tight">CRM: Propostas & Adjudicações</h2>
-          <p className="text-slate-500 text-sm italic">Dados sincronizados com o servidor em tempo real.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">CRM: Propostas & Adjudicações</h1>
+          <p className="text-slate-500 text-sm mt-1">Dados sincronizados com o servidor em tempo real.</p>
         </div>
         <div className="flex gap-2 w-full sm:w-auto">
           <input type="file" ref={fileInputRef} onChange={onFileChange} className="hidden" accept=".xlsx,.xls,.csv" />
           <button 
+            type="button"
             onClick={handleImportExcel}
-            className="flex-1 sm:flex-none bg-white border border-slate-200 text-slate-600 px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition flex items-center justify-center"
+            className="flex-1 sm:flex-none h-11 bg-white border border-slate-200 text-slate-600 px-4 rounded-control text-2xs sm:text-xs font-black uppercase tracking-widest hover:bg-slate-50 hover:border-slate-300 active:bg-slate-100 transition flex items-center justify-center whitespace-nowrap"
           >
             <FaIcon name="fa-file-import" className="mr-2 text-blue-500" /> Importar Excel
           </button>
           <button 
+            type="button"
             onClick={() => setShowModal(true)}
-            className="flex-1 sm:flex-none bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-emerald-600 shadow-lg shadow-emerald-500/20 transition active:scale-95"
+            className="flex-1 sm:flex-none h-11 inline-flex items-center justify-center bg-emerald-500 text-white px-5 rounded-control text-2xs sm:text-xs font-black uppercase tracking-widest hover:bg-emerald-600 shadow-lg shadow-emerald-500/20 transition active:scale-[0.98] whitespace-nowrap"
           >
             <FaIcon name="fa-plus" className="mr-2" /> Nova Proposta
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
         {stats.map((s, i) => (
-          <div key={i} className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center">
-            <div className={`w-12 h-12 bg-${s.color}-50 text-${s.color}-500 rounded-full flex items-center justify-center mr-4 text-xl`}>
+          <div key={i} className="bg-white p-4 sm:p-5 rounded-card border border-slate-200/80 shadow-card hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo flex items-center min-w-0">
+            <div className={`w-12 h-12 bg-${s.color}-50 text-${s.color}-500 rounded-full flex items-center justify-center mr-4 text-xl shrink-0`} aria-hidden="true">
               <FaIcon name={s.icon} />
             </div>
             <div>
               <p className="text-2xs font-black text-slate-400 uppercase tracking-widest">{s.label}</p>
-              <p className="text-xl font-black text-slate-900">{s.val}</p>
+              <p className="font-display text-2xl font-bold text-slate-900 tabular-nums tracking-tight">{s.val}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
-        <div className="overflow-x-auto custom-scrollbar">
-          <table className="w-full text-left">
+      <div className="bg-white border border-slate-200/80 rounded-panel overflow-hidden shadow-card">
+        <div className="overflow-x-auto custom-scrollbar" tabIndex={0} role="region" aria-label="Lista de propostas">
+          <table className="w-full min-w-[640px] text-left">
             <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase text-2xs font-bold tracking-wider">
               <tr>
-                <th className="px-6 py-4">Ref / Cliente</th>
-                <th className="px-6 py-4">Estado / PO</th>
-                <th className="px-6 py-4">Valor</th>
-                <th className="px-6 py-4 text-right">Adjudicação</th>
+                <th scope="col" className="px-6 py-4">Ref / Cliente</th>
+                <th scope="col" className="px-6 py-4">Estado / PO</th>
+                <th scope="col" className="px-6 py-4 text-right">Valor</th>
+                <th scope="col" className="px-6 py-4 text-right">Adjudicação</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {proposals.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-8 text-center text-slate-400">
-                    <FaIcon name="fa-inbox" className="text-3xl mb-2" />
+                  <td colSpan={4} className="px-6 py-16 text-center text-slate-400">
+                    <FaIcon name="fa-inbox" className="text-3xl mb-3 opacity-60" />
                     <p>Nenhuma proposta encontrada</p>
                   </td>
                 </tr>
               ) : (
                 proposals.map(p => (
-                  <tr key={p.id} className="hover:bg-slate-50 group">
+                  <tr key={p.id} className="hover:bg-slate-50/80 transition-colors group">
                     <td className="px-6 py-4">
                       <p className="font-bold text-slate-800 text-sm">{p.refComercial}</p>
                       <p className="text-xs text-slate-500 font-medium truncate max-w-[150px]">{p.client?.name}</p>
@@ -218,7 +220,7 @@ const CRMModule: React.FC = () => {
                         )}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-sm font-black text-slate-900 tracking-tight">
+                    <td className="px-6 py-4 text-sm font-black text-slate-900 tracking-tight text-right tabular-nums whitespace-nowrap">
                       € {Number(p.valorEstimado).toLocaleString()}
                     </td>
                     <td className="px-6 py-4 text-right">
@@ -226,13 +228,15 @@ const CRMModule: React.FC = () => {
                         <div className="flex justify-end gap-1">
                           <button 
                             onClick={() => toggleAdjudication(p.id, 'withPO')}
-                            className="text-3xs px-2 py-1.5 bg-blue-50 text-blue-600 rounded-lg font-black hover:bg-blue-100 border border-blue-100 transition-colors uppercase"
+                            type="button"
+                            className="text-3xs h-8 px-2.5 bg-blue-50 text-blue-600 rounded-lg font-black hover:bg-blue-100 active:bg-blue-200 border border-blue-100 transition-colors uppercase whitespace-nowrap"
                           >
                             Adjudicar + PO
                           </button>
                           <button 
                             onClick={() => toggleAdjudication(p.id, 'noPO')}
-                            className="text-3xs px-2 py-1.5 bg-amber-50 text-amber-600 rounded-lg font-black hover:bg-amber-100 border border-amber-100 transition-colors uppercase"
+                            type="button"
+                            className="text-3xs h-8 px-2.5 bg-amber-50 text-amber-600 rounded-lg font-black hover:bg-amber-100 active:bg-amber-200 border border-amber-100 transition-colors uppercase whitespace-nowrap"
                           >
                             S/ PO
                           </button>

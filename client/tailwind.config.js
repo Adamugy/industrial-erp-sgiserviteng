@@ -4,6 +4,9 @@
 // typography, radius, elevation and motion are tokenised here.
 export default {
   content: ['./index.html', './App.tsx', './index.tsx', './components/**/*.{ts,tsx}'],
+  // CRMModule builds `bg-${color}-50 text-${color}-500` at runtime; the old Play CDN
+  // generated these on the fly, so keep them in the build explicitly.
+  safelist: [{ pattern: /^(bg-(blue|emerald|amber)-50|text-(blue|emerald|amber)-500)$/ }],
   darkMode: 'media', // same behaviour as the former Tailwind Play CDN default
   theme: {
     extend: {
