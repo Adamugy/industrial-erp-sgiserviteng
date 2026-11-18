@@ -25,6 +25,7 @@ async function main() {
         active: true,
         approvalStatus: 'APPROVED' as const,
         onboardingCompleted: true,
+        emailVerified: true, // criado pelo operador: o email é considerado confirmado
         requestedRole: null,
         approvedAt: new Date(),
     };

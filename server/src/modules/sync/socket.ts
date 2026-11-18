@@ -1,5 +1,5 @@
 import { Server as SocketIOServer, Socket } from 'socket.io';
-import { verifySession } from '../auth/tokens.js';
+import { verifySession, isSessionRevoked } from '../auth/tokens.js';
 import { prisma } from '../../index.js';
 
 interface AuthenticatedSocket extends Socket {
@@ -15,13 +15,13 @@ export function setupSocketIO(io: SocketIOServer) {
             return next(new Error('Authentication required'));
         }
         try {
-            const { userId } = verifySession(token);
+            const { userId, iat } = verifySession(token);
             // Como na API: papel e estado lidos da base de dados; só contas aprovadas recebem eventos.
             const user = await prisma.user.findUnique({
                 where: { id: userId },
-                select: { id: true, role: true, active: true, approvalStatus: true },
+                select: { id: true, role: true, active: true, approvalStatus: true, sessionsValidAfter: true },
             });
-            if (!user || !user.active || user.approvalStatus !== 'APPROVED') {
+            if (!user || !user.active || user.approvalStatus !== 'APPROVED' || isSessionRevoked(iat, user.sessionsValidAfter)) {
                 return next(new Error('Unauthorized'));
             }
             socket.userId = user.id;

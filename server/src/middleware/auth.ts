@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { ApprovalStatus, UserRole } from '@prisma/client';
 import { prisma } from '../index.js';
-import { verifySession } from '../modules/auth/tokens.js';
+import { verifySession, isSessionRevoked } from '../modules/auth/tokens.js';
 import { publicUserSelect } from '../modules/auth/policy.js';
 
 type PublicUser = {
@@ -37,11 +37,15 @@ export async function authenticate(req: Request, res: Response, next: NextFuncti
     }
 
     try {
-        const { userId } = verifySession(authHeader.slice(7));
+        const { userId, iat } = verifySession(authHeader.slice(7));
         // O papel e o estado vêm SEMPRE da base de dados (alterações têm efeito imediato).
-        const user = await prisma.user.findUnique({ where: { id: userId }, select: publicUserSelect });
+        const found = await prisma.user.findUnique({
+            where: { id: userId },
+            select: { ...publicUserSelect, sessionsValidAfter: true },
+        });
+        const { sessionsValidAfter, ...user } = found ?? ({} as any);
 
-        if (!user || !user.active || user.approvalStatus === ApprovalStatus.REJECTED) {
+        if (!found || !user.active || user.approvalStatus === ApprovalStatus.REJECTED || isSessionRevoked(iat, sessionsValidAfter)) {
             return res.status(401).json({ status: 'error', code: 'AUTH_INVALID', message: 'Sessão inválida. Entre novamente.' });
         }
 

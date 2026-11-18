@@ -132,16 +132,46 @@ async function resolveUser(identity: Identity) {
 
     const existing = await prisma.user.findUnique({
         where: { email },
-        select: { id: true, active: true, approvalStatus: true },
+        select: { id: true, active: true, approvalStatus: true, emailVerified: true },
     });
     if (existing) {
         // Só ligamos automaticamente a uma conta existente quando o email é verificado (Google).
         if (!identity.emailVerified) throw new OAuthFlowError('account_exists');
         if (!existing.active || existing.approvalStatus === 'REJECTED') throw new OAuthFlowError('account_disabled');
-        await prisma.oAuthAccount.create({
-            data: { provider: identity.provider, providerUserId: identity.subject, userId: existing.id },
-        });
-        await prisma.user.update({ where: { id: existing.id }, data: { emailVerified: true } });
+
+        // Proteção contra "pre-account hijacking": se a conta existente nunca provou o email,
+        // quem a criou pode não ser o dono. O dono verificado (Google) fica com a conta e tudo o
+        // que o criador definiu é invalidado: palavra-passe, sessões abertas e, se a conta ainda
+        // não estava aprovada, o pedido de função e os dados de onboarding.
+        const claimUnverified = !existing.emailVerified;
+        const reset =
+            claimUnverified && existing.approvalStatus !== 'APPROVED'
+                ? {
+                    ...initialAccess(email, true),
+                    name: identity.name.slice(0, 100),
+                    avatar: initialsOf(identity.name),
+                    requestedRole: null,
+                    onboardingCompleted: false,
+                    department: null,
+                    jobTitle: null,
+                    phone: null,
+                }
+                : {};
+
+        await prisma.$transaction([
+            prisma.oAuthAccount.create({
+                data: { provider: identity.provider, providerUserId: identity.subject, userId: existing.id },
+            }),
+            prisma.user.update({
+                where: { id: existing.id },
+                data: {
+                    emailVerified: true,
+                    ...(claimUnverified ? { passwordHash: null, sessionsValidAfter: new Date() } : {}),
+                    ...reset,
+                },
+            }),
+        ]);
+        if (claimUnverified) logger.warn(`Conta não verificada reclamada pelo dono via ${identity.provider}: ${email}`);
         return existing.id;
     }
 

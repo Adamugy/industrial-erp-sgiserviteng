@@ -3,6 +3,8 @@ import { config } from '../../config.js';
 
 export interface SessionPayload {
     userId: string;
+    /** Emitido em (segundos epoch) */
+    iat?: number;
 }
 
 /** Assina o token de sessão. O papel NÃO vai no token: é sempre lido da base de dados. */
@@ -23,5 +25,12 @@ export function verifySession(token: string): SessionPayload {
     if (typeof decoded !== 'object' || typeof (decoded as any).userId !== 'string') {
         throw new jwt.JsonWebTokenError('invalid payload');
     }
-    return { userId: (decoded as any).userId };
+    return { userId: (decoded as any).userId, iat: (decoded as any).iat };
+}
+
+/** Uma sessão emitida antes de `sessionsValidAfter` foi revogada. */
+export function isSessionRevoked(iat: number | undefined, sessionsValidAfter: Date | null | undefined): boolean {
+    if (!sessionsValidAfter) return false;
+    if (!iat) return true;
+    return iat * 1000 < sessionsValidAfter.getTime();
 }
