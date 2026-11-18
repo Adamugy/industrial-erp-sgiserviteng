@@ -36,5 +36,6 @@ router.post('/oauth/exchange', oauthLimiter, asyncHandler(OAuthController.exchan
 router.get('/me', authenticate, asyncHandler(AuthController.me));
 router.post('/refresh', authenticate, asyncHandler(AuthController.refresh));
 router.post('/onboarding', authenticate, asyncHandler(AuthController.onboarding));
+router.post('/change-password', loginLimiter, authenticate, asyncHandler(AuthController.changePassword));
 
 export default router;

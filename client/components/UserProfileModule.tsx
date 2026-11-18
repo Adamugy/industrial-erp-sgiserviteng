@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { FaIcon } from './common/FaIcon';
+import ChangePasswordModal from './modals/ChangePasswordModal';
 import { useAuth, UserRole } from './AuthContext';
 
 const UserProfileModule: React.FC = () => {
   const { user } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
   
   if (!user) return null;
 
@@ -78,7 +80,7 @@ const UserProfileModule: React.FC = () => {
             </div>
             <h4 className="text-2xs font-black text-emerald-400 uppercase tracking-widest mb-6">Segurança da Conta</h4>
             <div className="space-y-4">
-              <button className="w-full h-11 bg-white/5 border border-white/10 rounded-control text-2xs font-black uppercase tracking-widest hover:bg-white/10 transition-colors flex items-center justify-center whitespace-nowrap">
+              <button type="button" onClick={() => setShowPasswordModal(true)} className="w-full h-11 bg-white/5 border border-white/10 rounded-control text-2xs font-black uppercase tracking-widest hover:bg-white/10 transition-colors flex items-center justify-center whitespace-nowrap">
                 <FaIcon name="fa-lock" className="mr-2 text-emerald-400" /> Alterar Password
               </button>
               <button className="w-full h-11 bg-white/5 border border-white/10 rounded-control text-2xs font-black uppercase tracking-widest hover:bg-white/10 transition-colors flex items-center justify-center whitespace-nowrap">
@@ -189,6 +191,7 @@ const UserProfileModule: React.FC = () => {
           </div>
         </div>
       </div>
+      {showPasswordModal && <ChangePasswordModal onClose={() => setShowPasswordModal(false)} />}
     </div>
   );
 };

@@ -129,6 +129,15 @@ class ApiClient {
         return data;
     }
 
+    async changePassword(currentPassword: string, newPassword: string) {
+        const data = await this.request<{ token: string }>('/api/auth/change-password', {
+            method: 'POST',
+            body: JSON.stringify({ currentPassword, newPassword }),
+        });
+        this.setToken(data.token); // as outras sessões terminam; esta continua com o token novo
+        return data;
+    }
+
     async completeOnboarding(payload: { requestedRole: string; name?: string; department?: string; jobTitle?: string; phone?: string }) {
         return this.request<{ user: any }>('/api/auth/onboarding', {
             method: 'POST',

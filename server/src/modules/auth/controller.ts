@@ -26,19 +26,25 @@ const loginSchema = z.object({
     password: z.string().min(1).max(128),
 });
 
+const newPasswordSchema = z
+    .string()
+    .min(10, 'A palavra-passe deve ter pelo menos 10 caracteres.')
+    .max(128)
+    .regex(/[A-Za-z]/, 'Inclua pelo menos uma letra.')
+    .regex(/[0-9]/, 'Inclua pelo menos um número.');
+
 const registerSchema = z
     .object({
         name: z.string().trim().min(2).max(100),
         email: emailSchema,
-        password: z
-            .string()
-            .min(10, 'A palavra-passe deve ter pelo menos 10 caracteres.')
-            .max(128)
-            .regex(/[A-Za-z]/, 'Inclua pelo menos uma letra.')
-            .regex(/[0-9]/, 'Inclua pelo menos um número.'),
+        password: newPasswordSchema,
     })
     // Campos como "role" são ignorados de propósito: ninguém escolhe o próprio papel.
     .strip();
+
+const changePasswordSchema = z
+    .object({ currentPassword: z.string().max(128).optional(), newPassword: newPasswordSchema })
+    .strict();
 
 const onboardingSchema = z
     .object({
@@ -153,6 +159,33 @@ export class AuthController {
         }
 
         res.json({ user });
+    }
+
+    /**
+     * Alterar palavra-passe. Exige a atual (se existir), termina todas as outras sessões
+     * e devolve uma sessão nova para este dispositivo.
+     */
+    static async changePassword(req: Request, res: Response) {
+        const { currentPassword, newPassword } = changePasswordSchema.parse(req.body);
+        const user = await prisma.user.findUnique({ where: { id: req.user!.id }, select: { id: true, passwordHash: true } });
+        if (!user) throw new UnauthorizedError('Sessão inválida.');
+
+        if (user.passwordHash) {
+            const ok = await bcrypt.compare(currentPassword || '', user.passwordHash);
+            if (!ok) throw new UnauthorizedError('A palavra-passe atual está incorreta.');
+            if (await bcrypt.compare(newPassword, user.passwordHash)) {
+                throw new ConflictError('A nova palavra-passe tem de ser diferente da atual.');
+            }
+        }
+
+        // Arredondado ao segundo: o novo token (iat em segundos) continua válido; os anteriores não.
+        const now = new Date(Math.floor(Date.now() / 1000) * 1000);
+        await prisma.user.update({
+            where: { id: user.id },
+            data: { passwordHash: await bcrypt.hash(newPassword, BCRYPT_COST), sessionsValidAfter: now },
+        });
+        logger.info(`Palavra-passe alterada: ${req.user!.email}`);
+        res.json({ token: signSession(user.id) });
     }
 
     /** Quais fornecedores de login estão configurados (o frontend só mostra esses botões). */
