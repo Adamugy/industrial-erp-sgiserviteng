@@ -247,14 +247,14 @@ const InventoryModule: React.FC = () => {
           <button 
             onClick={() => setShowModal('saida')}
             type="button"
-            className="flex-1 sm:flex-none h-11 bg-white border border-slate-200 text-slate-600 px-5 rounded-control text-2xs font-black uppercase tracking-widest hover:bg-slate-50 hover:border-slate-300 flex items-center justify-center transition shadow-sm active:scale-[0.98] whitespace-nowrap"
+            className="flex-1 sm:flex-none h-11 bg-white border border-slate-200 text-slate-600 px-3 sm:px-5 rounded-control text-2xs font-black uppercase tracking-widest hover:bg-slate-50 hover:border-slate-300 flex items-center justify-center transition shadow-sm active:scale-[0.98] whitespace-nowrap"
           >
             <FaIcon name="fa-arrow-up-from-bracket" className="mr-2 text-red-400" /> Guia de Saída
           </button>
           <button 
             onClick={() => setShowModal('entrada')}
             type="button"
-            className="flex-1 sm:flex-none h-11 bg-slate-900 text-white px-5 rounded-control text-2xs font-black uppercase tracking-widest hover:bg-black shadow-lg shadow-slate-200 flex items-center justify-center transition active:scale-[0.98] whitespace-nowrap"
+            className="flex-1 sm:flex-none h-11 bg-slate-900 text-white px-3 sm:px-5 rounded-control text-2xs font-black uppercase tracking-widest hover:bg-black shadow-lg shadow-slate-200 flex items-center justify-center transition active:scale-[0.98] whitespace-nowrap"
           >
             <FaIcon name="fa-arrow-down-to-bracket" className="mr-2 text-emerald-400" /> Guia de Entrada
           </button>
