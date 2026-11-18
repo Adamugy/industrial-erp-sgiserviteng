@@ -140,14 +140,14 @@ const ProjectsModule: React.FC = () => {
             type="button"
             aria-label="Exportar"
             onClick={() => alert("Gerando MS Project Sync...")}
-            className="flex-1 sm:flex-none h-11 bg-white border border-slate-200 text-slate-600 px-4 rounded-control text-2xs font-black uppercase tracking-widest flex items-center justify-center hover:bg-slate-50 hover:border-slate-300 active:bg-slate-100 transition-colors"
+            className="flex-none w-11 lg:w-auto h-11 bg-white border border-slate-200 text-slate-600 px-0 lg:px-4 rounded-control text-2xs font-black uppercase tracking-widest flex items-center justify-center hover:bg-slate-50 hover:border-slate-300 active:bg-slate-100 transition-colors"
           >
             <FaIcon name="fa-file-export" className="lg:mr-2 text-blue-500" /> <span className="hidden lg:inline">Exportar</span>
           </button>
           <button 
             onClick={() => setShowModal(true)}
             type="button"
-            className="flex-[2] sm:flex-none h-11 inline-flex items-center justify-center bg-emerald-500 text-white px-5 rounded-control text-2xs font-black uppercase tracking-widest hover:bg-emerald-600 active:scale-[0.98] shadow-lg shadow-emerald-500/20 transition"
+            className="flex-1 sm:flex-none h-11 inline-flex items-center justify-center bg-emerald-500 text-white px-5 rounded-control text-2xs font-black uppercase tracking-widest hover:bg-emerald-600 active:scale-[0.98] shadow-lg shadow-emerald-500/20 transition"
           >
             <FaIcon name="fa-plus" className="mr-2" /> Novo Projeto
           </button>
