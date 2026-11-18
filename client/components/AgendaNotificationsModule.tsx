@@ -146,24 +146,24 @@ const AgendaNotificationsModule: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-in slide-in-from-bottom-2 duration-500">
+    <div className="space-y-6 stagger">
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800 tracking-tight">Agenda Integrada</h2>
-          <p className="text-slate-500 text-sm italic">Sincronizada com CRM, Projetos e SST em tempo real.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">Agenda Integrada</h1>
+          <p className="text-slate-500 text-sm mt-1">Sincronizada com CRM, Projetos e SST em tempo real.</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <button 
             onClick={() => handleSync('Gmail')}
             disabled={isSyncing}
-            className="bg-white border border-slate-200 text-slate-600 px-3 py-2 rounded-xl text-2xs font-black uppercase tracking-widest hover:bg-slate-50 flex items-center shadow-sm disabled:opacity-50"
+            className="bg-white border border-slate-200 text-slate-600 px-3 py-2 rounded-xl text-2xs font-black uppercase tracking-widest hover:bg-slate-50 flex items-center shadow-card disabled:opacity-50"
           >
             <FaIcon name="fa-google" className="text-red-500 mr-2" /> {isSyncing ? 'A sincronizar...' : 'Sincronizar Gmail'}
           </button>
           <button 
             onClick={() => handleSync('MS Project')}
             disabled={isSyncing}
-            className="bg-white border border-slate-200 text-slate-600 px-3 py-2 rounded-xl text-2xs font-black uppercase tracking-widest hover:bg-slate-50 flex items-center shadow-sm disabled:opacity-50"
+            className="bg-white border border-slate-200 text-slate-600 px-3 py-2 rounded-xl text-2xs font-black uppercase tracking-widest hover:bg-slate-50 flex items-center shadow-card disabled:opacity-50"
           >
             <FaIcon name="fa-diagram-project" className="text-emerald-600 mr-2" /> MSP Sync
           </button>
@@ -171,7 +171,7 @@ const AgendaNotificationsModule: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <div className="lg:col-span-3 bg-white rounded-3xl border border-slate-200 shadow-sm p-6 lg:p-8">
+        <div className="lg:col-span-3 bg-white rounded-3xl border border-slate-200 shadow-card p-6 lg:p-8">
           {/* Calendar Header with Navigation */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-4">
@@ -199,7 +199,7 @@ const AgendaNotificationsModule: React.FC = () => {
                 Hoje
               </button>
               <div className="flex bg-slate-100 p-1 rounded-xl">
-                <button className="px-4 py-1.5 rounded-lg text-2xs font-black uppercase bg-white shadow-sm text-slate-800">Mês</button>
+                <button className="px-4 py-1.5 rounded-lg text-2xs font-black uppercase bg-white shadow-card text-slate-800">Mês</button>
                 <button className="px-4 py-1.5 rounded-lg text-2xs font-black uppercase text-slate-400 hover:text-slate-600">Semana</button>
               </div>
             </div>
@@ -250,7 +250,7 @@ const AgendaNotificationsModule: React.FC = () => {
         {/* Sidebar */}
         <div className="space-y-6">
           {/* Events for Selected Day */}
-          <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
+          <div className="bg-white rounded-3xl border border-slate-200 shadow-card p-6">
             <h4 className="text-2xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center">
               <FaIcon name="fa-clock-rotate-left" className="mr-2" /> 
               {selectedDate} de {monthNames[month]}
