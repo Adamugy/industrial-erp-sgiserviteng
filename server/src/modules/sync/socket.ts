@@ -1,5 +1,5 @@
 import { Server as SocketIOServer, Socket } from 'socket.io';
-import jwt from 'jsonwebtoken';
+import { verifySession } from '../auth/tokens.js';
 import { prisma } from '../../index.js';
 
 interface AuthenticatedSocket extends Socket {
@@ -9,23 +9,25 @@ interface AuthenticatedSocket extends Socket {
 
 export function setupSocketIO(io: SocketIOServer) {
     // Authentication middleware for Socket.IO
-    io.use((socket: AuthenticatedSocket, next) => {
-        const token = socket.handshake.auth.token;
-
-        if (!token) {
+    io.use(async (socket: AuthenticatedSocket, next) => {
+        const token = socket.handshake.auth?.token;
+        if (typeof token !== 'string' || !token) {
             return next(new Error('Authentication required'));
         }
-
         try {
-            const decoded = jwt.verify(
-                token,
-                process.env.JWT_SECRET || 'secret'
-            ) as { userId: string; role: string };
-
-            socket.userId = decoded.userId;
-            socket.userRole = decoded.role;
+            const { userId } = verifySession(token);
+            // Como na API: papel e estado lidos da base de dados; só contas aprovadas recebem eventos.
+            const user = await prisma.user.findUnique({
+                where: { id: userId },
+                select: { id: true, role: true, active: true, approvalStatus: true },
+            });
+            if (!user || !user.active || user.approvalStatus !== 'APPROVED') {
+                return next(new Error('Unauthorized'));
+            }
+            socket.userId = user.id;
+            socket.userRole = user.role;
             next();
-        } catch (error) {
+        } catch {
             next(new Error('Invalid token'));
         }
     });

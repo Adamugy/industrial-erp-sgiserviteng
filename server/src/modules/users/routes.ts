@@ -6,24 +6,12 @@ import { asyncHandler } from '../../utils/asyncHandler.js';
 
 const router = Router();
 
-// Apply authentication to all routes
 router.use(authenticate);
 
-// List all users (admin/manager only)
-router.get(
-    '/',
-    authorize(UserRole.ADMIN, UserRole.MANAGER),
-    asyncHandler(UsersController.list)
-);
-
-// Get specific user
+router.get('/', authorize(UserRole.ADMIN, UserRole.MANAGER), asyncHandler(UsersController.list));
 router.get('/:id', asyncHandler(UsersController.getById));
-
-// Update user (admin only)
-router.patch(
-    '/:id',
-    authorize(UserRole.ADMIN),
-    asyncHandler(UsersController.update)
-);
+router.patch('/:id', authorize(UserRole.ADMIN), asyncHandler(UsersController.update));
+router.post('/:id/approve', authorize(UserRole.ADMIN), asyncHandler(UsersController.approve));
+router.post('/:id/reject', authorize(UserRole.ADMIN), asyncHandler(UsersController.reject));
 
 export default router;

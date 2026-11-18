@@ -18,18 +18,45 @@ enum UserRole {
   MANAGER
   SAFETY
   TECH
+  SECRETARY
+}
+
+// Acesso à conta: novas contas ficam PENDING até um ADMIN aprovar
+// (exceto ADMIN_EMAILS / ALLOWED_EMAIL_DOMAINS com email verificado).
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum AuthProvider {
+  GOOGLE
+  MICROSOFT
 }
 
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
-  passwordHash String
+  passwordHash String?  // null para contas só Google/Microsoft
   name         String
   avatar       String?
   role         UserRole @default(TECH)
   active       Boolean  @default(true)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  // Conta e onboarding. Os defaults mantêm utilizadores existentes ativos;
+  // o registo define explicitamente PENDING / onboardingCompleted=false.
+  emailVerified       Boolean        @default(false)
+  approvalStatus      ApprovalStatus @default(APPROVED)
+  requestedRole       UserRole?      // função pedida no onboarding (nunca aplicada sem ADMIN)
+  onboardingCompleted Boolean        @default(true)
+  department          String?
+  jobTitle            String?
+  phone               String?
+  approvedAt          DateTime?
+  approvedById        String?
+  oauthAccounts       OAuthAccount[]
 
   // Relations
   ledTeams        Team[]           @relation("TeamLeader")
@@ -45,6 +72,19 @@ model User {
   stockMovements  StockMovement[]  @relation("MovementResponsible")
 
   @@map("users")
+}
+
+model OAuthAccount {
+  id             String       @id @default(cuid())
+  provider       AuthProvider
+  providerUserId String       // claim "sub" do ID token
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt      DateTime     @default(now())
+
+  @@unique([provider, providerUserId])
+  @@index([userId])
+  @@map("oauth_accounts")
 }
 
 // ==================== CRM & PROPOSALS ====================

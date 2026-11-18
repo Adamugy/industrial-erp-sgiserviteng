@@ -18,14 +18,14 @@ router.get('/:id', asyncHandler(ClientsController.getById));
 // Create new client
 router.post(
     '/',
-    authorize(UserRole.ADMIN, UserRole.MANAGER),
+    authorize(UserRole.ADMIN, UserRole.MANAGER, UserRole.SECRETARY),
     asyncHandler(ClientsController.create)
 );
 
 // Update client
 router.put(
     '/:id',
-    authorize(UserRole.ADMIN, UserRole.MANAGER),
+    authorize(UserRole.ADMIN, UserRole.MANAGER, UserRole.SECRETARY),
     asyncHandler(ClientsController.update)
 );
 

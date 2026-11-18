@@ -1,5 +1,7 @@
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
+import { config } from './config.js';
 import { createServer } from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import { PrismaClient } from '@prisma/client';
@@ -30,21 +32,26 @@ const httpServer = createServer(app);
 // Prisma client
 export const prisma = new PrismaClient();
 
+// Origens autorizadas (FRONTEND_URL pode ter várias, separadas por vírgulas)
+const corsOrigin = (origin: string | undefined, cb: (err: Error | null, allow?: boolean) => void) => {
+    // Pedidos sem Origin (curl, health checks, redirects OAuth) não são pedidos CORS de browser.
+    if (!origin || config.frontendOrigins.includes(origin)) return cb(null, true);
+    cb(null, false);
+};
+
 // Socket.IO for real-time sync
 const io = new SocketIOServer(httpServer, {
-    cors: {
-        origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-        methods: ['GET', 'POST'],
-        credentials: true,
-    },
+    cors: { origin: config.frontendOrigins, methods: ['GET', 'POST'], credentials: true },
 });
 
+// Atrás do proxy da Render: necessário para IPs corretos no rate limiting
+if (config.isProduction || process.env.TRUST_PROXY) app.set('trust proxy', Number(process.env.TRUST_PROXY || 1));
+app.disable('x-powered-by');
+
 // Middleware
-app.use(cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-    credentials: true,
-}));
-app.use(express.json());
+app.use(helmet());
+app.use(cors({ origin: corsOrigin, credentials: true }));
+app.use(express.json({ limit: '1mb' }));
 
 // Health check
 app.get('/health', (req, res) => {
@@ -77,7 +84,7 @@ setupSocketIO(io);
 export { io };
 
 // Start server
-const PORT = process.env.PORT || 3001;
+const PORT = config.port;
 
 httpServer.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);

@@ -18,14 +18,14 @@ router.get('/:id', asyncHandler(ProposalsController.getById));
 // Create new proposal
 router.post(
     '/',
-    authorize(UserRole.ADMIN, UserRole.MANAGER),
+    authorize(UserRole.ADMIN, UserRole.MANAGER, UserRole.SECRETARY),
     asyncHandler(ProposalsController.create)
 );
 
 // Update proposal
 router.put(
     '/:id',
-    authorize(UserRole.ADMIN, UserRole.MANAGER),
+    authorize(UserRole.ADMIN, UserRole.MANAGER, UserRole.SECRETARY),
     asyncHandler(ProposalsController.update)
 );
 
