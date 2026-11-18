@@ -14,7 +14,9 @@ import TeamsModule from './components/TeamsModule';
 import SSTFormsPreOS from './components/SSTFormsPreOS';
 import LoginPage from './components/LoginPage';
 import UserProfileModule from './components/UserProfileModule';
-import { useAuth, RoleGuard } from './components/AuthContext';
+import UsersAdminModule from './components/UsersAdminModule';
+import { OnboardingPage, PendingApprovalPage } from './components/auth/OnboardingFlow';
+import { useAuth, RoleGuard, UserRole } from './components/AuthContext';
 import { api } from '../connectors/api/client';
 import { syncService } from '../connectors/api/sync';
 
@@ -25,7 +27,7 @@ import ProfileModal from './components/modals/ProfileModal';
 import NewOSModal from './components/modals/NewOSModal';
 
 const App: React.FC = () => {
-  const { user, isLoading, isAuthenticated, logout } = useAuth();
+  const { user, isLoading, isAuthenticated, isApproved, logout } = useAuth();
   const location = useLocation();
   const [isSidebarOpen, setSidebarOpen] = useState(window.innerWidth > 1024);
   const [showProfileModal, setShowProfileModal] = useState(false);
@@ -36,9 +38,9 @@ const App: React.FC = () => {
   const [notifications, setNotifications] = useState<any[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
 
-  // Load notifications
+  // Load notifications (só contas aprovadas têm acesso aos dados)
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isApproved) {
       api.notifications.list().then(setNotifications).catch(console.error);
       api.notifications.count().then(({ unreadCount }) => setUnreadCount(unreadCount)).catch(console.error);
       
@@ -49,7 +51,7 @@ const App: React.FC = () => {
       
       return unsubscribe;
     }
-  }, [isAuthenticated]);
+  }, [isApproved]);
 
   const handleCreateOS = (data: any) => {
     setNewOSData(data);
@@ -81,6 +83,14 @@ const App: React.FC = () => {
     return <LoginPage />;
   }
 
+  // Conta nova: primeiro indica a função; depois aguarda aprovação de um administrador
+  if (!user.onboardingCompleted) {
+    return <OnboardingPage />;
+  }
+  if (!isApproved) {
+    return <PendingApprovalPage />;
+  }
+
   return (
     <div className="flex h-dvh bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 overflow-hidden relative">
       <a href="#conteudo" onClick={(e) => { e.preventDefault(); document.getElementById('conteudo')?.focus(); }} className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:px-4 focus:py-2 focus:rounded-control focus:bg-slate-900 focus:text-white focus:text-xs focus:font-bold">
@@ -107,17 +117,18 @@ const App: React.FC = () => {
           <div key={location.pathname} className="mx-auto w-full max-w-[1600px] animate-rise-in">
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/crm" element={<RoleGuard roles={['ADMIN', 'MANAGER']}><CRMModule /></RoleGuard>} />
+            <Route path="/crm" element={<RoleGuard roles={[UserRole.ADMIN, UserRole.MANAGER, UserRole.SECRETARY]}><CRMModule /></RoleGuard>} />
             <Route path="/projects" element={<ProjectsModule />} />
-            <Route path="/inventory" element={<RoleGuard roles={['ADMIN', 'MANAGER', 'TECH']}><InventoryModule /></RoleGuard>} />
+            <Route path="/inventory" element={<RoleGuard roles={[UserRole.ADMIN, UserRole.MANAGER, UserRole.TECH]}><InventoryModule /></RoleGuard>} />
             <Route path="/assets" element={<AssetsModule />} />
-            <Route path="/teams" element={<RoleGuard roles={['ADMIN', 'MANAGER', 'SAFETY']}><TeamsModule /></RoleGuard>} />
-            <Route path="/contractors" element={<RoleGuard roles={['ADMIN', 'MANAGER', 'SAFETY']}><ContractorsModule /></RoleGuard>} />
+            <Route path="/teams" element={<RoleGuard roles={[UserRole.ADMIN, UserRole.MANAGER, UserRole.SAFETY]}><TeamsModule /></RoleGuard>} />
+            <Route path="/contractors" element={<RoleGuard roles={[UserRole.ADMIN, UserRole.MANAGER, UserRole.SAFETY]}><ContractorsModule /></RoleGuard>} />
             <Route path="/sst" element={<SSTModule />} />
             <Route path="/agenda" element={<AgendaNotificationsModule />} />
-            <Route path="/integrations" element={<RoleGuard roles={['ADMIN', 'MANAGER']}><IntegrationsModule /></RoleGuard>} />
-            <Route path="/reports" element={<RoleGuard roles={['ADMIN', 'SAFETY']}><ReportsModule /></RoleGuard>} />
+            <Route path="/integrations" element={<RoleGuard roles={[UserRole.ADMIN, UserRole.MANAGER]}><IntegrationsModule /></RoleGuard>} />
+            <Route path="/reports" element={<RoleGuard roles={[UserRole.ADMIN, UserRole.SAFETY]}><ReportsModule /></RoleGuard>} />
             <Route path="/profile" element={<UserProfileModule />} />
+            <Route path="/users" element={<RoleGuard roles={[UserRole.ADMIN]}><UsersAdminModule /></RoleGuard>} />
           </Routes>
           </div>
         </main>

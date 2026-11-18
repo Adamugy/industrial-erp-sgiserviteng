@@ -55,7 +55,12 @@ class ApiClient {
                 let errorMessage = 'Ocorreu um erro na comunicação com o servidor.';
                 try {
                     const errorData = await response.json();
-                    errorMessage = errorData.message || errorData.error || errorMessage;
+                    // Erros de validação: mostrar a primeira mensagem concreta do campo
+                    const fieldErrors = errorData.details?.fieldErrors;
+                    const firstFieldError = fieldErrors
+                        ? (Object.values(fieldErrors).flat().find(Boolean) as string | undefined)
+                        : undefined;
+                    errorMessage = firstFieldError || errorData.message || errorData.error || errorMessage;
                 } catch (e) {
                     // Fallback if response is not JSON
                     if (response.status === 401) errorMessage = 'Sessão expirada. Por favor, faça login novamente.';
@@ -91,10 +96,10 @@ class ApiClient {
         return data;
     }
 
-    async register(name: string, email: string, password: string, role?: string) {
+    async register(name: string, email: string, password: string) {
         const data = await this.request<{ token: string; user: any }>('/api/auth/register', {
             method: 'POST',
-            body: JSON.stringify({ name, email, password, role }),
+            body: JSON.stringify({ name, email, password }),
         });
         this.setToken(data.token);
         return data;
@@ -102,6 +107,33 @@ class ApiClient {
 
     async me() {
         return this.request<{ user: any }>('/api/auth/me');
+    }
+
+    /** Fornecedores de login configurados no servidor. */
+    async authProviders() {
+        return this.request<{ password: boolean; google: boolean; microsoft: boolean }>('/api/auth/providers');
+    }
+
+    /** URL para iniciar o login com Google/Microsoft (navegação de página inteira). */
+    oauthStartUrl(provider: 'google' | 'microsoft') {
+        return `${API_BASE_URL}/api/auth/oauth/${provider}/start`;
+    }
+
+    /** Troca o código de uso único devolvido pelo OAuth por uma sessão. */
+    async oauthExchange(code: string) {
+        const data = await this.request<{ token: string; user: any }>('/api/auth/oauth/exchange', {
+            method: 'POST',
+            body: JSON.stringify({ code }),
+        });
+        this.setToken(data.token);
+        return data;
+    }
+
+    async completeOnboarding(payload: { requestedRole: string; name?: string; department?: string; jobTitle?: string; phone?: string }) {
+        return this.request<{ user: any }>('/api/auth/onboarding', {
+            method: 'POST',
+            body: JSON.stringify(payload),
+        });
     }
 
     logout() {
@@ -271,6 +303,8 @@ class ApiClient {
         list: () => this.get<any[]>('/api/users'),
         get: (id: string) => this.get<any>(`/api/users/${id}`),
         update: (id: string, data: any) => this.patch<any>(`/api/users/${id}`, data),
+        approve: (id: string, role?: string) => this.post<any>(`/api/users/${id}/approve`, role ? { role } : {}),
+        reject: (id: string) => this.post<any>(`/api/users/${id}/reject`, {}),
     };
 
     // Timesheets

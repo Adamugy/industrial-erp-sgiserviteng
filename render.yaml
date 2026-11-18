@@ -20,6 +20,22 @@ services:
         value: 7d
       - key: FRONTEND_URL       # https://<sgiserviteng-web>.onrender.com
         sync: false
+      - key: PUBLIC_API_URL     # https://<sgiserviteng-api>.onrender.com (redirect_uri do OAuth)
+        sync: false
+      - key: ADMIN_EMAILS       # emails que entram como ADMIN via "Entrar com Google"
+        sync: false
+      - key: ALLOWED_EMAIL_DOMAINS  # opcional: domínio da empresa (aprovação automática como Funcionário)
+        sync: false
+      - key: GOOGLE_CLIENT_ID   # opcional: ativa "Continuar com Google"
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: MICROSOFT_CLIENT_ID  # opcional: ativa "Continuar com Microsoft"
+        sync: false
+      - key: MICROSOFT_CLIENT_SECRET
+        sync: false
+      - key: MICROSOFT_TENANT_ID
+        value: common
 
   - type: web
     name: sgiserviteng-web

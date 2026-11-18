@@ -15,7 +15,8 @@ import {
   PlusCircle,
   Menu,
   X,
-  Settings
+  Settings,
+  UserCog
 } from 'lucide-react';
 import { UserRole } from '../AuthContext';
 
@@ -34,10 +35,10 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, userRole }) => {
   const menuItems: MenuItem[] = [
-    { path: '/', icon: <LayoutDashboard size={20} />, label: 'Dashboard', roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.TECH, UserRole.SAFETY] },
-    { path: '/agenda', icon: <Calendar size={20} />, label: 'Agenda & Alertas', roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.TECH, UserRole.SAFETY] },
-    { path: '/crm', icon: <FileText size={20} />, label: 'Contratos & Propostas', roles: [UserRole.ADMIN, UserRole.MANAGER] },
-    { path: '/projects', icon: <HardHat size={20} />, label: 'Obras & OS', roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.TECH, UserRole.SAFETY] },
+    { path: '/', icon: <LayoutDashboard size={20} />, label: 'Dashboard', roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.TECH, UserRole.SAFETY, UserRole.SECRETARY] },
+    { path: '/agenda', icon: <Calendar size={20} />, label: 'Agenda & Alertas', roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.TECH, UserRole.SAFETY, UserRole.SECRETARY] },
+    { path: '/crm', icon: <FileText size={20} />, label: 'Contratos & Propostas', roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.SECRETARY] },
+    { path: '/projects', icon: <HardHat size={20} />, label: 'Obras & OS', roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.TECH, UserRole.SAFETY, UserRole.SECRETARY] },
     { path: '/teams', icon: <Users size={20} />, label: 'Equipas', roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.SAFETY] },
     { path: '/inventory', icon: <Package size={20} />, label: 'Estoque', roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.TECH] },
     { path: '/assets', icon: <Truck size={20} />, label: 'Ativos & Frota', roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.TECH, UserRole.SAFETY] },
@@ -45,6 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, userRole }) => {
     { path: '/sst', icon: <ShieldCheck size={20} />, label: 'Qualidade/SST', roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.TECH, UserRole.SAFETY] },
     { path: '/integrations', icon: <Link size={20} />, label: 'Integrações', roles: [UserRole.ADMIN, UserRole.MANAGER] },
     { path: '/reports', icon: <FileBarChart size={20} />, label: 'Relatórios', roles: [UserRole.ADMIN, UserRole.SAFETY] },
+    { path: '/users', icon: <UserCog size={20} />, label: 'Utilizadores', roles: [UserRole.ADMIN] },
   ];
 
   const visibleMenuItems = menuItems.filter(item => item.roles.includes(userRole));

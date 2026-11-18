@@ -8,6 +8,7 @@ import {
   PlusCircle
 } from 'lucide-react';
 import { Badge } from '../common/UIElements';
+import { ROLE_LABELS } from '../AuthContext';
 
 interface HeaderProps {
   user: any;
@@ -153,7 +154,7 @@ const Header: React.FC<HeaderProps> = ({
         >
           <div className="hidden sm:block text-right">
             <p className="text-xs font-black text-slate-900 dark:text-white leading-none">{user.name}</p>
-            <p className="text-3xs font-bold text-slate-400 dark:text-slate-500 mt-1 uppercase tracking-wide">{user.role}</p>
+            <p className="text-3xs font-bold text-slate-400 dark:text-slate-500 mt-1 uppercase tracking-wide">{ROLE_LABELS[user.role as keyof typeof ROLE_LABELS] || user.role}</p>
           </div>
           <div className="w-10 h-10 rounded-control bg-slate-900 dark:bg-slate-800 text-white flex items-center justify-center text-sm font-black border-2 border-white dark:border-slate-800 shadow-sm transition-transform group-hover:scale-105">
             {user.avatar || user.name.charAt(0)}
