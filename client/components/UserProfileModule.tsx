@@ -166,6 +166,10 @@ const UserProfileModule: React.FC = () => {
                   <p className="text-2xs text-slate-500 font-medium">Alertas de novas OS, SST e Auditorias.</p>
                 </div>
                 <button 
+                  type="button"
+                  role="switch"
+                  aria-checked={!!profileData.notifications}
+                  aria-label="Notificações Push / Email"
                   onClick={() => setProfileData({...profileData, notifications: !profileData.notifications})}
                   className={`w-12 h-6 rounded-full transition relative ${profileData.notifications ? 'bg-emerald-500' : 'bg-slate-300'}`}
                 >
@@ -177,7 +181,7 @@ const UserProfileModule: React.FC = () => {
                   <p className="text-xs font-black text-slate-800">Relatórios Automáticos Semanais</p>
                   <p className="text-2xs text-slate-500 font-medium">Receber resumo de KPIs toda segunda-feira.</p>
                 </div>
-                <button className="w-12 h-6 rounded-full bg-slate-200 relative">
+                <button type="button" role="switch" aria-checked={false} aria-label="Relatórios Automáticos Semanais" className="w-12 h-6 rounded-full bg-slate-200 relative">
                   <div className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full" />
                 </button>
               </div>
