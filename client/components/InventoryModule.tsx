@@ -184,37 +184,38 @@ const InventoryModule: React.FC = () => {
 
   return (
     <>
-      <div className="space-y-6 animate-in slide-in-from-bottom-2 duration-500 pb-20">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="space-y-6 stagger pb-20">
+      <h1 className="sr-only">Estoque</h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
         {/* Total Materials Card */}
-        <div className="bg-white p-8 rounded-panel border border-slate-200 shadow-sm group hover:shadow-xl hover:shadow-slate-200/50 transition duration-500">
+        <div className="bg-white p-5 sm:p-6 lg:p-8 rounded-panel border border-slate-200/80 shadow-card group hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo">
           <div className="flex items-center space-x-5">
             <div className="w-14 h-14 bg-slate-900 rounded-card flex items-center justify-center text-white shadow-lg shadow-slate-200 group-hover:scale-110 transition-transform duration-500">
               <FaIcon name="fa-boxes-stacked" className="text-lg" />
             </div>
             <div>
               <p className="text-2xs font-black text-slate-400 uppercase tracking-widest leading-none mb-2">Total Materiais</p>
-              <h4 className="text-3xl font-bold text-slate-900 tracking-tight leading-none">{items.length}</h4>
+              <p className="font-display text-3xl font-bold tabular-nums text-slate-900 tracking-tight leading-none">{items.length}</p>
             </div>
           </div>
         </div>
 
         {/* Critical Stock Card */}
-        <div className="bg-white p-8 rounded-panel border border-slate-200 shadow-sm group hover:shadow-xl hover:shadow-slate-200/50 transition duration-500">
+        <div className="bg-white p-5 sm:p-6 lg:p-8 rounded-panel border border-slate-200/80 shadow-card group hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo">
           <div className="flex items-center space-x-5">
             <div className={`w-14 h-14 ${criticalCount > 0 ? 'bg-red-500 shadow-red-200' : 'bg-emerald-500 shadow-emerald-200'} rounded-card flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform duration-500`}>
               <FaIcon name={criticalCount > 0 ? 'fa-triangle-exclamation' : 'fa-check-circle'} className="text-lg" />
             </div>
             <div>
               <p className="text-2xs font-black text-slate-400 uppercase tracking-widest leading-none mb-2">Stock Crítico</p>
-              <h4 className={`text-3xl font-bold tracking-tight leading-none ${criticalCount > 0 ? 'text-red-500' : 'text-emerald-500'}`}>{criticalCount}</h4>
+              <p className={`font-display text-3xl font-bold tabular-nums tracking-tight leading-none ${criticalCount > 0 ? 'text-red-500' : 'text-emerald-500'}`}>{criticalCount}</p>
             </div>
           </div>
         </div>
 
         {/* Warehouse Status Card */}
-        <div className="bg-slate-900 p-8 rounded-panel shadow-xl shadow-slate-200 group hover:shadow-2xl transition duration-500 relative overflow-hidden">
-          <div className="absolute -right-4 -bottom-4 opacity-10 text-white text-8xl transform -rotate-12 group-hover:scale-110 transition-transform duration-700">
+        <div className="bg-slate-900 p-5 sm:p-6 lg:p-8 rounded-panel shadow-raised group hover:shadow-overlay hover:-translate-y-0.5 transition duration-300 ease-out-expo relative overflow-hidden">
+          <div aria-hidden="true" className="absolute -right-4 -bottom-4 opacity-10 text-white text-8xl transform -rotate-12 group-hover:scale-110 transition-transform duration-700">
             <FaIcon name="fa-warehouse" />
           </div>
           <div className="flex items-center space-x-5 relative z-10">
@@ -223,35 +224,37 @@ const InventoryModule: React.FC = () => {
             </div>
             <div>
               <p className="text-2xs font-black text-slate-400 uppercase tracking-widest leading-none mb-2">Eficiência Stock</p>
-              <h4 className="text-3xl font-bold text-white tracking-tight leading-none">
+              <p className="font-display text-3xl font-bold tabular-nums text-white tracking-tight leading-none">
                 {items.length > 0 ? ((1 - criticalCount / items.length) * 100).toFixed(1) : 100}%
-              </h4>
+              </p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Main Actions Bar */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-panel border border-slate-100 shadow-sm">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-5 lg:p-6 rounded-panel border border-slate-200/80 shadow-card">
         <div className="flex items-center space-x-4">
           <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-slate-400">
             <FaIcon name="fa-layer-group" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-slate-900 tracking-tight">Gestão de Inventário</h3>
+            <h2 className="text-sm font-bold text-slate-900 tracking-tight">Gestão de Inventário</h2>
             <p className="text-2xs font-bold text-slate-400 uppercase tracking-widest">ISO 9001: Fluxos & Rastreabilidade</p>
           </div>
         </div>
         <div className="flex gap-2 w-full sm:w-auto">
           <button 
             onClick={() => setShowModal('saida')}
-            className="flex-1 sm:flex-none py-3.5 bg-white border border-slate-200 text-slate-600 px-6 rounded-2xl text-2xs font-black uppercase tracking-widest hover:bg-slate-50 flex items-center justify-center transition shadow-sm active:scale-95"
+            type="button"
+            className="flex-1 sm:flex-none h-11 bg-white border border-slate-200 text-slate-600 px-5 rounded-control text-2xs font-black uppercase tracking-widest hover:bg-slate-50 hover:border-slate-300 flex items-center justify-center transition shadow-sm active:scale-[0.98] whitespace-nowrap"
           >
             <FaIcon name="fa-arrow-up-from-bracket" className="mr-2 text-red-400" /> Guia de Saída
           </button>
           <button 
             onClick={() => setShowModal('entrada')}
-            className="flex-1 sm:flex-none py-3.5 bg-slate-900 text-white px-6 rounded-2xl text-2xs font-black uppercase tracking-widest hover:bg-black shadow-xl shadow-slate-200 flex items-center justify-center transition active:scale-95"
+            type="button"
+            className="flex-1 sm:flex-none h-11 bg-slate-900 text-white px-5 rounded-control text-2xs font-black uppercase tracking-widest hover:bg-black shadow-lg shadow-slate-200 flex items-center justify-center transition active:scale-[0.98] whitespace-nowrap"
           >
             <FaIcon name="fa-arrow-down-to-bracket" className="mr-2 text-emerald-400" /> Guia de Entrada
           </button>
@@ -489,15 +492,15 @@ const InventoryModule: React.FC = () => {
       )}
 
       {/* Materials Table */}
-      <div className="bg-white rounded-panel border border-slate-200 overflow-hidden shadow-sm">
-        <div className="overflow-x-auto custom-scrollbar">
-          <table className="w-full text-left border-collapse">
+      <div className="bg-white rounded-panel border border-slate-200/80 overflow-hidden shadow-card">
+        <div className="overflow-x-auto custom-scrollbar" tabIndex={0} role="region" aria-label="Lista de materiais">
+          <table className="w-full min-w-[640px] text-left border-collapse">
             <thead className="bg-slate-50/50 border-b border-slate-100 text-2xs font-black text-slate-400 uppercase tracking-widest">
               <tr>
-                <th className="px-8 py-6">Item / Referência</th>
-                <th className="px-8 py-6 text-center">Stock Físico</th>
-                <th className="px-8 py-6">Estado Global</th>
-                <th className="px-8 py-6 text-right">Acções</th>
+                <th scope="col" className="px-6 lg:px-8 py-4">Item / Referência</th>
+                <th scope="col" className="px-6 lg:px-8 py-4 text-center">Stock Físico</th>
+                <th scope="col" className="px-6 lg:px-8 py-4">Estado Global</th>
+                <th scope="col" className="px-6 lg:px-8 py-4 text-right">Acções</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-50 text-sm">
@@ -513,7 +516,7 @@ const InventoryModule: React.FC = () => {
               ) : (
                 items.map(item => (
                   <tr key={item.id} className="hover:bg-slate-50/50 transition group">
-                    <td className="px-8 py-7">
+                    <td className="px-6 lg:px-8 py-4 lg:py-5">
                       <div className="flex items-center space-x-4">
                         <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm ${item.status === 'OK' ? 'bg-emerald-50 text-emerald-500' : 'bg-red-50 text-red-500'}`}>
                           <FaIcon name="fa-microchip" />
@@ -524,11 +527,11 @@ const InventoryModule: React.FC = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="px-8 py-7 text-center">
-                      <span className="text-sm font-black text-slate-700">{item.quantidadeAtual}</span>
+                    <td className="px-6 lg:px-8 py-4 lg:py-5 text-center">
+                      <span className="text-sm font-black text-slate-700 tabular-nums">{item.quantidadeAtual}</span>
                       <span className="text-2xs font-black text-slate-300 uppercase ml-1.5">{item.unidadeMedida}</span>
                     </td>
-                    <td className="px-8 py-7">
+                    <td className="px-6 lg:px-8 py-4 lg:py-5">
                       <div className="flex items-center">
                         <div className={`w-1.5 h-1.5 rounded-full mr-2.5 ${item.status === 'OK' ? 'bg-emerald-500' : 'bg-red-500 animate-pulse'}`}></div>
                         <span className={`text-2xs font-black uppercase tracking-widest ${item.status === 'OK' ? 'text-emerald-600' : 'text-red-600'}`}>
@@ -536,12 +539,12 @@ const InventoryModule: React.FC = () => {
                         </span>
                       </div>
                     </td>
-                    <td className="px-8 py-7 text-right">
-                      <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button aria-label="Registar entrada" onClick={() => openMovement(item, 'entrada')} className="w-9 h-9 flex items-center justify-center bg-white border border-slate-100 text-emerald-500 hover:bg-emerald-500 hover:text-white rounded-xl transition shadow-sm">
+                    <td className="px-6 lg:px-8 py-4 lg:py-5 text-right">
+                      <div className="flex justify-end gap-2 lg:opacity-0 lg:group-hover:opacity-100 focus-within:opacity-100 transition-opacity">
+                        <button aria-label="Registar entrada" onClick={() => openMovement(item, 'entrada')} className="w-10 h-10 flex items-center justify-center bg-white border border-slate-200 text-emerald-500 hover:bg-emerald-500 hover:text-white active:scale-95 rounded-control transition shadow-sm">
                           <FaIcon name="fa-plus" className="text-2xs" />
                         </button>
-                        <button aria-label="Registar saída" onClick={() => openMovement(item, 'saida')} className="w-9 h-9 flex items-center justify-center bg-white border border-slate-100 text-red-500 hover:bg-red-500 hover:text-white rounded-xl transition shadow-sm">
+                        <button aria-label="Registar saída" onClick={() => openMovement(item, 'saida')} className="w-10 h-10 flex items-center justify-center bg-white border border-slate-200 text-red-500 hover:bg-red-500 hover:text-white active:scale-95 rounded-control transition shadow-sm">
                           <FaIcon name="fa-minus" className="text-2xs" />
                         </button>
                       </div>
