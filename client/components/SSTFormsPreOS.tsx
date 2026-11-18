@@ -107,7 +107,7 @@ const SSTFormsPreOS: React.FC<SSTFormsProps> = ({ osId, onComplete, onCancel, in
       </button>
 
       {/* Sidebar Progress */}
-      <div className="w-full md:w-80 bg-slate-900 p-10 text-white flex flex-col justify-between shrink-0">
+      <div className="w-full md:w-80 bg-slate-900 p-6 sm:p-8 lg:p-10 text-white flex flex-col justify-between shrink-0">
         <div>
           <div className="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center text-xl mb-8 shadow-xl shadow-emerald-500/20">
             <FaIcon name="fa-shield-heart" />
@@ -147,7 +147,7 @@ const SSTFormsPreOS: React.FC<SSTFormsProps> = ({ osId, onComplete, onCancel, in
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 p-10 lg:p-14 overflow-y-auto custom-scrollbar bg-white">
+      <div className="flex-1 p-6 sm:p-8 lg:p-10 lg:p-14 overflow-y-auto custom-scrollbar bg-white">
         {step === 0 && (
           <div className="h-full flex flex-col items-center justify-center text-center space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
              <div className="w-24 h-24 bg-slate-50 rounded-panel flex items-center justify-center text-4xl text-slate-900 shadow-sm border border-slate-100 relative group">
@@ -211,7 +211,7 @@ const SSTFormsPreOS: React.FC<SSTFormsProps> = ({ osId, onComplete, onCancel, in
                 rows={3}
                 value={medidasControlo}
                 onChange={(e) => setMedidasControlo(e.target.value)}
-                placeholder="Ex: Utilização de detetores de gás, Ventilação forçada, Equipas de resgate..."
+                placeholder="Ex: Utilização de detetores de gás, Ventilação forçada, Equipas de resgate…"
                 className="w-full bg-slate-50 border border-slate-100 rounded-2xl p-5 text-xs font-medium outline-none focus:border-slate-900 transition resize-none shadow-inner"
               />
             </div>
