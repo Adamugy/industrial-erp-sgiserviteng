@@ -106,8 +106,8 @@ const ContractorsModule: React.FC = () => {
      return (
        <div className="flex items-center justify-center h-64">
          <div className="text-center">
-           <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
-           <p className="text-slate-400 text-sm">A carregar sub-contratados...</p>
+           <div className="w-8 h-8 border-[3px] border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+           <p className="text-slate-500 text-sm">A carregar sub-contratados…</p>
          </div>
        </div>
      );
@@ -115,12 +115,12 @@ const ContractorsModule: React.FC = () => {
 
   return (
   <>
-    <div className="space-y-6 animate-in fade-in duration-500">
+    <div className="space-y-6 stagger">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800 tracking-tight">Gestão de Sub-contratados</h2>
-          <p className="text-slate-500 text-sm font-medium italic">Controlo de acessos, segurança e conformidade SST.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">Gestão de Sub-contratados</h1>
+          <p className="text-slate-500 text-sm mt-1">Controlo de acessos, segurança e conformidade SST.</p>
         </div>
         <button 
           onClick={() => setShowAddModal(true)}
@@ -131,22 +131,22 @@ const ContractorsModule: React.FC = () => {
       </div>
 
       {/* Stats Section */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div className="bg-white border border-slate-200/80 p-4 sm:p-5 rounded-card shadow-card hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo">
           <p className="text-2xs font-black text-slate-400 uppercase tracking-widest mb-1">Total Registados</p>
-          <h4 className="text-2xl font-bold text-slate-800">{contractors.length}</h4>
+          <p className="font-display text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-slate-800">{contractors.length}</p>
         </div>
-        <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
+        <div className="bg-white border border-slate-200/80 p-4 sm:p-5 rounded-card shadow-card hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo">
           <p className="text-2xs font-black text-emerald-500 uppercase tracking-widest mb-1">Ativos</p>
-          <h4 className="text-2xl font-bold text-emerald-600">{contractors.filter(c => c.status === 'ATIVO').length}</h4>
+          <p className="font-display text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-emerald-600">{contractors.filter(c => c.status === 'ATIVO').length}</p>
         </div>
-        <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
+        <div className="bg-white border border-slate-200/80 p-4 sm:p-5 rounded-card shadow-card hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo">
           <p className="text-2xs font-black text-amber-500 uppercase tracking-widest mb-1">Indução Pendente</p>
-          <h4 className="text-2xl font-bold text-amber-600">{contractors.filter(c => !c.inducaoSST).length}</h4>
+          <p className="font-display text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-amber-600">{contractors.filter(c => !c.inducaoSST).length}</p>
         </div>
-        <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
+        <div className="bg-white border border-slate-200/80 p-4 sm:p-5 rounded-card shadow-card hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo">
           <p className="text-2xs font-black text-blue-500 uppercase tracking-widest mb-1">EPI em Falta</p>
-          <h4 className="text-2xl font-bold text-blue-600">{contractors.filter(c => !c.epiEntregue).length}</h4>
+          <p className="font-display text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-blue-600">{contractors.filter(c => !c.epiEntregue).length}</p>
         </div>
       </div>
 
@@ -161,7 +161,7 @@ const ContractorsModule: React.FC = () => {
             <p className="text-slate-300 text-xs mt-1">Clique em "Novo Contratado" para adicionar</p>
           </div>
         ) : contractors.map((c) => (
-          <div key={c.id} className="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-lg hover:border-slate-200 transition group">
+          <div key={c.id} className="bg-white border border-slate-100 rounded-2xl p-5 shadow-card hover:shadow-lg hover:border-slate-200 transition group">
             {/* Card Header */}
             <div className="flex justify-between items-start mb-4">
               <div className="w-11 h-11 bg-slate-100 rounded-xl flex items-center justify-center text-slate-400 text-lg group-hover:bg-slate-900 group-hover:text-emerald-400 transition">
@@ -234,7 +234,7 @@ const ContractorsModule: React.FC = () => {
       <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[200] grid place-items-center p-4 overflow-y-auto">
         <div className="bg-white rounded-panel shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in duration-300 my-auto flex flex-col">
           {/* Header */}
-          <div className="p-8 border-b border-slate-100 bg-slate-50/30 text-center relative">
+          <div className="p-5 sm:p-6 lg:p-8 border-b border-slate-100 bg-slate-50/30 text-center relative">
             <button aria-label="Fechar" 
               onClick={() => setShowAddModal(false)}
               className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-400 hover:text-red-500 transition-colors w-10 h-10 flex items-center justify-center rounded-full hover:bg-red-50"
@@ -247,7 +247,7 @@ const ContractorsModule: React.FC = () => {
 
           {/* Form */}
           <form onSubmit={handleAddContractor}>
-            <div className="p-8 space-y-5">
+            <div className="p-5 sm:p-6 lg:p-8 space-y-5">
               <div className="space-y-2">
                 <label htmlFor="contractorsm-nome-do-trabalhador-2" className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
                   <FaIcon name="fa-user" className="text-3xs" /> Nome do Trabalhador
@@ -257,7 +257,7 @@ const ContractorsModule: React.FC = () => {
                   type="text" 
                   value={newContractor.nome} 
                   onChange={e => setNewContractor({...newContractor, nome: e.target.value})} 
-                  className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-2xl px-5 py-4 text-sm transition outline-none shadow-sm shadow-slate-100/50" 
+                  className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-2xl px-5 py-4 text-sm transition outline-none shadow-card shadow-slate-100/50" 
                   placeholder="Nome completo do colaborador" 
                 />
               </div>
@@ -271,7 +271,7 @@ const ContractorsModule: React.FC = () => {
                   type="text" 
                   value={newContractor.empresa} 
                   onChange={e => setNewContractor({...newContractor, empresa: e.target.value})} 
-                  className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-2xl px-5 py-4 text-sm transition outline-none shadow-sm shadow-slate-100/50" 
+                  className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-2xl px-5 py-4 text-sm transition outline-none shadow-card shadow-slate-100/50" 
                   placeholder="Empresa / Companhia" 
                 />
               </div>
@@ -285,7 +285,7 @@ const ContractorsModule: React.FC = () => {
                     type="text" 
                     value={newContractor.nif} 
                     onChange={e => setNewContractor({...newContractor, nif: e.target.value})} 
-                    className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-2xl px-5 py-4 text-sm transition outline-none shadow-sm shadow-slate-100/50" 
+                    className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-2xl px-5 py-4 text-sm transition outline-none shadow-card shadow-slate-100/50" 
                     placeholder="Contribuinte" 
                   />
                 </div>
@@ -297,7 +297,7 @@ const ContractorsModule: React.FC = () => {
                     type="text" 
                     value={newContractor.telefone} 
                     onChange={e => setNewContractor({...newContractor, telefone: e.target.value})} 
-                    className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-2xl px-5 py-4 text-sm transition outline-none shadow-sm shadow-slate-100/50" 
+                    className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-2xl px-5 py-4 text-sm transition outline-none shadow-card shadow-slate-100/50" 
                     placeholder="+351 xxx xxx xxx" 
                   />
                 </div>
@@ -305,7 +305,7 @@ const ContractorsModule: React.FC = () => {
             </div>
 
             {/* Footer */}
-            <div className="p-8 border-t border-slate-100 bg-slate-50/20 flex gap-4">
+            <div className="p-5 sm:p-6 lg:p-8 border-t border-slate-100 bg-slate-50/20 flex gap-4">
               <button 
                 type="button" 
                 onClick={() => setShowAddModal(false)} 
@@ -315,7 +315,7 @@ const ContractorsModule: React.FC = () => {
               </button>
               <button 
                 type="submit"
-                className="flex-[2] py-4 bg-slate-900 text-white rounded-2xl text-2xs font-black uppercase tracking-widest shadow-xl shadow-slate-200 hover:bg-slate-800 transition active:scale-95"
+                className="flex-[2] h-11 bg-slate-900 text-white rounded-control text-2xs font-black uppercase tracking-widest shadow-xl shadow-slate-200 hover:bg-slate-800 transition active:scale-[0.98] inline-flex items-center justify-center whitespace-nowrap"
               >
                 Salvar Registo e Iniciar Processo
               </button>
@@ -329,7 +329,7 @@ const ContractorsModule: React.FC = () => {
       <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[200] grid place-items-center p-4 overflow-y-auto">
         <div className="bg-white rounded-panel shadow-2xl w-full max-w-4xl overflow-hidden animate-in zoom-in duration-300 my-auto flex flex-col">
           {/* Header */}
-          <div className="p-8 border-b border-slate-100 bg-slate-50/30 text-center relative">
+          <div className="p-5 sm:p-6 lg:p-8 border-b border-slate-100 bg-slate-50/30 text-center relative">
             <button aria-label="Fechar" 
               onClick={() => setShowInductionModal(false)}
               className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-400 hover:text-red-500 transition-colors w-10 h-10 flex items-center justify-center rounded-full hover:bg-red-50"
@@ -341,10 +341,10 @@ const ContractorsModule: React.FC = () => {
           </div>
           
           {/* Form Content */}
-          <div className="p-8 overflow-y-auto flex-1 custom-scrollbar max-h-[75vh]">
+          <div className="p-5 sm:p-6 lg:p-8 overflow-y-auto flex-1 custom-scrollbar max-h-[75vh]">
             {/* Introduction */}
             <div className="bg-amber-50 border border-amber-100 rounded-2xl p-6 mb-8 flex items-start gap-4 shadow-sm shadow-amber-100/50">
-              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-amber-500 shadow-sm shrink-0">
+              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-amber-500 shadow-card shrink-0">
                 <FaIcon name="fa-triangle-exclamation" />
               </div>
               <p className="text-2xs text-amber-800 leading-relaxed font-medium">
@@ -368,7 +368,7 @@ const ContractorsModule: React.FC = () => {
                 <input id="contractorsm-data-da-formacao" 
                   type="date" 
                   defaultValue={new Date().toISOString().split('T')[0]}
-                  className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-2xl px-5 py-4 text-sm transition outline-none shadow-sm"
+                  className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-2xl px-5 py-4 text-sm transition outline-none shadow-card"
                 />
               </div>
               <div className="space-y-2">
@@ -385,7 +385,7 @@ const ContractorsModule: React.FC = () => {
                 <input id="contractorsm-nome-do-instrutor" 
                   type="text" 
                   placeholder="Responsável pela formação"
-                  className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-2xl px-5 py-4 text-sm transition outline-none shadow-sm"
+                  className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-2xl px-5 py-4 text-sm transition outline-none shadow-card"
                 />
               </div>
             </div>
@@ -476,7 +476,7 @@ const ContractorsModule: React.FC = () => {
             </div>
 
             {/* Validated Banner */}
-            <div className="bg-emerald-900 rounded-panel p-8 text-white relative overflow-hidden group">
+            <div className="bg-emerald-900 rounded-panel p-5 sm:p-6 lg:p-8 text-white relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32 blur-3xl group-hover:bg-white/10 transition duration-700"></div>
               <div className="relative z-10 text-center">
                 <p className="text-2xs font-black uppercase tracking-widest mb-4 text-emerald-300">Declaração de Conformidade</p>
@@ -498,7 +498,7 @@ const ContractorsModule: React.FC = () => {
           </div>
 
           {/* Footer */}
-          <div className="p-8 border-t border-slate-100 bg-slate-50/30 flex gap-4">
+          <div className="p-5 sm:p-6 lg:p-8 border-t border-slate-100 bg-slate-50/30 flex gap-4">
             <button 
               onClick={() => setShowInductionModal(false)} 
               className="flex-1 py-4 border border-slate-200 rounded-2xl text-2xs font-black uppercase tracking-widest text-slate-400 hover:bg-white hover:text-slate-600 transition"
