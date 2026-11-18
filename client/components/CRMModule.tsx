@@ -239,7 +239,7 @@ const CRMModule: React.FC = () => {
                         </div>
                       ) : (
                         <div className="flex justify-end space-x-2">
-                          <button className="text-slate-300 hover:text-emerald-500 p-2 transition-colors"><FaIcon name="fa-check-circle" /></button>
+                          <button aria-label="Adjudicado" className="text-slate-300 hover:text-emerald-500 p-2 transition-colors"><FaIcon name="fa-check-circle" /></button>
                           {!p.numeroPO && (
                             <button 
                               onClick={() => toggleAdjudication(p.id, 'withPO')}
@@ -264,7 +264,7 @@ const CRMModule: React.FC = () => {
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[200] grid place-items-center p-4 overflow-y-auto">
           <div className="bg-white rounded-panel shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in duration-300 my-auto">
             <div className="p-10 border-b border-slate-50 relative bg-slate-50/20 text-center">
-              <button 
+              <button aria-label="Fechar" 
                 onClick={() => setShowModal(false)} 
                 className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-900 transition-colors"
               >
@@ -278,10 +278,10 @@ const CRMModule: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-6">
                   <div className="space-y-1.5">
-                    <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                    <label htmlFor="crmmodule-nome-do-cliente-entidade" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                       <FaIcon name="fa-user-tie" className="mr-2 text-slate-300" /> Nome do Cliente / Entidade
                     </label>
-                    <input 
+                    <input id="crmmodule-nome-do-cliente-entidade" 
                       required 
                       type="text"
                       value={formData.clientName} 
@@ -293,11 +293,11 @@ const CRMModule: React.FC = () => {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                      <label htmlFor="crmmodule-valor" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                         <FaIcon name="fa-coins" className="mr-2 text-slate-300" /> Valor
                       </label>
                       <div className="relative">
-                        <input required type="number" step="0.01" value={formData.value} onChange={(e) => setFormData({...formData, value: e.target.value})} className="w-full bg-slate-50 border border-slate-100 rounded-2xl pl-5 pr-12 py-3.5 text-xs font-medium focus:outline-none focus:border-slate-900 transition font-display" placeholder="0.00" />
+                        <input id="crmmodule-valor" required type="number" step="0.01" value={formData.value} onChange={(e) => setFormData({...formData, value: e.target.value})} className="w-full bg-slate-50 border border-slate-100 rounded-2xl pl-5 pr-12 py-3.5 text-xs font-medium focus:outline-none focus:border-slate-900 transition font-display" placeholder="0.00" />
                         <select 
                           value={formData.currency}
                           onChange={(e) => setFormData({...formData, currency: e.target.value})}
@@ -309,10 +309,10 @@ const CRMModule: React.FC = () => {
                       </div>
                     </div>
                     <div className="space-y-1.5">
-                      <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                      <label htmlFor="crmmodule-validade" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                         <FaIcon name="fa-calendar-day" className="mr-2 text-slate-300" /> Validade
                       </label>
-                      <input type="date" value={formData.validity} onChange={(e) => setFormData({...formData, validity: e.target.value})} className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-3.5 text-xs font-medium focus:outline-none focus:border-slate-900 transition font-display" />
+                      <input id="crmmodule-validade" type="date" value={formData.validity} onChange={(e) => setFormData({...formData, validity: e.target.value})} className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-3.5 text-xs font-medium focus:outline-none focus:border-slate-900 transition font-display" />
                     </div>
                   </div>
 
@@ -340,10 +340,10 @@ const CRMModule: React.FC = () => {
 
                 <div className="space-y-6">
                   <div className="space-y-1.5 h-full flex flex-col">
-                    <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                    <label htmlFor="crmmodule-escopo-tecnico-observacoes" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                       <FaIcon name="fa-align-left" className="mr-2 text-slate-300" /> Escopo Técnico & Observações
                     </label>
-                    <textarea 
+                    <textarea id="crmmodule-escopo-tecnico-observacoes" 
                       required 
                       value={formData.description} 
                       onChange={(e) => setFormData({...formData, description: e.target.value})} 

@@ -16,7 +16,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, onClose, onLogout }) 
           <h3 className="font-black text-slate-800 dark:text-white uppercase tracking-tight text-2xs flex items-center gap-2">
             <UserIcon size={14} className="text-indigo-500" /> Perfil de Utilizador
           </h3>
-          <button onClick={onClose} className="text-slate-400 hover:text-red-500 p-2 transition-colors">
+          <button aria-label="Fechar" onClick={onClose} className="text-slate-400 hover:text-red-500 p-2 transition-colors">
             <X size={20} />
           </button>
         </div>
@@ -34,10 +34,10 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, onClose, onLogout }) 
 
           <div className="space-y-5">
             <div className="relative group">
-              <label className="block text-2xs font-black text-slate-400 uppercase mb-2 tracking-widest">Email Corporativo</label>
+              <label htmlFor="profile-modal-email" className="block text-2xs font-black text-slate-400 uppercase mb-2 tracking-widest">Email Corporativo</label>
               <div className="relative">
                 <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                <input 
+                <input id="profile-modal-email" 
                   type="email" 
                   readOnly 
                   value={user.email} 
@@ -47,10 +47,10 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ user, onClose, onLogout }) 
             </div>
 
             <div className="relative">
-              <label className="block text-2xs font-black text-slate-400 uppercase mb-2 tracking-widest">Nível de Acesso</label>
+              <label htmlFor="profile-modal-role" className="block text-2xs font-black text-slate-400 uppercase mb-2 tracking-widest">Nível de Acesso</label>
               <div className="relative">
                 <ShieldCheck size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                <input 
+                <input id="profile-modal-role" 
                   type="text" 
                   readOnly 
                   value={user.role} 

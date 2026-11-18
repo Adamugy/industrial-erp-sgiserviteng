@@ -61,10 +61,10 @@
   .tabular-nums { font-variant-numeric: tabular-nums; }
 
   /* Entrance used by modals and panels (kept from the original stylesheet) */
-  .animate-in { animation: sgi-enter 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .animate-in { animation: sgi-enter 0.35s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
 
   /* Staggered page entrance: children rise in one after another */
-  .stagger > * { animation: sgi-rise 0.55s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .stagger > * { animation: sgi-rise 0.55s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
   .stagger > *:nth-child(2) { animation-delay: 40ms; }
   .stagger > *:nth-child(3) { animation-delay: 80ms; }
   .stagger > *:nth-child(4) { animation-delay: 120ms; }

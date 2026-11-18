@@ -59,10 +59,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-2xs font-black text-slate-300 uppercase tracking-widest mb-2">
+              <label htmlFor="loginpage-email" className="block text-2xs font-black text-slate-300 uppercase tracking-widest mb-2">
                 Email
               </label>
-              <input
+              <input id="loginpage-email"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -73,10 +73,10 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
             </div>
 
             <div>
-              <label className="block text-2xs font-black text-slate-300 uppercase tracking-widest mb-2">
+              <label htmlFor="loginpage-palavra-passe" className="block text-2xs font-black text-slate-300 uppercase tracking-widest mb-2">
                 Palavra-Passe
               </label>
-              <input
+              <input id="loginpage-palavra-passe"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

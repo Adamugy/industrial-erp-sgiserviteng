@@ -264,7 +264,7 @@ const InventoryModule: React.FC = () => {
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[200] grid place-items-center p-4 overflow-y-auto">
           <div className="bg-white rounded-panel shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in duration-300 my-auto">
             <div className="p-10 border-b border-slate-50 relative bg-slate-50/20 text-center">
-              <button onClick={closeModal} className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-900 transition-colors">
+              <button aria-label="Fechar" onClick={closeModal} className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-900 transition-colors">
                 <FaIcon name="fa-times" className="text-sm" />
               </button>
               <h3 className="font-bold text-slate-900 tracking-tight text-xl font-display">
@@ -294,7 +294,7 @@ const InventoryModule: React.FC = () => {
                     {formData.items.map((item, index) => (
                       <div key={index} className="space-y-4 p-6 bg-slate-50/50 border border-slate-100 rounded-panel animate-in slide-in-from-left-2 duration-300 relative">
                         {formData.items.length > 1 && (
-                          <button 
+                          <button aria-label="Remover item" 
                             type="button" 
                             onClick={() => removeItem(index)}
                             className="absolute right-4 top-4 w-8 h-8 flex items-center justify-center text-slate-300 hover:text-red-500 transition-colors"
@@ -305,8 +305,8 @@ const InventoryModule: React.FC = () => {
                         
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                           <div className={`${item.isNew ? 'md:col-span-1' : 'md:col-span-2'} space-y-2`}>
-                            <label className="text-3xs font-black text-slate-400 uppercase tracking-widest ml-1">Material</label>
-                            <select 
+                            <label htmlFor="inventorymod-material" className="text-3xs font-black text-slate-400 uppercase tracking-widest ml-1">Material</label>
+                            <select id="inventorymod-material" 
                               required
                               value={item.isNew ? 'NEW' : item.materialId}
                               onChange={(e) => updateItem(index, 'materialId', e.target.value)}
@@ -322,8 +322,8 @@ const InventoryModule: React.FC = () => {
 
                           {item.isNew ? (
                             <div className="md:col-span-2 space-y-2">
-                              <label className="text-3xs font-black text-slate-400 uppercase tracking-widest ml-1">Nome do Novo Material</label>
-                              <input 
+                              <label htmlFor="inventorymod-nome-do-novo-material" className="text-3xs font-black text-slate-400 uppercase tracking-widest ml-1">Nome do Novo Material</label>
+                              <input id="inventorymod-nome-do-novo-material" 
                                 required 
                                 type="text" 
                                 value={item.nome} 
@@ -334,8 +334,8 @@ const InventoryModule: React.FC = () => {
                             </div>
                           ) : (
                             <div className="space-y-2">
-                              <label className="text-3xs font-black text-slate-400 uppercase tracking-widest ml-1">Quantidade</label>
-                              <input 
+                              <label htmlFor="inventorymod-quantidade" className="text-3xs font-black text-slate-400 uppercase tracking-widest ml-1">Quantidade</label>
+                              <input id="inventorymod-quantidade" 
                                 required 
                                 type="number" 
                                 min="1" 
@@ -350,8 +350,8 @@ const InventoryModule: React.FC = () => {
                           {item.isNew && (
                             <>
                               <div className="space-y-2">
-                                <label className="text-3xs font-black text-slate-400 uppercase tracking-widest ml-1">Ref / Cód</label>
-                                <input 
+                                <label htmlFor="inventorymod-ref-cod" className="text-3xs font-black text-slate-400 uppercase tracking-widest ml-1">Ref / Cód</label>
+                                <input id="inventorymod-ref-cod" 
                                   required 
                                   type="text" 
                                   value={item.codigoInterno} 
@@ -360,8 +360,8 @@ const InventoryModule: React.FC = () => {
                                 />
                               </div>
                               <div className="space-y-2">
-                                <label className="text-3xs font-black text-slate-400 uppercase tracking-widest ml-1">Unidade</label>
-                                <select 
+                                <label htmlFor="inventorymod-unidade" className="text-3xs font-black text-slate-400 uppercase tracking-widest ml-1">Unidade</label>
+                                <select id="inventorymod-unidade" 
                                   value={item.unidadeMedida}
                                   onChange={(e) => updateItem(index, 'unidadeMedida', e.target.value)}
                                   className="w-full bg-white border border-slate-100 rounded-xl px-4 py-3 text-xs font-medium focus:outline-none focus:border-slate-900 transition"
@@ -374,8 +374,8 @@ const InventoryModule: React.FC = () => {
                                 </select>
                               </div>
                               <div className="space-y-2">
-                                <label className="text-3xs font-black text-slate-400 uppercase tracking-widest ml-1">Qtd Entrada</label>
-                                <input 
+                                <label htmlFor="inventorymod-qtd-entrada" className="text-3xs font-black text-slate-400 uppercase tracking-widest ml-1">Qtd Entrada</label>
+                                <input id="inventorymod-qtd-entrada" 
                                   required 
                                   type="number" 
                                   min="1" 
@@ -393,17 +393,17 @@ const InventoryModule: React.FC = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                  <label htmlFor="inv-document-ref" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                     <FaIcon name="fa-file-invoice" className="mr-2 text-slate-300" /> {showModal === 'entrada' ? 'Nº Fatura / Fornecedor' : 'Cód. Obra / OS'}
                   </label>
-                  <input required type="text" value={formData.documentRef} onChange={(e) => setFormData({...formData, documentRef: e.target.value})} className="w-full bg-slate-50 border border-slate-100 rounded-panel px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition" placeholder="Referência Documental" />
+                  <input id="inv-document-ref" required type="text" value={formData.documentRef} onChange={(e) => setFormData({...formData, documentRef: e.target.value})} className="w-full bg-slate-50 border border-slate-100 rounded-panel px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition" placeholder="Referência Documental" />
                 </div>
 
                 <div className="space-y-2">
-                  <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                  <label htmlFor="inv-document-date" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                     <FaIcon name="fa-calendar-day" className="mr-2 text-slate-300" /> {showModal === 'entrada' ? 'Data de Entrada' : 'Data de Saída'}
                   </label>
-                  <input 
+                  <input id="inv-document-date" 
                     required 
                     type="date" 
                     value={formData.dataReferencia} 
@@ -413,10 +413,10 @@ const InventoryModule: React.FC = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                  <label htmlFor="inventorymod-localizacao" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                     <FaIcon name="fa-location-dot" className="mr-2 text-slate-300" /> Localização
                   </label>
-                  <select 
+                  <select id="inventorymod-localizacao" 
                     value={formData.localizacao}
                     onChange={(e) => setFormData({...formData, localizacao: e.target.value})}
                     className="w-full bg-slate-50 border border-slate-100 rounded-panel px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition appearance-none"
@@ -431,10 +431,10 @@ const InventoryModule: React.FC = () => {
                 {showModal === 'saida' && (
                   <>
                     <div className="space-y-2">
-                      <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                      <label htmlFor="inventorymod-responsavel" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                         <FaIcon name="fa-user-check" className="mr-2 text-slate-300" /> Responsável
                       </label>
-                      <select 
+                      <select id="inventorymod-responsavel" 
                         required
                         value={formData.responsavelId}
                         onChange={(e) => setFormData({...formData, responsavelId: e.target.value})}
@@ -447,10 +447,10 @@ const InventoryModule: React.FC = () => {
                       </select>
                     </div>
                     <div className="space-y-2">
-                      <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                      <label htmlFor="inventorymod-permissoes-docs" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                         <FaIcon name="fa-shield-halved" className="mr-2 text-slate-300" /> Permissões / Docs
                       </label>
-                      <input 
+                      <input id="inventorymod-permissoes-docs" 
                         type="text" 
                         value={formData.documentacaoAdicional} 
                         onChange={(e) => setFormData({...formData, documentacaoAdicional: e.target.value})} 
@@ -538,10 +538,10 @@ const InventoryModule: React.FC = () => {
                     </td>
                     <td className="px-8 py-7 text-right">
                       <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button onClick={() => openMovement(item, 'entrada')} className="w-9 h-9 flex items-center justify-center bg-white border border-slate-100 text-emerald-500 hover:bg-emerald-500 hover:text-white rounded-xl transition shadow-sm">
+                        <button aria-label="Registar entrada" onClick={() => openMovement(item, 'entrada')} className="w-9 h-9 flex items-center justify-center bg-white border border-slate-100 text-emerald-500 hover:bg-emerald-500 hover:text-white rounded-xl transition shadow-sm">
                           <FaIcon name="fa-plus" className="text-2xs" />
                         </button>
-                        <button onClick={() => openMovement(item, 'saida')} className="w-9 h-9 flex items-center justify-center bg-white border border-slate-100 text-red-500 hover:bg-red-500 hover:text-white rounded-xl transition shadow-sm">
+                        <button aria-label="Registar saída" onClick={() => openMovement(item, 'saida')} className="w-9 h-9 flex items-center justify-center bg-white border border-slate-100 text-red-500 hover:bg-red-500 hover:text-white rounded-xl transition shadow-sm">
                           <FaIcon name="fa-minus" className="text-2xs" />
                         </button>
                       </div>

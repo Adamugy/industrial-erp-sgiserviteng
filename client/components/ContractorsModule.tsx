@@ -235,7 +235,7 @@ const ContractorsModule: React.FC = () => {
         <div className="bg-white rounded-panel shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in duration-300 my-auto flex flex-col">
           {/* Header */}
           <div className="p-8 border-b border-slate-100 bg-slate-50/30 text-center relative">
-            <button 
+            <button aria-label="Fechar" 
               onClick={() => setShowAddModal(false)}
               className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-400 hover:text-red-500 transition-colors w-10 h-10 flex items-center justify-center rounded-full hover:bg-red-50"
             >
@@ -249,10 +249,10 @@ const ContractorsModule: React.FC = () => {
           <form onSubmit={handleAddContractor}>
             <div className="p-8 space-y-5">
               <div className="space-y-2">
-                <label className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+                <label htmlFor="contractorsm-nome-do-trabalhador-2" className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
                   <FaIcon name="fa-user" className="text-3xs" /> Nome do Trabalhador
                 </label>
-                <input 
+                <input id="contractorsm-nome-do-trabalhador-2" 
                   required 
                   type="text" 
                   value={newContractor.nome} 
@@ -263,10 +263,10 @@ const ContractorsModule: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+                <label htmlFor="contractorsm-entidade-patronal" className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
                   <FaIcon name="fa-building" className="text-3xs" /> Entidade Patronal
                 </label>
-                <input 
+                <input id="contractorsm-entidade-patronal" 
                   required 
                   type="text" 
                   value={newContractor.empresa} 
@@ -278,10 +278,10 @@ const ContractorsModule: React.FC = () => {
 
               <div className="grid grid-cols-2 gap-5">
                 <div className="space-y-2">
-                  <label className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+                  <label htmlFor="contractorsm-nif" className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
                     <FaIcon name="fa-hashtag" className="text-3xs" /> NIF
                   </label>
-                  <input 
+                  <input id="contractorsm-nif" 
                     type="text" 
                     value={newContractor.nif} 
                     onChange={e => setNewContractor({...newContractor, nif: e.target.value})} 
@@ -290,10 +290,10 @@ const ContractorsModule: React.FC = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
+                  <label htmlFor="contractorsm-contacto-direto" className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">
                     <FaIcon name="fa-phone" className="text-3xs" /> Contacto Direto
                   </label>
-                  <input 
+                  <input id="contractorsm-contacto-direto" 
                     type="text" 
                     value={newContractor.telefone} 
                     onChange={e => setNewContractor({...newContractor, telefone: e.target.value})} 
@@ -330,7 +330,7 @@ const ContractorsModule: React.FC = () => {
         <div className="bg-white rounded-panel shadow-2xl w-full max-w-4xl overflow-hidden animate-in zoom-in duration-300 my-auto flex flex-col">
           {/* Header */}
           <div className="p-8 border-b border-slate-100 bg-slate-50/30 text-center relative">
-            <button 
+            <button aria-label="Fechar" 
               onClick={() => setShowInductionModal(false)}
               className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-400 hover:text-red-500 transition-colors w-10 h-10 flex items-center justify-center rounded-full hover:bg-red-50"
             >
@@ -355,8 +355,8 @@ const ContractorsModule: React.FC = () => {
             {/* Form Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
               <div className="space-y-2">
-                <label className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">Nome do Trabalhador</label>
-                <input 
+                <label htmlFor="contractorsm-nome-do-trabalhador" className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">Nome do Trabalhador</label>
+                <input id="contractorsm-nome-do-trabalhador" 
                   type="text" 
                   value={activeContractor.nome}
                   readOnly
@@ -364,16 +364,16 @@ const ContractorsModule: React.FC = () => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">Data da Formação</label>
-                <input 
+                <label htmlFor="contractorsm-data-da-formacao" className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">Data da Formação</label>
+                <input id="contractorsm-data-da-formacao" 
                   type="date" 
                   defaultValue={new Date().toISOString().split('T')[0]}
                   className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-2xl px-5 py-4 text-sm transition outline-none shadow-sm"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">Companhia / Empresa</label>
-                <input 
+                <label htmlFor="contractorsm-companhia-empresa" className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">Companhia / Empresa</label>
+                <input id="contractorsm-companhia-empresa" 
                   type="text" 
                   value={activeContractor.empresa}
                   readOnly
@@ -381,8 +381,8 @@ const ContractorsModule: React.FC = () => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">Nome do Instrutor</label>
-                <input 
+                <label htmlFor="contractorsm-nome-do-instrutor" className="text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">Nome do Instrutor</label>
+                <input id="contractorsm-nome-do-instrutor" 
                   type="text" 
                   placeholder="Responsável pela formação"
                   className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-2xl px-5 py-4 text-sm transition outline-none shadow-sm"

@@ -210,14 +210,14 @@ const ProjectsModule: React.FC = () => {
                         >
                           Plano SST
                         </button>
-                        <button 
+                        <button aria-label="Editar projeto" 
                           onClick={() => handleAction(p.id, 'edit')}
                           className="w-9 h-9 flex items-center justify-center bg-white border border-slate-100 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 hover:border-emerald-100 rounded-xl transition"
                           title="Editar"
                         >
                           <FaIcon name="fa-edit" className="text-xs" />
                         </button>
-                        <button 
+                        <button aria-label="Documentos do projeto" 
                           onClick={() => handleAction(p.id, 'docs')}
                           className="w-9 h-9 flex items-center justify-center bg-white border border-slate-100 text-slate-400 hover:text-blue-500 hover:bg-blue-50 hover:border-blue-100 rounded-xl transition"
                           title="Documentos"
@@ -259,7 +259,7 @@ const ProjectsModule: React.FC = () => {
                   <p className="text-xs font-black tracking-tight text-emerald-400">Bronze Expert <span className="text-slate-500 font-normal">Lvl 2</span></p>
                 </div>
               </div>
-              <button 
+              <button aria-label="Minimizar" 
                 onClick={() => setIsSSTMinimized(true)}
                 className="text-slate-500 hover:text-white transition-colors p-1"
               >
@@ -316,7 +316,7 @@ const ProjectsModule: React.FC = () => {
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[200] grid place-items-center p-4 overflow-y-auto">
           <div className="bg-white rounded-panel shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in duration-300 my-auto">
             <div className="p-10 border-b border-slate-50 relative bg-slate-50/20 text-center">
-              <button 
+              <button aria-label="Fechar" 
                 onClick={() => setShowModal(false)} 
                 className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-900 transition-colors"
               >
@@ -329,10 +329,10 @@ const ProjectsModule: React.FC = () => {
             <form onSubmit={handleCreateProject} className="p-8 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-1.5">
-                  <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                  <label htmlFor="projectsmodu-designacao-da-obra" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                     <FaIcon name="fa-tag" className="mr-2 text-slate-300" /> Designação da Obra
                   </label>
-                  <input 
+                  <input id="projectsmodu-designacao-da-obra" 
                     required 
                     className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition font-display" 
                     placeholder="Ex: Central Termoelétrica - Fase 2" 
@@ -341,10 +341,10 @@ const ProjectsModule: React.FC = () => {
                   />
                 </div>
                 <div className="space-y-1.5 font-display">
-                  <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                  <label htmlFor="projectsmodu-tipo-de-intervencao" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                     <FaIcon name="fa-hard-hat" className="mr-2 text-slate-300" /> Tipo de Intervenção
                   </label>
-                  <select 
+                  <select id="projectsmodu-tipo-de-intervencao" 
                     className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition appearance-none"
                     value={formData.type}
                     onChange={(e) => setFormData({...formData, type: e.target.value})}
@@ -358,11 +358,11 @@ const ProjectsModule: React.FC = () => {
               </div>
 
               <div className="space-y-1.5">
-                <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                <label htmlFor="projectsmodu-cliente-associado" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                   <FaIcon name="fa-building" className="mr-2 text-slate-300" /> Cliente Associado
                 </label>
                 <div className="relative">
-                  <select 
+                  <select id="projectsmodu-cliente-associado" 
                     required
                     className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition appearance-none pr-10"
                     value={formData.clientId}

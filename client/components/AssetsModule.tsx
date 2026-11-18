@@ -449,7 +449,7 @@ const AssetsModule: React.FC = () => {
     <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[200] grid place-items-center p-4 overflow-y-auto">
       <div className="bg-white rounded-panel shadow-2xl w-full max-w-5xl overflow-hidden animate-in zoom-in duration-300 my-auto flex flex-col">
         <div className="p-8 border-b border-slate-100 relative bg-slate-50/30 text-center">
-          <button 
+          <button aria-label="Fechar" 
             onClick={() => setShowWorkshopModal(false)}
             className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 hover:text-red-500 transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-red-50"
           >
@@ -555,7 +555,7 @@ const AssetsModule: React.FC = () => {
     <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[200] grid place-items-center p-4 overflow-y-auto">
       <div className="bg-white rounded-panel shadow-2xl w-full max-w-4xl overflow-hidden animate-in zoom-in duration-300 my-auto flex flex-col">
         <div className="p-6 border-b border-slate-100 relative bg-slate-50/30 text-center">
-          <button 
+          <button aria-label="Fechar" 
             onClick={() => setShowAddModal(false)}
             className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 hover:text-red-500 transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-red-50"
           >
@@ -573,8 +573,8 @@ const AssetsModule: React.FC = () => {
             </div>
             
             <div className="space-y-2">
-              <label className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Designação</label>
-              <input
+              <label htmlFor="assetsmodule-designacao" className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Designação</label>
+              <input id="assetsmodule-designacao"
                 type="text"
                 required
                 placeholder="Ex: Paquímetro Digital"
@@ -585,8 +585,8 @@ const AssetsModule: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Marca</label>
-              <input
+              <label htmlFor="assetsmodule-marca" className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Marca</label>
+              <input id="assetsmodule-marca"
                 type="text"
                 required
                 placeholder="Ex: Mitutoyo"
@@ -597,8 +597,8 @@ const AssetsModule: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Modelo</label>
-              <input
+              <label htmlFor="assetsmodule-modelo" className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Modelo</label>
+              <input id="assetsmodule-modelo"
                 type="text"
                 required
                 placeholder="Ex: 500-196-30"
@@ -609,8 +609,8 @@ const AssetsModule: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">N.º Série / Chassis</label>
-              <input
+              <label htmlFor="assetsmodule-n-o-serie-chassis" className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">N.º Série / Chassis</label>
+              <input id="assetsmodule-n-o-serie-chassis"
                 type="text"
                 required
                 placeholder="Identificador único"
@@ -621,8 +621,8 @@ const AssetsModule: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Quantidade</label>
-              <input
+              <label htmlFor="assetsmodule-quantidade" className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Quantidade</label>
+              <input id="assetsmodule-quantidade"
                 type="number"
                 className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-xl px-4 py-3 text-sm transition outline-none"
                 value={newAsset.quantidade}
@@ -631,8 +631,8 @@ const AssetsModule: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Categoria</label>
-              <select
+              <label htmlFor="assetsmodule-categoria" className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Categoria</label>
+              <select id="assetsmodule-categoria"
                 className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-xl px-4 py-3 text-sm transition outline-none appearance-none"
                 value={newAsset.categoria}
                 onChange={(e) => setNewAsset({ ...newAsset, categoria: e.target.value as Asset['categoria'] })}
@@ -650,8 +650,8 @@ const AssetsModule: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Ref. Interna</label>
-              <input
+              <label htmlFor="assetsmodule-ref-interna" className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Ref. Interna</label>
+              <input id="assetsmodule-ref-interna"
                 type="text"
                 placeholder="Código de inventário"
                 className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-xl px-4 py-3 text-sm transition outline-none"
@@ -661,8 +661,8 @@ const AssetsModule: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Gama / Range</label>
-              <input
+              <label htmlFor="assetsmodule-gama-range" className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Gama / Range</label>
+              <input id="assetsmodule-gama-range"
                 type="text"
                 placeholder="Ex: 0-150mm"
                 className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-xl px-4 py-3 text-sm transition outline-none"
@@ -672,8 +672,8 @@ const AssetsModule: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Entidade Calibradora</label>
-              <input
+              <label htmlFor="assetsmodule-entidade-calibradora" className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Entidade Calibradora</label>
+              <input id="assetsmodule-entidade-calibradora"
                 type="text"
                 placeholder="Laboratório / Empresa"
                 className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-xl px-4 py-3 text-sm transition outline-none"
@@ -683,8 +683,8 @@ const AssetsModule: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">N.º Certificado</label>
-              <input
+              <label htmlFor="assetsmodule-n-o-certificado" className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">N.º Certificado</label>
+              <input id="assetsmodule-n-o-certificado"
                 type="text"
                 placeholder="Certificado de calibração"
                 className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-xl px-4 py-3 text-sm transition outline-none"
@@ -694,8 +694,8 @@ const AssetsModule: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Data Calibração</label>
-              <input
+              <label htmlFor="assetsmodule-data-calibracao" className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Data Calibração</label>
+              <input id="assetsmodule-data-calibracao"
                 type="date"
                 className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-xl px-4 py-3 text-sm transition outline-none"
                 value={newAsset.dataCalibracao}
@@ -704,8 +704,8 @@ const AssetsModule: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Validade</label>
-              <input
+              <label htmlFor="assetsmodule-validade" className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Validade</label>
+              <input id="assetsmodule-validade"
                 type="text"
                 placeholder="Ex: 12 meses"
                 className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-xl px-4 py-3 text-sm transition outline-none"
@@ -720,8 +720,8 @@ const AssetsModule: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Localização</label>
-              <select
+              <label htmlFor="assetsmodule-localizacao" className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Localização</label>
+              <select id="assetsmodule-localizacao"
                 className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-xl px-4 py-3 text-sm transition outline-none appearance-none"
                 value={newAsset.localizacao}
                 onChange={(e) => setNewAsset({ ...newAsset, localizacao: e.target.value })}
@@ -734,8 +734,8 @@ const AssetsModule: React.FC = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Próxima Revisão / Calibração</label>
-              <input
+              <label htmlFor="assetsmodule-proxima-revisao-calibracao" className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Próxima Revisão / Calibração</label>
+              <input id="assetsmodule-proxima-revisao-calibracao"
                 type="date"
                 className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-xl px-4 py-3 text-sm transition outline-none"
                 value={newAsset.dataProximaRevisao}
@@ -744,8 +744,8 @@ const AssetsModule: React.FC = () => {
             </div>
 
             <div className="md:col-span-3 space-y-2">
-              <label className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Observações</label>
-              <textarea
+              <label htmlFor="assetsmodule-observacoes" className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Observações</label>
+              <textarea id="assetsmodule-observacoes"
                 rows={2}
                 placeholder="Notas técnicas adicionais..."
                 className="w-full bg-slate-50 border-transparent focus:bg-white focus:border-blue-500 rounded-xl px-4 py-3 text-sm transition outline-none resize-none"
@@ -779,7 +779,7 @@ const AssetsModule: React.FC = () => {
     <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[210] grid place-items-center p-4 overflow-y-auto">
       <div className="bg-white rounded-panel shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in duration-300 my-auto flex flex-col">
         <div className="p-6 border-b border-slate-100 relative bg-slate-50/30 text-center">
-          <button 
+          <button aria-label="Fechar" 
             onClick={() => setShowChecklistModal(false)}
             className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-900 transition-colors"
           >
@@ -806,10 +806,10 @@ const AssetsModule: React.FC = () => {
               <div key={idx} className="flex items-center justify-between p-4 bg-slate-50/50 border border-slate-100/50 rounded-2xl hover:bg-white hover:border-emerald-200 hover:shadow-md transition group">
                 <span className="text-2xs font-bold text-slate-700">{q}</span>
                 <div className="flex gap-2">
-                  <button className="w-9 h-9 rounded-xl border border-slate-200 bg-white text-slate-300 flex items-center justify-center hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition text-xs shadow-sm">
+                  <button aria-label="Conforme" className="w-9 h-9 rounded-xl border border-slate-200 bg-white text-slate-300 flex items-center justify-center hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition text-xs shadow-sm">
                     <FaIcon name="fa-check" />
                   </button>
-                  <button className="w-9 h-9 rounded-xl border border-slate-200 bg-white text-slate-300 flex items-center justify-center hover:bg-red-500 hover:text-white hover:border-red-500 transition text-xs shadow-sm">
+                  <button aria-label="Não conforme" className="w-9 h-9 rounded-xl border border-slate-200 bg-white text-slate-300 flex items-center justify-center hover:bg-red-500 hover:text-white hover:border-red-500 transition text-xs shadow-sm">
                     <FaIcon name="fa-xmark" />
                   </button>
                 </div>

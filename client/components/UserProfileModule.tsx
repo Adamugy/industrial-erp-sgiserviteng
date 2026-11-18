@@ -101,8 +101,8 @@ const UserProfileModule: React.FC = () => {
             <form onSubmit={handleSave} className="p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
-                  <label className="block text-2xs font-black text-slate-400 uppercase mb-2 tracking-widest">Nome Completo</label>
-                  <input 
+                  <label htmlFor="userprofilem-nome-completo" className="block text-2xs font-black text-slate-400 uppercase mb-2 tracking-widest">Nome Completo</label>
+                  <input id="userprofilem-nome-completo" 
                     type="text" 
                     readOnly={!isEditing}
                     value={profileData.fullName}
@@ -113,8 +113,8 @@ const UserProfileModule: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-2xs font-black text-slate-400 uppercase mb-2 tracking-widest">Nome de Utilizador</label>
-                  <input 
+                  <label htmlFor="userprofilem-nome-de-utilizador" className="block text-2xs font-black text-slate-400 uppercase mb-2 tracking-widest">Nome de Utilizador</label>
+                  <input id="userprofilem-nome-de-utilizador" 
                     type="text" 
                     readOnly={!isEditing}
                     value={profileData.username}
@@ -125,8 +125,8 @@ const UserProfileModule: React.FC = () => {
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-2xs font-black text-slate-400 uppercase mb-2 tracking-widest">Email Corporativo</label>
-                  <input 
+                  <label htmlFor="userprofilem-email-corporativo" className="block text-2xs font-black text-slate-400 uppercase mb-2 tracking-widest">Email Corporativo</label>
+                  <input id="userprofilem-email-corporativo" 
                     type="email" 
                     readOnly={!isEditing}
                     value={profileData.email}
@@ -137,11 +137,11 @@ const UserProfileModule: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-2xs font-black text-slate-400 uppercase mb-2 tracking-widest">Departamento</label>
+                  <p className="block text-2xs font-black text-slate-400 uppercase mb-2 tracking-widest">Departamento</p>
                   <p className="px-5 py-4 text-sm font-bold text-slate-700 bg-slate-50 rounded-2xl border border-slate-100">{profileData.department}</p>
                 </div>
                 <div>
-                  <label className="block text-2xs font-black text-slate-400 uppercase mb-2 tracking-widest">Localização Padrão</label>
+                  <p className="block text-2xs font-black text-slate-400 uppercase mb-2 tracking-widest">Localização Padrão</p>
                   <p className="px-5 py-4 text-sm font-bold text-slate-700 bg-slate-50 rounded-2xl border border-slate-100">{profileData.location}</p>
                 </div>
               </div>

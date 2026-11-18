@@ -99,7 +99,7 @@ const SSTFormsPreOS: React.FC<SSTFormsProps> = ({ osId, onComplete, onCancel, in
 
   return (
     <div className="bg-white rounded-panel shadow-[0_30px_100px_-20px_rgba(0,0,0,0.3)] w-full max-w-4xl overflow-hidden flex flex-col md:flex-row h-[90vh] md:h-auto max-h-[90vh] animate-in zoom-in duration-500 relative">
-      <button 
+      <button aria-label="Cancelar" 
         onClick={handleCancel}
         className="absolute right-8 top-8 z-50 w-10 h-10 bg-slate-100 hover:bg-slate-200 text-slate-400 hover:text-slate-900 rounded-full flex items-center justify-center transition active:scale-95"
       >
@@ -204,10 +204,10 @@ const SSTFormsPreOS: React.FC<SSTFormsProps> = ({ osId, onComplete, onCancel, in
             </div>
 
             <div className="space-y-3">
-              <label className="flex items-center text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">
+              <label htmlFor="sstformspreo-medidas-adicionais" className="flex items-center text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">
                 <FaIcon name="fa-comment-medical" className="mr-2 text-emerald-500/50" /> Medidas Adicionais
               </label>
-              <textarea 
+              <textarea id="sstformspreo-medidas-adicionais" 
                 rows={3}
                 value={medidasControlo}
                 onChange={(e) => setMedidasControlo(e.target.value)}

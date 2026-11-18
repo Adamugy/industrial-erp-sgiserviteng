@@ -206,8 +206,8 @@ const SSTModule: React.FC = () => {
           </div>
 
           <div className="w-full md:w-auto">
-             <label className="text-3xs font-black text-slate-400 uppercase tracking-widest mb-2 block ml-1">Selecionar Obra para Registro</label>
-             <select 
+             <label htmlFor="sstmodule-selecionar-obra-para-registro" className="text-3xs font-black text-slate-400 uppercase tracking-widest mb-2 block ml-1">Selecionar Obra para Registro</label>
+             <select id="sstmodule-selecionar-obra-para-registro" 
                className="w-full md:w-80 bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-700 focus:outline-none focus:border-emerald-500 shadow-sm transition"
                value={selectedProject?.id || ''}
                onChange={(e) => setSelectedProject(projects.find(p => p.id === e.target.value) || null)}
@@ -410,7 +410,7 @@ const SSTModule: React.FC = () => {
               </h3>
               <p className="text-2xs text-slate-400 font-bold uppercase tracking-widest mt-1 italic">ISO 45001 • SEGURANÇA NO TRABALHO</p>
             </div>
-            <button 
+            <button aria-label="Fechar" 
               onClick={() => setShowReportModal(false)} 
               className="absolute right-8 top-1/2 -translate-y-1/2 w-10 h-10 bg-slate-100 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-full flex items-center justify-center transition"
             >
@@ -420,9 +420,9 @@ const SSTModule: React.FC = () => {
           <form onSubmit={handleReport} className="p-8 space-y-6">
             <div className="grid grid-cols-2 gap-5">
               <div className="space-y-2">
-                <label className="block text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Tipo de Registro</label>
+                <label htmlFor="sstmodule-tipo-de-registro" className="block text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Tipo de Registro</label>
                 <div className="relative">
-                  <select 
+                  <select id="sstmodule-tipo-de-registro" 
                     value={formData.tipo}
                     onChange={(e) => setFormData({...formData, tipo: e.target.value})}
                     className="w-full bg-slate-50/50 border border-slate-200 rounded-2xl px-5 py-4 text-xs font-bold focus:outline-none focus:border-slate-900 transition appearance-none text-slate-900 shadow-sm"
@@ -436,9 +436,9 @@ const SSTModule: React.FC = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="block text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Severidade (ISO)</label>
+                <label htmlFor="sstmodule-severidade-iso" className="block text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Severidade (ISO)</label>
                 <div className="relative">
-                  <select 
+                  <select id="sstmodule-severidade-iso" 
                     value={formData.severidade}
                     onChange={(e) => setFormData({...formData, severidade: e.target.value})}
                     className="w-full bg-slate-50/50 border border-slate-200 rounded-2xl px-5 py-4 text-xs font-bold focus:outline-none focus:border-slate-900 transition appearance-none text-slate-900 shadow-sm"
@@ -454,10 +454,10 @@ const SSTModule: React.FC = () => {
             </div>
             
             <div className="space-y-2">
-              <label className="block text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Local da Ocorrência</label>
+              <label htmlFor="sst-local-ocorrencia" className="block text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Local da Ocorrência</label>
               <div className="relative">
                 <FaIcon name="fa-location-arrow" className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 text-xs" />
-                <input 
+                <input id="sst-local-ocorrencia" 
                   type="text" 
                   value={formData.localOcorrencia}
                   onChange={(e) => setFormData({...formData, localOcorrencia: e.target.value})}
@@ -468,8 +468,8 @@ const SSTModule: React.FC = () => {
             </div>
             
             <div className="space-y-2">
-              <label className="block text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Relatórios / Descrição Detalhada</label>
-              <textarea 
+              <label htmlFor="sstmodule-relatorios-descricao-detalhada" className="block text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Relatórios / Descrição Detalhada</label>
+              <textarea id="sstmodule-relatorios-descricao-detalhada" 
                 required
                 rows={4}
                 value={formData.descricao}

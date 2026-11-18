@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import CRMModule from './components/CRMModule';
 import ProjectsModule from './components/ProjectsModule';
@@ -26,6 +26,7 @@ import NewOSModal from './components/modals/NewOSModal';
 
 const App: React.FC = () => {
   const { user, isLoading, isAuthenticated, logout } = useAuth();
+  const location = useLocation();
   const [isSidebarOpen, setSidebarOpen] = useState(window.innerWidth > 1024);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const [showSSTFlow, setShowSSTFlow] = useState(false);
@@ -69,8 +70,8 @@ const App: React.FC = () => {
     return (
       <div className="min-h-screen bg-slate-900 flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-400 font-bold tracking-tighter uppercase">SGI SERVITENG</p>
+          <div role="status" aria-label="A carregar…" className="w-12 h-12 border-[3px] border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-5"></div>
+          <p className="text-slate-400 text-xs font-bold tracking-widest uppercase" translate="no">SGI SERVITENG</p>
         </div>
       </div>
     );
@@ -81,7 +82,10 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="flex h-screen bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 overflow-hidden relative">
+    <div className="flex h-dvh bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 overflow-hidden relative">
+      <a href="#conteudo" onClick={(e) => { e.preventDefault(); document.getElementById('conteudo')?.focus(); }} className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:px-4 focus:py-2 focus:rounded-control focus:bg-slate-900 focus:text-white focus:text-xs focus:font-bold">
+        Saltar para o conteúdo
+      </a>
       <Sidebar 
         isOpen={isSidebarOpen} 
         setIsOpen={setSidebarOpen} 
@@ -99,7 +103,8 @@ const App: React.FC = () => {
           onNewOS={() => setShowNewOSModal(true)}
         />
 
-        <main className="flex-1 overflow-y-auto p-4 lg:p-8 custom-scrollbar relative z-10 transition duration-300">
+        <main id="conteudo" tabIndex={-1} className="flex-1 overflow-y-auto overscroll-contain px-4 py-5 sm:px-6 lg:p-8 custom-scrollbar relative z-10 focus:outline-none">
+          <div key={location.pathname} className="mx-auto w-full max-w-[1600px] animate-rise-in">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/crm" element={<RoleGuard roles={['ADMIN', 'MANAGER']}><CRMModule /></RoleGuard>} />
@@ -114,6 +119,7 @@ const App: React.FC = () => {
             <Route path="/reports" element={<RoleGuard roles={['ADMIN', 'SAFETY']}><ReportsModule /></RoleGuard>} />
             <Route path="/profile" element={<UserProfileModule />} />
           </Routes>
+          </div>
         </main>
       </div>
 

@@ -43,7 +43,7 @@ export default {
         },
       },
       animation: {
-        'rise-in': 'rise-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both',
+        'rise-in': 'rise-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) backwards',
         'fade-in': 'fade-in 0.2s ease-out both',
         'scale-in': 'scale-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both',
       },

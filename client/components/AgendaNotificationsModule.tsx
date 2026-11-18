@@ -175,7 +175,7 @@ const AgendaNotificationsModule: React.FC = () => {
           {/* Calendar Header with Navigation */}
           <div className="flex items-center justify-between mb-8">
             <div className="flex items-center gap-4">
-              <button 
+              <button aria-label="Mês anterior" 
                 onClick={prevMonth}
                 className="w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors"
               >
@@ -184,7 +184,7 @@ const AgendaNotificationsModule: React.FC = () => {
               <h3 className="font-black text-slate-800 uppercase text-sm tracking-widest min-w-[180px] text-center">
                 {monthNames[month]} {year}
               </h3>
-              <button 
+              <button aria-label="Mês seguinte" 
                 onClick={nextMonth}
                 className="w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors"
               >

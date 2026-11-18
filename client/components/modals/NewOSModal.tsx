@@ -29,7 +29,7 @@ const NewOSModal: React.FC<NewOSModalProps> = ({ onClose, onSubmit }) => {
             </div>
             <h3 className="font-black text-slate-800 dark:text-white uppercase tracking-tight text-xs">Abertura de OS Industrial</h3>
           </div>
-          <button onClick={onClose} className="text-slate-400 hover:text-red-500 p-2 transition-colors">
+          <button aria-label="Fechar" onClick={onClose} className="text-slate-400 hover:text-red-500 p-2 transition-colors">
             <X size={20} />
           </button>
         </div>
@@ -37,8 +37,8 @@ const NewOSModal: React.FC<NewOSModalProps> = ({ onClose, onSubmit }) => {
         <form onSubmit={handleSubmit} className="p-8 space-y-6">
           <div className="space-y-4">
             <div>
-              <label className="block text-2xs font-black text-slate-400 dark:text-slate-500 uppercase mb-2 tracking-widest lg:text-left">Designação da Tarefa</label>
-              <input 
+              <label htmlFor="newosmodal-designacao-da-tarefa" className="block text-2xs font-black text-slate-400 dark:text-slate-500 uppercase mb-2 tracking-widest lg:text-left">Designação da Tarefa</label>
+              <input id="newosmodal-designacao-da-tarefa" 
                 required 
                 type="text" 
                 name="descricao"
@@ -49,8 +49,8 @@ const NewOSModal: React.FC<NewOSModalProps> = ({ onClose, onSubmit }) => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-2xs font-black text-slate-400 dark:text-slate-500 uppercase mb-2 tracking-widest lg:text-left">Local / Instalação</label>
-                <input 
+                <label htmlFor="newosmodal-local-instalacao" className="block text-2xs font-black text-slate-400 dark:text-slate-500 uppercase mb-2 tracking-widest lg:text-left">Local / Instalação</label>
+                <input id="newosmodal-local-instalacao" 
                   type="text" 
                   name="local"
                   className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-5 py-3 text-sm font-bold text-slate-700 dark:text-white focus:border-indigo-500 dark:focus:border-indigo-400 outline-none transition shadow-inner" 
@@ -58,8 +58,8 @@ const NewOSModal: React.FC<NewOSModalProps> = ({ onClose, onSubmit }) => {
                 />
               </div>
               <div>
-                <label className="block text-2xs font-black text-slate-400 dark:text-slate-500 uppercase mb-2 tracking-widest lg:text-left">Data de Abertura</label>
-                <input 
+                <label htmlFor="newosmodal-data-de-abertura" className="block text-2xs font-black text-slate-400 dark:text-slate-500 uppercase mb-2 tracking-widest lg:text-left">Data de Abertura</label>
+                <input id="newosmodal-data-de-abertura" 
                   type="date" 
                   name="dataAbertura"
                   defaultValue={new Date().toISOString().split('T')[0]}

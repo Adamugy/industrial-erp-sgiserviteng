@@ -251,7 +251,7 @@ const TeamsModule: React.FC = () => {
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[200] grid place-items-center p-4 overflow-y-auto">
           <div className="bg-white rounded-panel shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in duration-300 my-auto">
             <div className="p-10 border-b border-slate-50 relative bg-slate-50/20 text-center">
-              <button onClick={() => setShowDailyReportModal(false)} className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-900 transition-colors">
+              <button aria-label="Fechar" onClick={() => setShowDailyReportModal(false)} className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-900 transition-colors">
                 <FaIcon name="fa-times" className="text-sm" />
               </button>
               <h3 className="font-bold text-slate-900 tracking-tight text-xl font-display">Relatório Diário</h3>
@@ -284,10 +284,10 @@ const TeamsModule: React.FC = () => {
               }
             }}>
               <div className="space-y-2">
-                <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                <label htmlFor="teamsmodule-ordem-de-servico-os" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                   <FaIcon name="fa-clipboard-list" className="mr-2 text-slate-300" /> Ordem de Serviço (OS)
                 </label>
-                <select 
+                <select id="teamsmodule-ordem-de-servico-os" 
                   required
                   value={reportData.workOrderId}
                   onChange={(e) => setReportData({...reportData, workOrderId: e.target.value})}
@@ -301,10 +301,10 @@ const TeamsModule: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                <label htmlFor="teamsmodule-horas-padrao-por-membro" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                   <FaIcon name="fa-clock" className="mr-2 text-slate-300" /> Horas Padrão (Por Membro)
                 </label>
-                <input 
+                <input id="teamsmodule-horas-padrao-por-membro" 
                   type="number"
                   step="0.5"
                   value={reportData.hours}
@@ -314,10 +314,10 @@ const TeamsModule: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                <label htmlFor="teamsmodule-descricao-dos-trabalhos" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                   <FaIcon name="fa-pen-nib" className="mr-2 text-slate-300" /> Descrição dos Trabalhos
                 </label>
-                <textarea 
+                <textarea id="teamsmodule-descricao-dos-trabalhos" 
                   required
                   value={reportData.descricao}
                   onChange={(e) => setReportData({...reportData, descricao: e.target.value})}
@@ -347,7 +347,7 @@ const TeamsModule: React.FC = () => {
                 <h3 className="font-bold text-slate-900 tracking-tight text-xl font-display">Gerir Equipa</h3>
                 <p className="text-2xs text-slate-400 font-bold uppercase tracking-widest mt-1">Alocação de Membros: {activeTeam.nome}</p>
               </div>
-              <button onClick={() => setShowManageMembersModal(false)} className="text-slate-300 hover:text-slate-900 transition-colors">
+              <button aria-label="Fechar" onClick={() => setShowManageMembersModal(false)} className="text-slate-300 hover:text-slate-900 transition-colors">
                 <FaIcon name="fa-times" className="text-sm" />
               </button>
             </div>
@@ -420,7 +420,7 @@ const TeamsModule: React.FC = () => {
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[200] grid place-items-center p-4 overflow-y-auto">
           <div className="bg-white rounded-panel shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in duration-300 my-auto">
             <div className="p-10 border-b border-slate-50 relative bg-slate-50/20 text-center">
-              <button 
+              <button aria-label="Fechar" 
                 onClick={() => setShowAddModal(false)} 
                 className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-900 transition-colors"
               >
@@ -432,10 +432,10 @@ const TeamsModule: React.FC = () => {
             
             <form onSubmit={handleCreateTeam} className="p-10 space-y-6">
               <div className="space-y-2">
-                <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                <label htmlFor="teamsmodule-nome-da-equipa" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                   <FaIcon name="fa-tag" className="mr-2 text-slate-300" /> Nome da Equipa
                 </label>
-                <input 
+                <input id="teamsmodule-nome-da-equipa" 
                   required
                   type="text" 
                   value={newTeam.nome}
@@ -447,11 +447,11 @@ const TeamsModule: React.FC = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                  <label htmlFor="teamsmodule-lider-da-equipa" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                     <FaIcon name="fa-crown" className="mr-2 text-slate-300" /> Líder da Equipa
                   </label>
                   <div className="relative">
-                    <select 
+                    <select id="teamsmodule-lider-da-equipa" 
                       value={newTeam.leaderId}
                       onChange={(e) => setNewTeam({...newTeam, leaderId: e.target.value})}
                       className="w-full bg-slate-50 border border-slate-100 rounded-panel px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition appearance-none pr-10 font-display"
@@ -468,11 +468,11 @@ const TeamsModule: React.FC = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                  <label htmlFor="teamsmodule-especialidade" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                     <FaIcon name="fa-microchip" className="mr-2 text-slate-300" /> Especialidade
                   </label>
                   <div className="relative">
-                    <select 
+                    <select id="teamsmodule-especialidade" 
                       value={newTeam.especialidadePrincipal}
                       onChange={(e) => setNewTeam({...newTeam, especialidadePrincipal: e.target.value})}
                       className="w-full bg-slate-50 border border-slate-100 rounded-panel px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition appearance-none pr-10 font-display"
