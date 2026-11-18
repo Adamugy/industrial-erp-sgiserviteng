@@ -21,7 +21,7 @@ const ProjectsModule: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [clients, setClients] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isSSTMinimized, setIsSSTMinimized] = useState(false);
+  const [isSSTMinimized, setIsSSTMinimized] = useState(() => typeof window !== 'undefined' && window.innerWidth < 640);
   const [sstProgress, setSstProgress] = useState(65); // Mock progress for gamification
 
   const [formData, setFormData] = useState({
@@ -120,8 +120,8 @@ const ProjectsModule: React.FC = () => {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
-          <p className="text-slate-400 text-sm">A carregar projetos...</p>
+          <div role="status" className="w-8 h-8 border-[3px] border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+          <p className="text-slate-500 text-sm">A carregar projetos…</p>
         </div>
       </div>
     );
@@ -129,43 +129,46 @@ const ProjectsModule: React.FC = () => {
 
   return (
     <>
-      <div className="space-y-6 animate-in slide-in-from-bottom-2 duration-500">
+      <div className="space-y-6 stagger">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800 tracking-tight">Projetos & Obras</h2>
-          <p className="text-slate-500 text-xs italic font-medium">Sincronizado com backend em tempo real.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">Projetos & Obras</h1>
+          <p className="text-slate-500 text-sm mt-1">Sincronizado com backend em tempo real.</p>
         </div>
-        <div className="flex space-x-2">
+        <div className="flex gap-2">
           <button 
+            type="button"
+            aria-label="Exportar"
             onClick={() => alert("Gerando MS Project Sync...")}
-            className="flex-1 sm:flex-none bg-white border border-slate-200 text-slate-600 px-4 py-2.5 rounded-xl text-2xs font-black uppercase tracking-widest flex items-center justify-center hover:bg-slate-50 transition-colors"
+            className="flex-1 sm:flex-none h-11 bg-white border border-slate-200 text-slate-600 px-4 rounded-control text-2xs font-black uppercase tracking-widest flex items-center justify-center hover:bg-slate-50 hover:border-slate-300 active:bg-slate-100 transition-colors"
           >
             <FaIcon name="fa-file-export" className="lg:mr-2 text-blue-500" /> <span className="hidden lg:inline">Exportar</span>
           </button>
           <button 
             onClick={() => setShowModal(true)}
-            className="flex-[2] sm:flex-none bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-2xs font-black uppercase tracking-widest hover:bg-emerald-600 shadow-lg transition"
+            type="button"
+            className="flex-[2] sm:flex-none h-11 inline-flex items-center justify-center bg-emerald-500 text-white px-5 rounded-control text-2xs font-black uppercase tracking-widest hover:bg-emerald-600 active:scale-[0.98] shadow-lg shadow-emerald-500/20 transition"
           >
             <FaIcon name="fa-plus" className="mr-2" /> Novo Projeto
           </button>
         </div>
       </div>
 
-      <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
-        <div className="overflow-x-auto custom-scrollbar">
-          <table className="w-full text-left">
+      <div className="bg-white border border-slate-200/80 rounded-panel overflow-hidden shadow-card">
+        <div className="overflow-x-auto custom-scrollbar" tabIndex={0} role="region" aria-label="Lista de projetos">
+          <table className="w-full min-w-[720px] text-left">
             <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase text-2xs font-black tracking-wider">
               <tr>
-                <th className="px-6 py-5">Projeto / Cliente</th>
-                <th className="px-6 py-5 text-center">Progresso</th>
-                <th className="px-6 py-5 text-right">Ações</th>
+                <th scope="col" className="px-6 py-4">Projeto / Cliente</th>
+                <th scope="col" className="px-6 py-4 text-center">Progresso</th>
+                <th scope="col" className="px-6 py-4 text-right">Ações</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {projects.length === 0 ? (
                 <tr>
-                  <td colSpan={3} className="px-6 py-8 text-center text-slate-400">
-                    <FaIcon name="fa-folder-open" className="text-3xl mb-2" />
+                  <td colSpan={3} className="px-6 py-16 text-center text-slate-400">
+                    <FaIcon name="fa-folder-open" className="text-3xl mb-3 opacity-60" />
                     <p>Nenhum projeto encontrado</p>
                   </td>
                 </tr>
@@ -196,17 +199,17 @@ const ProjectsModule: React.FC = () => {
                     </td>
                     <td className="px-6 py-6">
                       <div className="flex items-center space-x-3 max-w-[200px] mx-auto">
-                        <div className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden shadow-inner">
+                        <div role="progressbar" aria-label={`Progresso de ${p.codigoObra}`} aria-valuenow={p.percentualProgresso} aria-valuemin={0} aria-valuemax={100} className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden shadow-inner">
                           <div className={`h-full transition-[width] duration-1000 ${p.percentualProgresso === 100 ? 'bg-emerald-500' : 'bg-blue-500'}`} style={{ width: `${p.percentualProgresso}%` }}></div>
                         </div>
-                        <span className="text-2xs font-black text-slate-700 w-8 text-right">{p.percentualProgresso}%</span>
+                        <span className="text-2xs font-black text-slate-700 w-9 text-right tabular-nums">{p.percentualProgresso}%</span>
                       </div>
                     </td>
                     <td className="px-6 py-6 text-right">
                       <div className="flex justify-end items-center gap-2">
                         <button 
                           onClick={() => handleAction(p.id, 'gerir-os')}
-                          className="px-4 py-2 bg-slate-900 text-white text-3xs font-black uppercase rounded-xl hover:bg-slate-800 transition shadow-md shadow-slate-100 active:scale-95"
+                          className="h-9 px-4 bg-slate-900 text-white text-3xs font-black uppercase tracking-wide rounded-control hover:bg-slate-800 transition shadow-md shadow-slate-100 active:scale-95"
                         >
                           Plano SST
                         </button>
@@ -237,9 +240,12 @@ const ProjectsModule: React.FC = () => {
       </div>
 
       {/* Floating SST Reminder Widget (Gamified & Minimizable) */}
-      <div className={`fixed bottom-8 right-8 z-[100] transition duration-500 transform ${isSSTMinimized ? 'translate-y-0' : 'translate-y-0'}`}>
+      <div className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-[60]">
         {isSSTMinimized ? (
           <button 
+            type="button"
+            aria-label="Nível de Segurança"
+            aria-expanded={false}
             onClick={() => setIsSSTMinimized(false)}
             className="w-14 h-14 bg-slate-900 border border-white/20 rounded-2xl flex items-center justify-center text-white shadow-2xl hover:scale-110 active:scale-95 transition animate-pulse relative"
           >
@@ -247,7 +253,7 @@ const ProjectsModule: React.FC = () => {
             <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white animate-ping"></div>
           </button>
         ) : (
-          <div className="bg-slate-900 text-white w-72 rounded-panel shadow-2xl border border-white/10 overflow-hidden animate-in slide-in-from-right-4 duration-500">
+          <div className="bg-slate-900 text-white w-[min(18rem,calc(100vw-2rem))] rounded-panel shadow-overlay border border-white/10 overflow-hidden animate-scale-in origin-bottom-right">
             {/* Header / Gamification Badge */}
             <div className="p-6 pb-2 flex justify-between items-start">
               <div className="flex items-center space-x-3">
