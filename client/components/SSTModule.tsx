@@ -137,8 +137,8 @@ const SSTModule: React.FC = () => {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
-          <p className="text-slate-400 text-sm">A carregar dados de SST...</p>
+          <div className="w-8 h-8 border-[3px] border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+          <p className="text-slate-500 text-sm">A carregar dados de SST…</p>
         </div>
       </div>
     );
@@ -146,17 +146,17 @@ const SSTModule: React.FC = () => {
 
   return (
   <>
-    <div className="space-y-6 animate-in fade-in duration-500">
+    <div className="space-y-6 stagger">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800 tracking-tight">Qualidade, Segurança e Saúde (SGI)</h2>
-          <p className="text-slate-500 text-sm font-medium italic">Controlo ISO 9001 e ISO 45001 • Gestão Documental Normativa.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">Qualidade, Segurança e Saúde (SGI)</h1>
+          <p className="text-slate-500 text-sm mt-1">Controlo ISO 9001 e ISO 45001 • Gestão Documental Normativa.</p>
         </div>
         <div className="flex gap-2 w-full sm:w-auto">
           <button 
             onClick={() => { setFormData({...formData, tipo: 'NC'}); setShowReportModal(true); }}
-            className="flex-1 sm:flex-none bg-slate-100 text-slate-900 border border-slate-200 px-5 py-2.5 rounded-xl text-2xs font-black uppercase tracking-widest hover:bg-white shadow-sm transition flex items-center justify-center"
+            className="flex-1 sm:flex-none bg-slate-100 text-slate-900 border border-slate-200 px-5 py-2.5 rounded-xl text-2xs font-black uppercase tracking-widest hover:bg-white shadow-card transition flex items-center justify-center"
           >
             <FaIcon name="fa-clipboard-check" className="mr-2 text-slate-400" /> Reportar NC
           </button>
@@ -170,31 +170,31 @@ const SSTModule: React.FC = () => {
       </div>
 
       {/* Top Stats */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div className="bg-white border border-slate-200/80 p-4 sm:p-5 rounded-card shadow-card hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo">
           <p className="text-2xs font-black text-slate-400 uppercase tracking-widest mb-1">Dias sem Acidentes</p>
           <div className="flex items-center gap-3">
-             <h4 className="text-2xl font-bold text-emerald-600">428</h4>
+             <p className="font-display text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-emerald-600">428</p>
              <span className="text-3xs font-black bg-emerald-50 text-emerald-500 px-2 py-0.5 rounded-lg border border-emerald-100">RECORDE</span>
           </div>
         </div>
-        <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
+        <div className="bg-white border border-slate-200/80 p-4 sm:p-5 rounded-card shadow-card hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo">
           <p className="text-2xs font-black text-slate-400 uppercase tracking-widest mb-1">NCs Pendentes</p>
-          <h4 className="text-2xl font-bold text-amber-600">{incidents.filter(i => i.status !== 'FECHADO').length}</h4>
+          <p className="font-display text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-amber-600">{incidents.filter(i => i.status !== 'FECHADO').length}</p>
         </div>
-        <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
+        <div className="bg-white border border-slate-200/80 p-4 sm:p-5 rounded-card shadow-card hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo">
           <p className="text-2xs font-black text-slate-400 uppercase tracking-widest mb-1">Auditorias Mês</p>
-          <h4 className="text-2xl font-bold text-slate-800">12</h4>
+          <p className="font-display text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-slate-800">12</p>
         </div>
-        <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
+        <div className="bg-white border border-slate-200/80 p-4 sm:p-5 rounded-card shadow-card hover:shadow-raised hover:-translate-y-0.5 transition duration-300 ease-out-expo">
           <p className="text-2xs font-black text-slate-400 uppercase tracking-widest mb-1">Conformidade ISO</p>
-          <h4 className="text-2xl font-bold text-blue-600">98.2%</h4>
+          <p className="font-display text-2xl sm:text-3xl font-bold tabular-nums tracking-tight text-blue-600">98.2%</p>
         </div>
       </div>
 
       {/* Digital Form Hub - Requested By User */}
-      <div className="bg-white border border-slate-200 rounded-panel shadow-sm overflow-hidden flex flex-col">
-        <div className="p-8 border-b border-slate-100 bg-slate-50/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <div className="bg-white border border-slate-200 rounded-panel shadow-card overflow-hidden flex flex-col">
+        <div className="p-5 sm:p-6 lg:p-8 border-b border-slate-100 bg-slate-50/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div className="flex items-center gap-5">
             <div className="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center text-emerald-400 text-xl shadow-xl shadow-slate-200">
               <FaIcon name="fa-folder-tree" />
@@ -208,7 +208,7 @@ const SSTModule: React.FC = () => {
           <div className="w-full md:w-auto">
              <label htmlFor="sstmodule-selecionar-obra-para-registro" className="text-3xs font-black text-slate-400 uppercase tracking-widest mb-2 block ml-1">Selecionar Obra para Registro</label>
              <select id="sstmodule-selecionar-obra-para-registro" 
-               className="w-full md:w-80 bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-700 focus:outline-none focus:border-emerald-500 shadow-sm transition"
+               className="w-full md:w-80 bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-700 focus:outline-none focus:border-emerald-500 shadow-card transition"
                value={selectedProject?.id || ''}
                onChange={(e) => setSelectedProject(projects.find(p => p.id === e.target.value) || null)}
              >
@@ -222,7 +222,7 @@ const SSTModule: React.FC = () => {
           </div>
         </div>
 
-        <div className="p-8">
+        <div className="p-5 sm:p-6 lg:p-8">
           {!selectedProject ? (
             <div className="py-20 text-center border-2 border-dashed border-slate-100 rounded-3xl">
               <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto mb-4 text-slate-200">
@@ -237,7 +237,7 @@ const SSTModule: React.FC = () => {
                  <button 
                    key={doc.code}
                    onClick={() => setShowSSTFlow(true)}
-                   className="flex flex-col items-center p-6 bg-slate-50/50 border border-slate-100 rounded-3xl hover:bg-white hover:border-emerald-500 hover:shadow-xl transition group relative border-b-4 hover:border-b-emerald-500"
+                   className="flex flex-col items-center p-6 bg-slate-50/50 border border-slate-100 rounded-3xl hover:bg-white hover:border-emerald-500 hover:shadow-raised transition group relative border-b-4 hover:border-b-emerald-500"
                  >
                    <div className={`w-12 h-12 ${doc.color} text-white rounded-2xl flex items-center justify-center text-xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-500`}>
                      <FaIcon name={doc.icon} />
@@ -259,7 +259,7 @@ const SSTModule: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white p-8 rounded-panel border border-slate-200 shadow-sm overflow-hidden">
+          <div className="bg-white p-5 sm:p-6 lg:p-8 rounded-panel border border-slate-200 shadow-card overflow-hidden">
             <div className="flex justify-between items-center mb-8">
               <h3 className="font-black text-slate-800 uppercase text-xs tracking-widest flex items-center">
                 <FaIcon name="fa-list-check" className="mr-3 text-red-500" /> Gestão de Ocorrências e NCs
@@ -273,7 +273,7 @@ const SSTModule: React.FC = () => {
             <div className="grid grid-cols-1 gap-4">
               {incidents.length === 0 ? (
                 <div className="py-20 text-center bg-slate-50 border border-dashed border-slate-200 rounded-3xl">
-                  <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 text-emerald-100 shadow-sm">
+                  <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 text-emerald-100 shadow-card">
                     <FaIcon name="fa-shield-check" className="text-3xl" />
                   </div>
                   <p className="text-slate-400 font-bold uppercase text-2xs tracking-widest italic">Conformidade Total Verificada</p>
@@ -309,7 +309,7 @@ const SSTModule: React.FC = () => {
                   </div>
                   
                   <div className="md:w-48 flex flex-col justify-between py-1">
-                    <div className="bg-white border border-slate-100 rounded-xl p-3 shadow-sm text-center">
+                    <div className="bg-white border border-slate-100 rounded-xl p-3 shadow-card text-center">
                       <p className="text-3xs font-black text-slate-400 uppercase tracking-widest mb-1">Estado Atual</p>
                       <span className={`text-3xs font-black uppercase inline-block w-full py-1.5 rounded-lg border ${
                         inc.status === 'FECHADO' 
@@ -335,7 +335,7 @@ const SSTModule: React.FC = () => {
         </div>
 
         <div className="space-y-6">
-          <div className="bg-slate-900 p-8 rounded-panel text-white relative overflow-hidden group shadow-2xl shadow-slate-200">
+          <div className="bg-slate-900 p-5 sm:p-6 lg:p-8 rounded-panel text-white relative overflow-hidden group shadow-2xl shadow-slate-200">
             <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/10 rounded-full -mr-24 -mt-24 blur-3xl group-hover:bg-emerald-500/20 transition duration-1000"></div>
             <div className="relative z-10 flex items-center gap-4 mb-8">
                <div className="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center text-xl shadow-xl shadow-emerald-500/20">
@@ -364,7 +364,7 @@ const SSTModule: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-panel border border-slate-200 shadow-sm overflow-hidden group">
+          <div className="bg-white p-5 sm:p-6 lg:p-8 rounded-panel border border-slate-200 shadow-card overflow-hidden group">
             <div className="flex items-center justify-between mb-6">
               <h4 className="text-2xs font-black text-slate-400 uppercase tracking-widest">Repositório ISO</h4>
               <FaIcon name="fa-shield-alt" className="text-blue-500 group-hover:rotate-12 transition-transform duration-500" />
@@ -403,7 +403,7 @@ const SSTModule: React.FC = () => {
     {showReportModal && (
       <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[200] grid place-items-center p-4 overflow-y-auto">
         <div className="bg-white rounded-panel shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in duration-300 my-auto">
-          <div className="p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/20 relative">
+          <div className="p-5 sm:p-6 lg:p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/20 relative">
             <div>
               <h3 className="font-bold text-slate-900 tracking-tight text-xl font-display">
                 {formData.tipo === 'NC' ? 'Reportar NC' : 'Reportar Incidente'}
@@ -417,7 +417,7 @@ const SSTModule: React.FC = () => {
               <FaIcon name="fa-times" className="text-sm" />
             </button>
           </div>
-          <form onSubmit={handleReport} className="p-8 space-y-6">
+          <form onSubmit={handleReport} className="p-5 sm:p-6 lg:p-8 space-y-6">
             <div className="grid grid-cols-2 gap-5">
               <div className="space-y-2">
                 <label htmlFor="sstmodule-tipo-de-registro" className="block text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Tipo de Registro</label>
@@ -462,7 +462,7 @@ const SSTModule: React.FC = () => {
                   value={formData.localOcorrencia}
                   onChange={(e) => setFormData({...formData, localOcorrencia: e.target.value})}
                   className="w-full bg-slate-50/50 border border-slate-200 rounded-2xl pl-12 pr-5 py-4 text-xs font-bold focus:outline-none focus:border-slate-900 transition shadow-sm"
-                  placeholder="Ex: Área de Produção, Estaleiro..."
+                  placeholder="Ex: Área de Produção, Estaleiro…"
                 />
               </div>
             </div>
@@ -475,7 +475,7 @@ const SSTModule: React.FC = () => {
                 value={formData.descricao}
                 onChange={(e) => setFormData({...formData, descricao: e.target.value})}
                 className="w-full bg-slate-50/50 border border-slate-200 rounded-2xl px-6 py-5 text-xs font-medium focus:outline-none focus:border-slate-900 transition resize-none shadow-sm placeholder:italic"
-                placeholder="Descreva detalhadamente o ocorrido e causas imediatas..."
+                placeholder="Descreva detalhadamente o ocorrido e causas imediatas…"
               />
             </div>
 
@@ -489,7 +489,7 @@ const SSTModule: React.FC = () => {
               </button>
               <button 
                 type="submit"
-                className="flex-[2] py-4 bg-slate-900 text-white rounded-2xl text-2xs font-black uppercase tracking-widest shadow-2xl shadow-slate-200 hover:bg-black transition active:scale-95"
+                className="flex-[2] h-11 bg-slate-900 text-white rounded-control text-2xs font-black uppercase tracking-widest shadow-2xl shadow-slate-200 hover:bg-black transition active:scale-[0.98] inline-flex items-center justify-center whitespace-nowrap"
               >
                 Validar e Enviar
               </button>
