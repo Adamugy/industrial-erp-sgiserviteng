@@ -129,8 +129,8 @@ const TeamsModule: React.FC = () => {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
-          <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
-          <p className="text-slate-400 text-sm">A carregar equipas...</p>
+          <div className="w-8 h-8 border-[3px] border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
+          <p className="text-slate-500 text-sm">A carregar equipas…</p>
         </div>
       </div>
     );
@@ -138,11 +138,11 @@ const TeamsModule: React.FC = () => {
 
   return (
     <>
-      <div className="space-y-6 animate-in slide-in-from-bottom-2 duration-500">
+      <div className="space-y-6 stagger">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-slate-800 tracking-tight">Gestão de Equipas</h2>
-            <p className="text-slate-500 text-xs italic font-medium">Alocação de capital humano e especialidades técnicas.</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">Gestão de Equipas</h1>
+            <p className="text-slate-500 text-sm mt-1">Alocação de capital humano e especialidades técnicas.</p>
           </div>
           <button 
             onClick={() => setShowAddModal(true)}
@@ -161,8 +161,8 @@ const TeamsModule: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {teams.map(team => (
-            <div key={team.id} className="bg-white border border-slate-100 rounded-panel overflow-hidden shadow-sm hover:shadow-xl hover:shadow-slate-100/50 transition duration-500 group">
-              <div className="p-8 bg-slate-50/50 border-b border-slate-100 flex justify-between items-start">
+            <div key={team.id} className="bg-white border border-slate-100 rounded-panel overflow-hidden shadow-card hover:shadow-raised transition duration-500 group">
+              <div className="p-5 sm:p-6 lg:p-8 bg-slate-50/50 border-b border-slate-100 flex justify-between items-start">
                 <div>
                   <div className="flex items-center space-x-2 mb-2">
                     <span className="text-3xs font-black text-slate-400 uppercase tracking-widest bg-slate-100 px-2 py-0.5 rounded-md">Equipa</span>
@@ -183,10 +183,10 @@ const TeamsModule: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="p-8 space-y-6">
+              <div className="p-5 sm:p-6 lg:p-8 space-y-6">
                 {team._count && team._count.workOrders > 0 && (
                   <div className="flex items-center p-4 bg-emerald-500/5 rounded-2xl border border-emerald-500/10 mb-2">
-                    <div className="w-8 h-8 bg-white rounded-xl flex items-center justify-center text-emerald-500 shadow-sm mr-4">
+                    <div className="w-8 h-8 bg-white rounded-xl flex items-center justify-center text-emerald-500 shadow-card mr-4">
                       <FaIcon name="fa-clipboard-check" className="text-xs" />
                     </div>
                     <div>
@@ -201,7 +201,7 @@ const TeamsModule: React.FC = () => {
                     {team.members && team.members.length > 0 ? team.members.map(m => (
                       <div key={m.id} className="flex items-center justify-between p-3.5 bg-slate-50/50 hover:bg-slate-50 rounded-2xl border border-slate-100/50 transition-colors">
                         <div className="flex items-center space-x-3">
-                          <div className="w-8 h-8 rounded-xl bg-white shadow-sm flex items-center justify-center text-2xs font-black text-slate-500 border border-slate-100 uppercase font-display">
+                          <div className="w-8 h-8 rounded-xl bg-white shadow-card flex items-center justify-center text-2xs font-black text-slate-500 border border-slate-100 uppercase font-display">
                             {m.user?.avatar || m.user?.name?.split(' ').map(n => n[0]).join('').slice(0, 2) || '?'}
                           </div>
                           <div>
@@ -250,7 +250,7 @@ const TeamsModule: React.FC = () => {
       {showDailyReportModal && activeTeam && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[200] grid place-items-center p-4 overflow-y-auto">
           <div className="bg-white rounded-panel shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in duration-300 my-auto">
-            <div className="p-10 border-b border-slate-50 relative bg-slate-50/20 text-center">
+            <div className="p-6 sm:p-8 lg:p-10 border-b border-slate-50 relative bg-slate-50/20 text-center">
               <button aria-label="Fechar" onClick={() => setShowDailyReportModal(false)} className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-900 transition-colors">
                 <FaIcon name="fa-times" className="text-sm" />
               </button>
@@ -258,7 +258,7 @@ const TeamsModule: React.FC = () => {
               <p className="text-2xs text-slate-400 font-bold uppercase tracking-widest mt-1">Registo de Atividade: {activeTeam.nome}</p>
             </div>
             
-            <form className="p-10 space-y-6" onSubmit={async (e) => {
+            <form className="p-6 sm:p-8 lg:p-10 space-y-6" onSubmit={async (e) => {
               e.preventDefault();
               setLoading(true);
               try {
@@ -293,7 +293,7 @@ const TeamsModule: React.FC = () => {
                   onChange={(e) => setReportData({...reportData, workOrderId: e.target.value})}
                   className="w-full bg-slate-50 border border-slate-100 rounded-panel px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition appearance-none pr-10"
                 >
-                  <option value="">Selecionar OS...</option>
+                  <option value="">Selecionar OS…</option>
                   {workOrders.map(wo => (
                     <option key={wo.id} value={wo.id}>{wo.codigo} - {wo.descricao.slice(0, 30)}...</option>
                   ))}
@@ -323,13 +323,13 @@ const TeamsModule: React.FC = () => {
                   onChange={(e) => setReportData({...reportData, descricao: e.target.value})}
                   rows={3}
                   className="w-full bg-slate-50 border border-slate-100 rounded-panel px-5 py-4 text-xs font-medium focus:outline-none resize-none"
-                  placeholder="Descreva o que foi realizado hoje..."
+                  placeholder="Descreva o que foi realizado hoje…"
                 />
               </div>
 
               <div className="pt-4 flex gap-4">
                 <button type="button" onClick={() => setShowDailyReportModal(false)} className="flex-1 py-4 border border-slate-100 text-slate-400 rounded-2xl text-2xs font-black uppercase tracking-widest">Cancelar</button>
-                <button type="submit" disabled={loading} className="flex-[2] py-4 bg-slate-900 text-white rounded-2xl text-2xs font-black uppercase tracking-widest shadow-xl flex items-center justify-center">
+                <button type="submit" disabled={loading} className="flex-[2] h-11 bg-slate-900 text-white rounded-control text-2xs font-black uppercase tracking-widest shadow-xl flex items-center justify-center whitespace-nowrap">
                   {loading ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div> : 'Submeter Relatório'}
                 </button>
               </div>
@@ -342,7 +342,7 @@ const TeamsModule: React.FC = () => {
       {showManageMembersModal && activeTeam && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[200] grid place-items-center p-4 overflow-y-auto">
           <div className="bg-white rounded-panel shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in duration-300 my-auto">
-            <div className="p-10 border-b border-slate-50 relative bg-slate-50/20 flex justify-between items-center">
+            <div className="p-6 sm:p-8 lg:p-10 border-b border-slate-50 relative bg-slate-50/20 flex justify-between items-center">
               <div>
                 <h3 className="font-bold text-slate-900 tracking-tight text-xl font-display">Gerir Equipa</h3>
                 <p className="text-2xs text-slate-400 font-bold uppercase tracking-widest mt-1">Alocação de Membros: {activeTeam.nome}</p>
@@ -352,7 +352,7 @@ const TeamsModule: React.FC = () => {
               </button>
             </div>
 
-            <div className="p-10 grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="p-6 sm:p-8 lg:p-10 grid grid-cols-1 md:grid-cols-2 gap-10">
               {/* Current Members */}
               <div className="space-y-4">
                 <h4 className="text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Membros Atuais</h4>
@@ -360,7 +360,7 @@ const TeamsModule: React.FC = () => {
                   {activeTeam.members?.map(m => (
                     <div key={m.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-2xl border border-slate-100">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 rounded-xl bg-white shadow-sm flex items-center justify-center text-2xs font-black text-slate-400 border border-slate-100 uppercase">
+                        <div className="w-8 h-8 rounded-xl bg-white shadow-card flex items-center justify-center text-2xs font-black text-slate-400 border border-slate-100 uppercase">
                           {m.user?.name?.split(' ').map(n => n[0]).join('').slice(0, 2)}
                         </div>
                         <span className="text-xs font-bold text-slate-700">{m.user?.name}</span>
@@ -409,7 +409,7 @@ const TeamsModule: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-10 bg-slate-50 border-t border-slate-100 flex justify-end">
+            <div className="p-6 sm:p-8 lg:p-10 bg-slate-50 border-t border-slate-100 flex justify-end">
               <button onClick={() => setShowManageMembersModal(false)} className="px-10 py-4 bg-slate-900 text-white rounded-2xl text-2xs font-black uppercase tracking-widest shadow-xl active:scale-95 transition">Concluir</button>
             </div>
           </div>
@@ -419,7 +419,7 @@ const TeamsModule: React.FC = () => {
       {showAddModal && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[200] grid place-items-center p-4 overflow-y-auto">
           <div className="bg-white rounded-panel shadow-2xl w-full max-w-lg overflow-hidden animate-in zoom-in duration-300 my-auto">
-            <div className="p-10 border-b border-slate-50 relative bg-slate-50/20 text-center">
+            <div className="p-6 sm:p-8 lg:p-10 border-b border-slate-50 relative bg-slate-50/20 text-center">
               <button aria-label="Fechar" 
                 onClick={() => setShowAddModal(false)} 
                 className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-900 transition-colors"
@@ -430,7 +430,7 @@ const TeamsModule: React.FC = () => {
               <p className="text-2xs text-slate-400 font-bold uppercase tracking-widest mt-1">Gestão de Recursos & Logística</p>
             </div>
             
-            <form onSubmit={handleCreateTeam} className="p-10 space-y-6">
+            <form onSubmit={handleCreateTeam} className="p-6 sm:p-8 lg:p-10 space-y-6">
               <div className="space-y-2">
                 <label htmlFor="teamsmodule-nome-da-equipa" className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
                   <FaIcon name="fa-tag" className="mr-2 text-slate-300" /> Nome da Equipa
@@ -510,7 +510,7 @@ const TeamsModule: React.FC = () => {
                 </button>
                 <button 
                   type="submit"
-                  className="flex-[2] px-4 py-4 bg-slate-900 text-white rounded-2xl text-2xs font-black uppercase tracking-widest shadow-2xl shadow-slate-200 hover:bg-black transition active:scale-95 font-display"
+                  className="flex-[2] px-4 h-11 bg-slate-900 text-white rounded-control text-2xs font-black uppercase tracking-widest shadow-2xl shadow-slate-200 hover:bg-black transition active:scale-[0.98] font-display inline-flex items-center justify-center whitespace-nowrap"
                 >
                   Confirmar e Criar
                 </button>
