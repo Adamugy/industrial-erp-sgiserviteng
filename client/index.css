@@ -1,126 +1,110 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --primary: #10b981;
-  /* Emerald-500 */
-  --bg-main: #ffffff;
-  --bg-sidebar: #0f172a;
-  --text-main: #334155;
-  --text-muted: #64748b;
-  --border: #f1f5f9;
-}
-
-body {
-  font-family: 'Inter', sans-serif;
-  color: #0f172a;
-  background-color: #fafafa;
-  -webkit-font-smoothing: antialiased;
-  letter-spacing: -0.01em;
-}
-
-h1,
-h2,
-h3,
-h4,
-.font-display {
-  font-family: 'Outfit', sans-serif;
-  letter-spacing: -0.03em;
-}
-
-/* Minimalist Scrollbar */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #e2e8f0;
-  border-radius: 100px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #cbd5e1;
-}
-
-/* Centered Elegant Modal Utility */
-.modal-backdrop {
-  background: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: white;
-  border-radius: 2rem;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 28rem;
-  animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes modalIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.98);
+/* ------------------------------------------------------------------
+   SGIServiteng — base layer
+   Colours stay on the stock Tailwind palette used across the app.
+   ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    --primary: #10b981; /* emerald-500 */
+    --focus-ring: #4f46e5; /* indigo-600 */
+    color-scheme: light;
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Small Text Standards */
-.text-tiny {
-  font-size: 10px;
-  line-height: 1.25rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.text-standard {
-  font-size: 13px;
-  line-height: 1.4;
-  color: #475569;
-}
-
-/* Modern Card Style */
-.card-minimal {
-  background: white;
-  border: 1px solid #f1f5f9;
-  border-radius: 1.5rem;
-  padding: 1.5rem;
-  transition: all 0.2s ease;
-}
-
-.card-minimal:hover {
-  border-color: #e2e8f0;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
-}
-
-@keyframes pulse-glow {
-  0% {
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
   }
 
-  70% {
-    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  body {
+    @apply font-sans text-slate-900 antialiased;
+    background-color: #fafafa;
+    letter-spacing: -0.006em;
+    font-feature-settings: 'cv11', 'ss01';
+    overscroll-behavior-y: contain;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  100% {
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  h1, h2, h3, h4, .font-display {
+    font-family: theme('fontFamily.display');
+    letter-spacing: -0.025em;
+    text-wrap: balance;
   }
+
+  p { text-wrap: pretty; }
+
+  button, a, [role='button'], label, select, summary {
+    touch-action: manipulation;
+  }
+
+  button:not(:disabled), [role='button'], select, summary {
+    cursor: pointer;
+  }
+
+  table { font-variant-numeric: tabular-nums; }
+
+  ::selection { background: rgb(16 185 129 / 0.2); }
 }
 
-.animate-pulse-glow {
-  animation: pulse-glow 2s infinite;
+/* ------------------------------------------------------------------
+   Utilities
+   ------------------------------------------------------------------ */
+@layer utilities {
+  .custom-scrollbar { scrollbar-width: thin; scrollbar-color: #cbd5e1 transparent; }
+  .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+  .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+  .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 999px; }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+
+  .tabular-nums { font-variant-numeric: tabular-nums; }
+
+  /* Entrance used by modals and panels (kept from the original stylesheet) */
+  .animate-in { animation: sgi-enter 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+  /* Staggered page entrance: children rise in one after another */
+  .stagger > * { animation: sgi-rise 0.55s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .stagger > *:nth-child(2) { animation-delay: 40ms; }
+  .stagger > *:nth-child(3) { animation-delay: 80ms; }
+  .stagger > *:nth-child(4) { animation-delay: 120ms; }
+  .stagger > *:nth-child(5) { animation-delay: 160ms; }
+  .stagger > *:nth-child(n + 6) { animation-delay: 200ms; }
+}
+
+@keyframes sgi-enter {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes sgi-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------------------------------------------
+   Keyboard focus — visible everywhere, even where `outline-none` was
+   used. Declared after utilities so it wins over `.outline-none`.
+   ------------------------------------------------------------------ */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline-offset: 0;
+}
+.bg-slate-900 :focus-visible, .bg-slate-950 :focus-visible, .bg-black :focus-visible {
+  outline-color: #34d399; /* emerald-400 on dark surfaces */
+}
+
+/* ------------------------------------------------------------------
+   Reduced motion
+   ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

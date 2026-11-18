@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { FaIcon } from './common/FaIcon';
 import { api } from '../../connectors/api/client';
 import { syncService } from '../../connectors/api/sync';
 
@@ -98,7 +99,7 @@ export const RoleGuard: React.FC<{ roles: UserRole[], children: ReactNode }> = (
   if (!user || !roles.includes(user.role)) {
     return (
       <div className="p-8 text-center bg-white rounded-2xl border border-slate-200">
-        <i className="fas fa-lock text-slate-300 text-4xl mb-4"></i>
+        <FaIcon name="fa-lock" className="text-slate-300 text-4xl mb-4" />
         <h3 className="text-lg font-bold text-slate-800">Acesso Restrito</h3>
         <p className="text-sm text-slate-500">
           O seu perfil ({user?.role || 'N/A'}) não tem permissão para visualizar este módulo.

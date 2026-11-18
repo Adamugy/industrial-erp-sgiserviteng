@@ -54,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({
           <Menu size={20} />
         </button>
         
-        <div className="hidden md:flex items-center bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl px-4 py-2 w-72 transition-all focus-within:ring-2 focus-within:ring-indigo-100 focus-within:border-indigo-300">
+        <div className="hidden md:flex items-center bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl px-4 py-2 w-72 transition focus-within:ring-2 focus-within:ring-indigo-100 focus-within:border-indigo-300">
           <Search size={16} className="text-slate-400" />
           <input 
             type="text" 
@@ -65,10 +65,10 @@ const Header: React.FC<HeaderProps> = ({
 
         <button 
           onClick={onNewOS}
-          className="flex items-center gap-2 px-4 py-2 bg-slate-900 border border-slate-900 dark:border-slate-700 rounded-xl text-white hover:bg-slate-800 transition-all shadow-sm"
+          className="flex items-center gap-2 px-4 py-2 bg-slate-900 border border-slate-900 dark:border-slate-700 rounded-xl text-white hover:bg-slate-800 transition shadow-sm"
         >
           <PlusCircle size={16} />
-          <span className="text-[10px] font-black uppercase tracking-widest hidden sm:inline">Abrir OS</span>
+          <span className="text-2xs font-black uppercase tracking-widest hidden sm:inline">Abrir OS</span>
         </button>
       </div>
 
@@ -77,11 +77,11 @@ const Header: React.FC<HeaderProps> = ({
         <div className="relative" ref={notificationRef}>
           <button 
             onClick={() => setShowNotifications(!showNotifications)}
-            className={`p-2.5 rounded-xl transition-all relative ${showNotifications ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30' : 'text-slate-500 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}`}
+            className={`p-2.5 rounded-xl transition relative ${showNotifications ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-900/30' : 'text-slate-500 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800'}`}
           >
             <Bell size={20} />
             {unreadCount > 0 && (
-              <span className="absolute top-2 right-2 w-4 h-4 bg-red-500 border-2 border-white dark:border-slate-900 rounded-full text-[8px] font-black text-white flex items-center justify-center">
+              <span className="absolute top-2 right-2 w-4 h-4 bg-red-500 border-2 border-white dark:border-slate-900 rounded-full text-3xs font-black text-white flex items-center justify-center">
                 {unreadCount > 9 ? '9+' : unreadCount}
               </span>
             )}
@@ -105,8 +105,8 @@ const Header: React.FC<HeaderProps> = ({
                       </div>
                       <div className="min-w-0">
                         <p className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate">{n.titulo}</p>
-                        <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">{n.mensagem}</p>
-                        <span className="text-[9px] text-slate-400 mt-2 block">Há 5 minutos</span>
+                        <p className="text-2xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">{n.mensagem}</p>
+                        <span className="text-3xs text-slate-400 mt-2 block">Há 5 minutos</span>
                       </div>
                     </div>
                   ))
@@ -116,7 +116,7 @@ const Header: React.FC<HeaderProps> = ({
                   </div>
                 )}
               </div>
-              <button className="w-full py-3 text-[10px] font-black uppercase tracking-widest text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 bg-slate-50 dark:bg-slate-800/50 transition-colors">
+              <button className="w-full py-3 text-2xs font-black uppercase tracking-widest text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 bg-slate-50 dark:bg-slate-800/50 transition-colors">
                 Ver Todas as Notificações
               </button>
             </div>
@@ -129,7 +129,7 @@ const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-3 pl-2 lg:pl-4 group cursor-pointer" onClick={onOpenProfile}>
           <div className="hidden sm:block text-right">
             <p className="text-xs font-black text-slate-900 dark:text-white leading-none">{user.name}</p>
-            <p className="text-[9px] font-bold text-slate-400 dark:text-slate-500 mt-1 uppercase tracking-tighter">{user.role}</p>
+            <p className="text-3xs font-bold text-slate-400 dark:text-slate-500 mt-1 uppercase tracking-tighter">{user.role}</p>
           </div>
           <div className="w-10 h-10 rounded-xl bg-slate-900 dark:bg-slate-800 text-white flex items-center justify-center text-sm font-black border-2 border-white dark:border-slate-800 shadow-sm transition-transform group-hover:scale-105">
             {user.avatar || user.name.charAt(0)}

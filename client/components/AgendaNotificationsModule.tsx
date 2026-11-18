@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaIcon } from './common/FaIcon';
 import { api } from '../../connectors/api/client';
 import { syncService } from '../../connectors/api/sync';
 
@@ -155,16 +156,16 @@ const AgendaNotificationsModule: React.FC = () => {
           <button 
             onClick={() => handleSync('Gmail')}
             disabled={isSyncing}
-            className="bg-white border border-slate-200 text-slate-600 px-3 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 flex items-center shadow-sm disabled:opacity-50"
+            className="bg-white border border-slate-200 text-slate-600 px-3 py-2 rounded-xl text-2xs font-black uppercase tracking-widest hover:bg-slate-50 flex items-center shadow-sm disabled:opacity-50"
           >
-            <i className="fab fa-google text-red-500 mr-2"></i> {isSyncing ? 'A sincronizar...' : 'Sincronizar Gmail'}
+            <FaIcon name="fa-google" className="text-red-500 mr-2" /> {isSyncing ? 'A sincronizar...' : 'Sincronizar Gmail'}
           </button>
           <button 
             onClick={() => handleSync('MS Project')}
             disabled={isSyncing}
-            className="bg-white border border-slate-200 text-slate-600 px-3 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 flex items-center shadow-sm disabled:opacity-50"
+            className="bg-white border border-slate-200 text-slate-600 px-3 py-2 rounded-xl text-2xs font-black uppercase tracking-widest hover:bg-slate-50 flex items-center shadow-sm disabled:opacity-50"
           >
-            <i className="fas fa-diagram-project text-emerald-600 mr-2"></i> MSP Sync
+            <FaIcon name="fa-diagram-project" className="text-emerald-600 mr-2" /> MSP Sync
           </button>
         </div>
       </div>
@@ -178,7 +179,7 @@ const AgendaNotificationsModule: React.FC = () => {
                 onClick={prevMonth}
                 className="w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors"
               >
-                <i className="fas fa-chevron-left text-slate-600"></i>
+                <FaIcon name="fa-chevron-left" className="text-slate-600" />
               </button>
               <h3 className="font-black text-slate-800 uppercase text-sm tracking-widest min-w-[180px] text-center">
                 {monthNames[month]} {year}
@@ -187,19 +188,19 @@ const AgendaNotificationsModule: React.FC = () => {
                 onClick={nextMonth}
                 className="w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors"
               >
-                <i className="fas fa-chevron-right text-slate-600"></i>
+                <FaIcon name="fa-chevron-right" className="text-slate-600" />
               </button>
             </div>
             <div className="flex gap-2">
               <button 
                 onClick={goToToday}
-                className="px-4 py-2 bg-emerald-500 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-600 transition-colors"
+                className="px-4 py-2 bg-emerald-500 text-white rounded-xl text-2xs font-black uppercase tracking-widest hover:bg-emerald-600 transition-colors"
               >
                 Hoje
               </button>
               <div className="flex bg-slate-100 p-1 rounded-xl">
-                <button className="px-4 py-1.5 rounded-lg text-[10px] font-black uppercase bg-white shadow-sm text-slate-800">Mês</button>
-                <button className="px-4 py-1.5 rounded-lg text-[10px] font-black uppercase text-slate-400 hover:text-slate-600">Semana</button>
+                <button className="px-4 py-1.5 rounded-lg text-2xs font-black uppercase bg-white shadow-sm text-slate-800">Mês</button>
+                <button className="px-4 py-1.5 rounded-lg text-2xs font-black uppercase text-slate-400 hover:text-slate-600">Semana</button>
               </div>
             </div>
           </div>
@@ -207,7 +208,7 @@ const AgendaNotificationsModule: React.FC = () => {
           {/* Weekday Headers */}
           <div className="grid grid-cols-7 gap-3 mb-4">
             {['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'].map(d => (
-              <div key={d} className="text-center text-[9px] font-black text-slate-400 uppercase tracking-widest">{d}</div>
+              <div key={d} className="text-center text-3xs font-black text-slate-400 uppercase tracking-widest">{d}</div>
             ))}
           </div>
 
@@ -228,7 +229,7 @@ const AgendaNotificationsModule: React.FC = () => {
                 <button 
                   key={day} 
                   onClick={() => setSelectedDate(day)}
-                  className={`relative aspect-square flex flex-col items-center justify-center rounded-2xl text-xs font-bold border transition-all ${
+                  className={`relative aspect-square flex flex-col items-center justify-center rounded-2xl text-xs font-bold border transition ${
                     selectedDate === day 
                       ? 'bg-slate-900 text-white border-slate-900 shadow-xl scale-105 z-10' 
                       : todayCheck 
@@ -250,43 +251,43 @@ const AgendaNotificationsModule: React.FC = () => {
         <div className="space-y-6">
           {/* Events for Selected Day */}
           <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6">
-            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center">
-              <i className="fas fa-clock-rotate-left mr-2"></i> 
+            <h4 className="text-2xs font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center">
+              <FaIcon name="fa-clock-rotate-left" className="mr-2" /> 
               {selectedDate} de {monthNames[month]}
             </h4>
             
             {loading ? (
               <div className="text-center py-8">
                 <div className="w-6 h-6 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
-                <p className="text-[10px] text-slate-400 font-bold uppercase">A carregar...</p>
+                <p className="text-2xs text-slate-400 font-bold uppercase">A carregar...</p>
               </div>
             ) : (
               <div className="space-y-4">
                 {filteredEvents.length > 0 ? filteredEvents.map(ev => (
                   <div key={ev.id} className="group cursor-pointer">
                     <div className="flex justify-between items-start mb-1">
-                      <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded-full ${getPriorityStyle(ev.prioridade)}`}>
+                      <span className={`text-3xs font-black uppercase px-2 py-0.5 rounded-full ${getPriorityStyle(ev.prioridade)}`}>
                         {ev.prioridade}
                       </span>
-                      <span className="text-[10px] font-bold text-slate-400">
+                      <span className="text-2xs font-bold text-slate-400">
                         {ev.diaInteiro ? 'Dia inteiro' : formatTime(ev.dataInicio)}
                       </span>
                     </div>
                     <h5 className="text-xs font-black text-slate-800 group-hover:text-emerald-600 transition-colors flex items-center gap-2">
-                      <i className={`fas ${getTypeIcon(ev.tipo)} text-slate-300`}></i>
+                      <FaIcon name={getTypeIcon(ev.tipo)} className="text-slate-300" />
                       {ev.titulo}
                     </h5>
                     {ev.local && (
-                      <p className="text-[9px] text-slate-400 font-bold mt-1">
-                        <i className="fas fa-location-dot mr-1"></i> {ev.local}
+                      <p className="text-3xs text-slate-400 font-bold mt-1">
+                        <FaIcon name="fa-location-dot" className="mr-1" /> {ev.local}
                       </p>
                     )}
                     <div className="mt-3 border-b border-slate-50"></div>
                   </div>
                 )) : (
                   <div className="text-center py-8">
-                    <i className="fas fa-calendar-xmark text-slate-200 text-2xl mb-2"></i>
-                    <p className="text-[10px] text-slate-400 font-bold uppercase">Sem compromissos</p>
+                    <FaIcon name="fa-calendar-xmark" className="text-slate-200 text-2xl mb-2" />
+                    <p className="text-2xs text-slate-400 font-bold uppercase">Sem compromissos</p>
                   </div>
                 )}
               </div>
@@ -295,7 +296,7 @@ const AgendaNotificationsModule: React.FC = () => {
 
           {/* Weekly Summary */}
           <div className="bg-emerald-600 rounded-3xl p-6 text-white shadow-lg shadow-emerald-100">
-            <h4 className="text-[10px] font-black uppercase tracking-widest opacity-80 mb-2">Resumo do Mês</h4>
+            <h4 className="text-2xs font-black uppercase tracking-widest opacity-80 mb-2">Resumo do Mês</h4>
             <div className="space-y-3">
               <div className="flex justify-between items-center text-xs">
                 <span>Total Eventos</span>
@@ -313,7 +314,7 @@ const AgendaNotificationsModule: React.FC = () => {
                 </span>
               </div>
               <div className="h-px bg-white/20 my-2"></div>
-              <button className="w-full py-2 bg-white/10 hover:bg-white/20 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">
+              <button className="w-full py-2 bg-white/10 hover:bg-white/20 rounded-xl text-2xs font-black uppercase tracking-widest transition">
                 Exportar Agenda PDF
               </button>
             </div>

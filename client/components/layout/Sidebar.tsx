@@ -50,7 +50,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, userRole }) => {
   const visibleMenuItems = menuItems.filter(item => item.roles.includes(userRole));
 
   return (
-    <aside className={`fixed inset-y-0 left-0 z-50 lg:relative bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-slate-800 transition-all duration-300 flex flex-col ${isOpen ? 'w-64 translate-x-0' : 'w-20 lg:w-20 -translate-x-full lg:translate-x-0'}`}>
+    <aside className={`fixed inset-y-0 left-0 z-50 lg:relative bg-white dark:bg-slate-900 border-r border-slate-100 dark:border-slate-800 transition-[width,transform] duration-300 ease-out-expo flex flex-col ${isOpen ? 'w-64 translate-x-0' : 'w-20 lg:w-20 -translate-x-full lg:translate-x-0'}`}>
       <div className="p-6 flex items-center justify-between">
         <div className={`flex items-center gap-3 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 lg:opacity-100 flex justify-center w-full'}`}>
           <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-black text-xs shadow-lg shadow-indigo-200 dark:shadow-none">SGI</div>
@@ -67,7 +67,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, userRole }) => {
             key={item.path}
             to={item.path}
             className={({ isActive }) => `
-              flex items-center px-3 py-3 rounded-xl transition-all group relative
+              flex items-center px-3 py-3 rounded-xl transition group relative
               ${isActive 
                 ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-400' 
                 : 'text-slate-500 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800/50'}
@@ -78,7 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, userRole }) => {
             <span className={`transition-transform duration-200 group-hover:scale-110`}>{item.icon}</span>
             {isOpen && <span className="ml-3 text-xs font-bold tracking-tight">{item.label}</span>}
             {!isOpen && (
-              <div className="absolute left-full ml-4 px-2 py-1 bg-slate-900 text-white text-[10px] rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all whitespace-nowrap z-[100]">
+              <div className="absolute left-full ml-4 px-2 py-1 bg-slate-900 text-white text-2xs rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition whitespace-nowrap z-[100]">
                 {item.label}
               </div>
             )}
@@ -90,7 +90,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen, userRole }) => {
         <NavLink
           to="/profile"
           className={({ isActive }) => `
-            w-full flex items-center px-4 py-3 rounded-xl transition-all group relative
+            w-full flex items-center px-4 py-3 rounded-xl transition group relative
             ${isActive 
               ? 'bg-indigo-50 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-400' 
               : 'text-slate-500 hover:bg-slate-50 dark:text-slate-400 dark:hover:bg-slate-800/50'}

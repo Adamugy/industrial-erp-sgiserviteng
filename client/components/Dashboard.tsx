@@ -135,7 +135,7 @@ const Dashboard: React.FC = () => {
           <h1 className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">Painel de Controle</h1>
           <p className="text-slate-500 text-sm mt-1">Status operacional da empresa e indicadores ISO.</p>
         </div>
-        <div className="text-[10px] font-mono text-slate-400 dark:text-slate-500 bg-white dark:bg-slate-900 px-3 py-1.5 border rounded-lg border-slate-100 dark:border-slate-800 shadow-sm whitespace-nowrap flex items-center gap-2">
+        <div className="text-2xs font-mono text-slate-400 dark:text-slate-500 bg-white dark:bg-slate-900 px-3 py-1.5 border rounded-lg border-slate-100 dark:border-slate-800 shadow-sm whitespace-nowrap flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           SYNC: {syncTime.toLocaleTimeString('pt-PT')}
         </div>
@@ -186,11 +186,11 @@ const Dashboard: React.FC = () => {
                   <div className="ml-3 lg:ml-4 flex-1 min-w-0">
                     <p className="font-bold text-slate-800 dark:text-slate-200 text-xs lg:text-sm truncate">{os.descricao}</p>
                     <div className="flex items-center gap-2 mt-0.5">
-                      <p className="text-[10px] lg:text-xs text-slate-500 truncate">{os.project?.designacao || 'Projeto não atribuído'}</p>
+                      <p className="text-2xs lg:text-xs text-slate-500 truncate">{os.project?.designacao || 'Projeto não atribuído'}</p>
                       {os.local && (
                         <>
                           <span className="text-slate-300 dark:text-slate-700">•</span>
-                          <p className="text-[10px] lg:text-xs text-indigo-500 dark:text-indigo-400 font-bold truncate flex items-center">
+                          <p className="text-2xs lg:text-xs text-indigo-500 dark:text-indigo-400 font-bold truncate flex items-center">
                             <MapPin size={10} className="mr-1" /> {os.local}
                           </p>
                         </>
@@ -198,7 +198,7 @@ const Dashboard: React.FC = () => {
                     </div>
                   </div>
                   <div className="text-right ml-2">
-                    <p className="text-[10px] lg:text-xs font-black text-slate-900 dark:text-white whitespace-nowrap">
+                    <p className="text-2xs lg:text-xs font-black text-slate-900 dark:text-white whitespace-nowrap">
                       {os.dataAbertura ? new Date(os.dataAbertura).toLocaleDateString('pt-PT') : formatRelativeDate(os.dataInicioPrevista)}
                     </p>
                     <Badge 
@@ -227,19 +227,19 @@ const Dashboard: React.FC = () => {
           <div className="relative z-10">
             <div className="flex items-center space-x-2 text-emerald-400 mb-4">
               <ShieldCheck size={16} />
-              <span className="text-[10px] font-bold tracking-widest uppercase">Certificação ISO</span>
+              <span className="text-2xs font-bold tracking-widest uppercase">Certificação ISO</span>
             </div>
             <h3 className="text-lg lg:text-2xl font-bold leading-tight">Auditoria em {daysUntilAudit} dias</h3>
             <p className="text-slate-400 text-xs lg:text-sm mt-3 leading-relaxed italic">Prepare toda a documentação do SGQ e SST. O módulo de qualidade já sinalizou pendências.</p>
           </div>
           
           <div className="mt-8 space-y-4 relative z-10">
-             <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider text-slate-300">
+             <div className="flex justify-between text-2xs font-bold uppercase tracking-wider text-slate-300">
                <span>Compliance ISO 9001</span>
                <span className="text-emerald-400 font-black">{stats.eficacia}%</span>
              </div>
              <div className="h-2 w-full bg-slate-800 dark:bg-indigo-900 rounded-full overflow-hidden">
-               <div className="h-full bg-emerald-500 transition-all duration-1000 shadow-[0_0_10px_rgba(16,185,129,0.5)]" style={{ width: `${stats.eficacia}%` }}></div>
+               <div className="h-full bg-emerald-500 transition-[width] duration-1000 shadow-[0_0_10px_rgba(16,185,129,0.5)]" style={{ width: `${stats.eficacia}%` }}></div>
              </div>
              <Button 
                variant="primary" 

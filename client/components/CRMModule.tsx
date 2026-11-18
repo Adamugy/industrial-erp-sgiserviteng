@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { FaIcon } from './common/FaIcon';
 import { api } from '../../connectors/api/client';
 import { syncService } from '../../connectors/api/sync';
 
@@ -148,15 +149,15 @@ const CRMModule: React.FC = () => {
           <input type="file" ref={fileInputRef} onChange={onFileChange} className="hidden" accept=".xlsx,.xls,.csv" />
           <button 
             onClick={handleImportExcel}
-            className="flex-1 sm:flex-none bg-white border border-slate-200 text-slate-600 px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-all flex items-center justify-center"
+            className="flex-1 sm:flex-none bg-white border border-slate-200 text-slate-600 px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition flex items-center justify-center"
           >
-            <i className="fas fa-file-import mr-2 text-blue-500"></i> Importar Excel
+            <FaIcon name="fa-file-import" className="mr-2 text-blue-500" /> Importar Excel
           </button>
           <button 
             onClick={() => setShowModal(true)}
-            className="flex-1 sm:flex-none bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-emerald-600 shadow-lg shadow-emerald-500/20 transition-all active:scale-95"
+            className="flex-1 sm:flex-none bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-emerald-600 shadow-lg shadow-emerald-500/20 transition active:scale-95"
           >
-            <i className="fas fa-plus mr-2"></i> Nova Proposta
+            <FaIcon name="fa-plus" className="mr-2" /> Nova Proposta
           </button>
         </div>
       </div>
@@ -165,10 +166,10 @@ const CRMModule: React.FC = () => {
         {stats.map((s, i) => (
           <div key={i} className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center">
             <div className={`w-12 h-12 bg-${s.color}-50 text-${s.color}-500 rounded-full flex items-center justify-center mr-4 text-xl`}>
-              <i className={`fas ${s.icon}`}></i>
+              <FaIcon name={s.icon} />
             </div>
             <div>
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{s.label}</p>
+              <p className="text-2xs font-black text-slate-400 uppercase tracking-widest">{s.label}</p>
               <p className="text-xl font-black text-slate-900">{s.val}</p>
             </div>
           </div>
@@ -178,7 +179,7 @@ const CRMModule: React.FC = () => {
       <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto custom-scrollbar">
           <table className="w-full text-left">
-            <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase text-[10px] font-bold tracking-wider">
+            <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase text-2xs font-bold tracking-wider">
               <tr>
                 <th className="px-6 py-4">Ref / Cliente</th>
                 <th className="px-6 py-4">Estado / PO</th>
@@ -190,7 +191,7 @@ const CRMModule: React.FC = () => {
               {proposals.length === 0 ? (
                 <tr>
                   <td colSpan={4} className="px-6 py-8 text-center text-slate-400">
-                    <i className="fas fa-inbox text-3xl mb-2"></i>
+                    <FaIcon name="fa-inbox" className="text-3xl mb-2" />
                     <p>Nenhuma proposta encontrada</p>
                   </td>
                 </tr>
@@ -203,15 +204,15 @@ const CRMModule: React.FC = () => {
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex flex-col gap-1">
-                        <span className={`self-start text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-tighter border ${
+                        <span className={`self-start text-3xs px-2 py-0.5 rounded-full font-black uppercase tracking-tighter border ${
                           p.status === 'ADJUDICADO' ? 'bg-emerald-50 text-emerald-600 border-emerald-100' : 
                           'bg-slate-50 text-slate-500 border-slate-200'
                         }`}>
                           {p.status}
                         </span>
                         {p.status === 'ADJUDICADO' && (
-                          <span className={`text-[8px] font-bold ${p.numeroPO ? 'text-blue-500' : 'text-amber-500'}`}>
-                            <i className={`fas ${p.numeroPO ? 'fa-file-signature' : 'fa-exclamation-circle'} mr-1`}></i>
+                          <span className={`text-3xs font-bold ${p.numeroPO ? 'text-blue-500' : 'text-amber-500'}`}>
+                            <FaIcon name={p.numeroPO ? 'fa-file-signature' : 'fa-exclamation-circle'} className="mr-1" />
                             {p.numeroPO ? 'COM PO' : 'SEM PO (Pendente)'}
                           </span>
                         )}
@@ -225,24 +226,24 @@ const CRMModule: React.FC = () => {
                         <div className="flex justify-end gap-1">
                           <button 
                             onClick={() => toggleAdjudication(p.id, 'withPO')}
-                            className="text-[9px] px-2 py-1.5 bg-blue-50 text-blue-600 rounded-lg font-black hover:bg-blue-100 border border-blue-100 transition-colors uppercase"
+                            className="text-3xs px-2 py-1.5 bg-blue-50 text-blue-600 rounded-lg font-black hover:bg-blue-100 border border-blue-100 transition-colors uppercase"
                           >
                             Adjudicar + PO
                           </button>
                           <button 
                             onClick={() => toggleAdjudication(p.id, 'noPO')}
-                            className="text-[9px] px-2 py-1.5 bg-amber-50 text-amber-600 rounded-lg font-black hover:bg-amber-100 border border-amber-100 transition-colors uppercase"
+                            className="text-3xs px-2 py-1.5 bg-amber-50 text-amber-600 rounded-lg font-black hover:bg-amber-100 border border-amber-100 transition-colors uppercase"
                           >
                             S/ PO
                           </button>
                         </div>
                       ) : (
                         <div className="flex justify-end space-x-2">
-                          <button className="text-slate-300 hover:text-emerald-500 p-2 transition-colors"><i className="fas fa-check-circle"></i></button>
+                          <button className="text-slate-300 hover:text-emerald-500 p-2 transition-colors"><FaIcon name="fa-check-circle" /></button>
                           {!p.numeroPO && (
                             <button 
                               onClick={() => toggleAdjudication(p.id, 'withPO')}
-                              className="text-[8px] font-black text-blue-500 hover:underline"
+                              className="text-3xs font-black text-blue-500 hover:underline"
                             >
                               Vincular PO
                             </button>
@@ -261,46 +262,46 @@ const CRMModule: React.FC = () => {
 
     {showModal && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[200] grid place-items-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in duration-300 my-auto">
+          <div className="bg-white rounded-panel shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in duration-300 my-auto">
             <div className="p-10 border-b border-slate-50 relative bg-slate-50/20 text-center">
               <button 
                 onClick={() => setShowModal(false)} 
                 className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-900 transition-colors"
               >
-                <i className="fas fa-times text-sm"></i>
+                <FaIcon name="fa-times" className="text-sm" />
               </button>
               <h3 className="font-bold text-slate-900 tracking-tight text-xl font-display">Gerar Nova Proposta</h3>
-              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Gestão de Cotas & Orçamentos</p>
+              <p className="text-2xs text-slate-400 font-bold uppercase tracking-widest mt-1">Gestão de Cotas & Orçamentos</p>
             </div>
             
             <form onSubmit={handleCreateProposal} className="p-8 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-6">
                   <div className="space-y-1.5">
-                    <label className="flex items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">
-                      <i className="fas fa-user-tie mr-2 text-slate-300"></i> Nome do Cliente / Entidade
+                    <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                      <FaIcon name="fa-user-tie" className="mr-2 text-slate-300" /> Nome do Cliente / Entidade
                     </label>
                     <input 
                       required 
                       type="text"
                       value={formData.clientName} 
                       onChange={(e) => setFormData({...formData, clientName: e.target.value})} 
-                      className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-3.5 text-xs font-medium focus:outline-none focus:border-slate-900 transition-all font-display"
+                      className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-3.5 text-xs font-medium focus:outline-none focus:border-slate-900 transition font-display"
                       placeholder="Ex: Empresa de Construção LDA"
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label className="flex items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">
-                        <i className="fas fa-coins mr-2 text-slate-300"></i> Valor
+                      <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                        <FaIcon name="fa-coins" className="mr-2 text-slate-300" /> Valor
                       </label>
                       <div className="relative">
-                        <input required type="number" step="0.01" value={formData.value} onChange={(e) => setFormData({...formData, value: e.target.value})} className="w-full bg-slate-50 border border-slate-100 rounded-2xl pl-5 pr-12 py-3.5 text-xs font-medium focus:outline-none focus:border-slate-900 transition-all font-display" placeholder="0.00" />
+                        <input required type="number" step="0.01" value={formData.value} onChange={(e) => setFormData({...formData, value: e.target.value})} className="w-full bg-slate-50 border border-slate-100 rounded-2xl pl-5 pr-12 py-3.5 text-xs font-medium focus:outline-none focus:border-slate-900 transition font-display" placeholder="0.00" />
                         <select 
                           value={formData.currency}
                           onChange={(e) => setFormData({...formData, currency: e.target.value})}
-                          className="absolute right-2 top-1.5 bottom-1.5 bg-white border border-slate-100 rounded-xl px-2 text-[9px] font-bold focus:outline-none"
+                          className="absolute right-2 top-1.5 bottom-1.5 bg-white border border-slate-100 rounded-xl px-2 text-3xs font-bold focus:outline-none"
                         >
                           <option value="EUR">€</option>
                           <option value="USD">$</option>
@@ -308,23 +309,23 @@ const CRMModule: React.FC = () => {
                       </div>
                     </div>
                     <div className="space-y-1.5">
-                      <label className="flex items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">
-                        <i className="fas fa-calendar-day mr-2 text-slate-300"></i> Validade
+                      <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                        <FaIcon name="fa-calendar-day" className="mr-2 text-slate-300" /> Validade
                       </label>
-                      <input type="date" value={formData.validity} onChange={(e) => setFormData({...formData, validity: e.target.value})} className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-3.5 text-xs font-medium focus:outline-none focus:border-slate-900 transition-all font-display" />
+                      <input type="date" value={formData.validity} onChange={(e) => setFormData({...formData, validity: e.target.value})} className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-3.5 text-xs font-medium focus:outline-none focus:border-slate-900 transition font-display" />
                     </div>
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="flex items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">
-                      <i className="fas fa-file-excel mr-2 text-emerald-500"></i> Anexo de Cotação (.xlsx / .pdf)
+                    <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                      <FaIcon name="fa-file-excel" className="mr-2 text-emerald-500" /> Anexo de Cotação (.xlsx / .pdf)
                     </label>
                     <div 
                       onClick={() => document.getElementById('modal-file-input')?.click()}
-                      className="w-full h-24 border-2 border-dashed border-slate-100 rounded-2xl flex flex-col items-center justify-center bg-slate-50/50 hover:bg-slate-50 hover:border-slate-200 transition-all cursor-pointer group"
+                      className="w-full h-24 border-2 border-dashed border-slate-100 rounded-2xl flex flex-col items-center justify-center bg-slate-50/50 hover:bg-slate-50 hover:border-slate-200 transition cursor-pointer group"
                     >
-                      <i className="fas fa-cloud-arrow-up text-slate-300 group-hover:text-slate-400 mb-2"></i>
-                      <p className="text-[9px] font-bold text-slate-400 uppercase group-hover:text-slate-500">
+                      <FaIcon name="fa-cloud-arrow-up" className="text-slate-300 group-hover:text-slate-400 mb-2" />
+                      <p className="text-3xs font-bold text-slate-400 uppercase group-hover:text-slate-500">
                         {formData.attachment ? formData.attachment.name : 'Clique para selecionar ficheiro'}
                       </p>
                       <input 
@@ -339,14 +340,14 @@ const CRMModule: React.FC = () => {
 
                 <div className="space-y-6">
                   <div className="space-y-1.5 h-full flex flex-col">
-                    <label className="flex items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">
-                      <i className="fas fa-align-left mr-2 text-slate-300"></i> Escopo Técnico & Observações
+                    <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                      <FaIcon name="fa-align-left" className="mr-2 text-slate-300" /> Escopo Técnico & Observações
                     </label>
                     <textarea 
                       required 
                       value={formData.description} 
                       onChange={(e) => setFormData({...formData, description: e.target.value})} 
-                      className="flex-1 w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition-all resize-none font-display leading-relaxed" 
+                      className="flex-1 w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition resize-none font-display leading-relaxed" 
                       placeholder="Descreva detalhadamente o escopo dos serviços, prazos de execução e condições específicas..." 
                     />
                   </div>
@@ -357,13 +358,13 @@ const CRMModule: React.FC = () => {
                 <button 
                   type="button" 
                   onClick={() => setShowModal(false)} 
-                  className="flex-1 px-4 py-4 border border-slate-100 text-slate-400 rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:bg-slate-50 transition-all font-display"
+                  className="flex-1 px-4 py-4 border border-slate-100 text-slate-400 rounded-2xl text-2xs font-bold uppercase tracking-widest hover:bg-slate-50 transition font-display"
                 >
                   Cancelar
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-[2] px-4 py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-bold uppercase tracking-widest shadow-xl shadow-slate-200 hover:bg-slate-800 transition-all active:scale-95 font-display"
+                  className="flex-[2] px-4 py-4 bg-slate-900 text-white rounded-2xl text-2xs font-bold uppercase tracking-widest shadow-xl shadow-slate-200 hover:bg-slate-800 transition active:scale-95 font-display"
                 >
                   Salvar e Notificar Cliente
                 </button>

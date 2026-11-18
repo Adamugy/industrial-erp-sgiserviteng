@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FaIcon } from './common/FaIcon';
 import { useAuth } from './AuthContext';
 
 interface LoginPageProps {
@@ -58,7 +59,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-[10px] font-black text-slate-300 uppercase tracking-widest mb-2">
+              <label className="block text-2xs font-black text-slate-300 uppercase tracking-widest mb-2">
                 Email
               </label>
               <input
@@ -72,7 +73,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
             </div>
 
             <div>
-              <label className="block text-[10px] font-black text-slate-300 uppercase tracking-widest mb-2">
+              <label className="block text-2xs font-black text-slate-300 uppercase tracking-widest mb-2">
                 Palavra-Passe
               </label>
               <input
@@ -87,7 +88,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
 
             {error && (
               <div className="bg-red-500/20 border border-red-500/50 rounded-xl p-3 text-red-200 text-sm">
-                <i className="fas fa-exclamation-circle mr-2"></i>
+                <FaIcon name="fa-exclamation-circle" className="mr-2" />
                 {error}
               </div>
             )}
@@ -95,19 +96,19 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-emerald-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 rounded-xl transition shadow-lg shadow-emerald-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
-                <span><i className="fas fa-spinner fa-spin mr-2"></i>A entrar...</span>
+                <span><FaIcon name="fa-spinner fa-spin" className="mr-2" />A entrar...</span>
               ) : (
-                <span><i className="fas fa-sign-in-alt mr-2"></i>Entrar</span>
+                <span><FaIcon name="fa-sign-in-alt" className="mr-2" />Entrar</span>
               )}
             </button>
           </form>
 
           {/* Quick Login Buttons */}
           <div className="mt-6 pt-6 border-t border-white/10">
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 text-center">
+            <p className="text-2xs font-black text-slate-400 uppercase tracking-widest mb-3 text-center">
               Login Rápido (Demo)
             </p>
             <div className="grid grid-cols-2 gap-2">
@@ -115,25 +116,25 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess }) => {
                 onClick={() => quickLogin('admin@sgiman.pt')}
                 className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg py-2 px-3 text-xs text-slate-300 transition-colors"
               >
-                <i className="fas fa-user-shield text-emerald-400 mr-1"></i> Admin
+                <FaIcon name="fa-user-shield" className="text-emerald-400 mr-1" /> Admin
               </button>
               <button
                 onClick={() => quickLogin('gestor@sgiman.pt')}
                 className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg py-2 px-3 text-xs text-slate-300 transition-colors"
               >
-                <i className="fas fa-user-tie text-blue-400 mr-1"></i> Gestor
+                <FaIcon name="fa-user-tie" className="text-blue-400 mr-1" /> Gestor
               </button>
               <button
                 onClick={() => quickLogin('sst@sgiman.pt')}
                 className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg py-2 px-3 text-xs text-slate-300 transition-colors"
               >
-                <i className="fas fa-hard-hat text-amber-400 mr-1"></i> SST
+                <FaIcon name="fa-hard-hat" className="text-amber-400 mr-1" /> SST
               </button>
               <button
                 onClick={() => quickLogin('tecnico1@sgiman.pt')}
                 className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg py-2 px-3 text-xs text-slate-300 transition-colors"
               >
-                <i className="fas fa-wrench text-slate-400 mr-1"></i> Técnico
+                <FaIcon name="fa-wrench" className="text-slate-400 mr-1" /> Técnico
               </button>
             </div>
           </div>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaIcon } from './common/FaIcon';
 import { api } from '../../connectors/api/client';
 import { syncService } from '../../connectors/api/sync';
 import SSTFormsPreOS from './SSTFormsPreOS';
@@ -137,15 +138,15 @@ const ProjectsModule: React.FC = () => {
         <div className="flex space-x-2">
           <button 
             onClick={() => alert("Gerando MS Project Sync...")}
-            className="flex-1 sm:flex-none bg-white border border-slate-200 text-slate-600 px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center justify-center hover:bg-slate-50 transition-colors"
+            className="flex-1 sm:flex-none bg-white border border-slate-200 text-slate-600 px-4 py-2.5 rounded-xl text-2xs font-black uppercase tracking-widest flex items-center justify-center hover:bg-slate-50 transition-colors"
           >
-            <i className="fas fa-file-export lg:mr-2 text-blue-500"></i> <span className="hidden lg:inline">Exportar</span>
+            <FaIcon name="fa-file-export" className="lg:mr-2 text-blue-500" /> <span className="hidden lg:inline">Exportar</span>
           </button>
           <button 
             onClick={() => setShowModal(true)}
-            className="flex-[2] sm:flex-none bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-emerald-600 shadow-lg transition-all"
+            className="flex-[2] sm:flex-none bg-emerald-500 text-white px-5 py-2.5 rounded-xl text-2xs font-black uppercase tracking-widest hover:bg-emerald-600 shadow-lg transition"
           >
-            <i className="fas fa-plus mr-2"></i> Novo Projeto
+            <FaIcon name="fa-plus" className="mr-2" /> Novo Projeto
           </button>
         </div>
       </div>
@@ -153,7 +154,7 @@ const ProjectsModule: React.FC = () => {
       <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto custom-scrollbar">
           <table className="w-full text-left">
-            <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase text-[10px] font-black tracking-wider">
+            <thead className="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase text-2xs font-black tracking-wider">
               <tr>
                 <th className="px-6 py-5">Projeto / Cliente</th>
                 <th className="px-6 py-5 text-center">Progresso</th>
@@ -164,7 +165,7 @@ const ProjectsModule: React.FC = () => {
               {projects.length === 0 ? (
                 <tr>
                   <td colSpan={3} className="px-6 py-8 text-center text-slate-400">
-                    <i className="fas fa-folder-open text-3xl mb-2"></i>
+                    <FaIcon name="fa-folder-open" className="text-3xl mb-2" />
                     <p>Nenhum projeto encontrado</p>
                   </td>
                 </tr>
@@ -180,8 +181,8 @@ const ProjectsModule: React.FC = () => {
                         }`}></div>
                         <div>
                           <p className="font-black text-slate-800 text-sm tracking-tight">{p.codigoObra} - {p.designacao}</p>
-                          <p className="text-[10px] font-bold text-slate-400 mt-1 uppercase flex items-center">
-                            <i className="fas fa-building mr-1.5 opacity-60"></i> {p.client?.name || 'Sem cliente'} 
+                          <p className="text-2xs font-bold text-slate-400 mt-1 uppercase flex items-center">
+                            <FaIcon name="fa-building" className="mr-1.5 opacity-60" /> {p.client?.name || 'Sem cliente'} 
                             <span className="mx-2 opacity-30">•</span>
                             <span className={`px-1.5 py-0.5 rounded-md ${
                               p.status === 'CONCLUIDO' ? 'bg-emerald-50 text-emerald-600' : 
@@ -196,32 +197,32 @@ const ProjectsModule: React.FC = () => {
                     <td className="px-6 py-6">
                       <div className="flex items-center space-x-3 max-w-[200px] mx-auto">
                         <div className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden shadow-inner">
-                          <div className={`h-full transition-all duration-1000 ${p.percentualProgresso === 100 ? 'bg-emerald-500' : 'bg-blue-500'}`} style={{ width: `${p.percentualProgresso}%` }}></div>
+                          <div className={`h-full transition-[width] duration-1000 ${p.percentualProgresso === 100 ? 'bg-emerald-500' : 'bg-blue-500'}`} style={{ width: `${p.percentualProgresso}%` }}></div>
                         </div>
-                        <span className="text-[11px] font-black text-slate-700 w-8 text-right">{p.percentualProgresso}%</span>
+                        <span className="text-2xs font-black text-slate-700 w-8 text-right">{p.percentualProgresso}%</span>
                       </div>
                     </td>
                     <td className="px-6 py-6 text-right">
                       <div className="flex justify-end items-center gap-2">
                         <button 
                           onClick={() => handleAction(p.id, 'gerir-os')}
-                          className="px-4 py-2 bg-slate-900 text-white text-[9px] font-black uppercase rounded-xl hover:bg-slate-800 transition-all shadow-md shadow-slate-100 active:scale-95"
+                          className="px-4 py-2 bg-slate-900 text-white text-3xs font-black uppercase rounded-xl hover:bg-slate-800 transition shadow-md shadow-slate-100 active:scale-95"
                         >
                           Plano SST
                         </button>
                         <button 
                           onClick={() => handleAction(p.id, 'edit')}
-                          className="w-9 h-9 flex items-center justify-center bg-white border border-slate-100 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 hover:border-emerald-100 rounded-xl transition-all"
+                          className="w-9 h-9 flex items-center justify-center bg-white border border-slate-100 text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 hover:border-emerald-100 rounded-xl transition"
                           title="Editar"
                         >
-                          <i className="fas fa-edit text-xs"></i>
+                          <FaIcon name="fa-edit" className="text-xs" />
                         </button>
                         <button 
                           onClick={() => handleAction(p.id, 'docs')}
-                          className="w-9 h-9 flex items-center justify-center bg-white border border-slate-100 text-slate-400 hover:text-blue-500 hover:bg-blue-50 hover:border-blue-100 rounded-xl transition-all"
+                          className="w-9 h-9 flex items-center justify-center bg-white border border-slate-100 text-slate-400 hover:text-blue-500 hover:bg-blue-50 hover:border-blue-100 rounded-xl transition"
                           title="Documentos"
                         >
-                          <i className="fas fa-folder-open text-xs"></i>
+                          <FaIcon name="fa-folder-open" className="text-xs" />
                         </button>
                       </div>
                     </td>
@@ -236,25 +237,25 @@ const ProjectsModule: React.FC = () => {
       </div>
 
       {/* Floating SST Reminder Widget (Gamified & Minimizable) */}
-      <div className={`fixed bottom-8 right-8 z-[100] transition-all duration-500 transform ${isSSTMinimized ? 'translate-y-0' : 'translate-y-0'}`}>
+      <div className={`fixed bottom-8 right-8 z-[100] transition duration-500 transform ${isSSTMinimized ? 'translate-y-0' : 'translate-y-0'}`}>
         {isSSTMinimized ? (
           <button 
             onClick={() => setIsSSTMinimized(false)}
-            className="w-14 h-14 bg-slate-900 border border-white/20 rounded-2xl flex items-center justify-center text-white shadow-2xl hover:scale-110 active:scale-95 transition-all animate-pulse relative"
+            className="w-14 h-14 bg-slate-900 border border-white/20 rounded-2xl flex items-center justify-center text-white shadow-2xl hover:scale-110 active:scale-95 transition animate-pulse relative"
           >
-            <i className="fas fa-shield-heart text-emerald-400"></i>
+            <FaIcon name="fa-shield-heart" className="text-emerald-400" />
             <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white animate-ping"></div>
           </button>
         ) : (
-          <div className="bg-slate-900 text-white w-72 rounded-[2.5rem] shadow-2xl border border-white/10 overflow-hidden animate-in slide-in-from-right-4 duration-500">
+          <div className="bg-slate-900 text-white w-72 rounded-panel shadow-2xl border border-white/10 overflow-hidden animate-in slide-in-from-right-4 duration-500">
             {/* Header / Gamification Badge */}
             <div className="p-6 pb-2 flex justify-between items-start">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center border border-emerald-500/30">
-                  <i className="fas fa-medal"></i>
+                  <FaIcon name="fa-medal" />
                 </div>
                 <div>
-                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Nível de Segurança</p>
+                  <p className="text-3xs font-bold text-slate-400 uppercase tracking-widest">Nível de Segurança</p>
                   <p className="text-xs font-black tracking-tight text-emerald-400">Bronze Expert <span className="text-slate-500 font-normal">Lvl 2</span></p>
                 </div>
               </div>
@@ -262,7 +263,7 @@ const ProjectsModule: React.FC = () => {
                 onClick={() => setIsSSTMinimized(true)}
                 className="text-slate-500 hover:text-white transition-colors p-1"
               >
-                <i className="fas fa-minus text-[10px]"></i>
+                <FaIcon name="fa-minus" className="text-2xs" />
               </button>
             </div>
 
@@ -270,28 +271,28 @@ const ProjectsModule: React.FC = () => {
             <div className="px-6 py-4 space-y-4">
               <div className="space-y-2">
                 <div className="flex justify-between items-end">
-                  <p className="text-[10px] font-bold text-white uppercase tracking-wider">Onboarding Checklist</p>
-                  <p className="text-[10px] font-black text-emerald-400">{sstProgress}%</p>
+                  <p className="text-2xs font-bold text-white uppercase tracking-wider">Onboarding Checklist</p>
+                  <p className="text-2xs font-black text-emerald-400">{sstProgress}%</p>
                 </div>
                 <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
                   <div 
-                    className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-1000 ease-out"
+                    className="h-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-[width] duration-1000 ease-out"
                     style={{ width: `${sstProgress}%` }}
                   ></div>
                 </div>
               </div>
 
               <div className="bg-white/5 rounded-2xl p-3 border border-white/5">
-                <p className="text-[9px] text-slate-400 font-medium leading-relaxed">
+                <p className="text-3xs text-slate-400 font-medium leading-relaxed">
                   Faltam <span className="text-white font-bold">2 passos</span> para desbloquear o Certificado de Obra Segura.
                 </p>
               </div>
 
               <button 
                 onClick={() => setShowSSTFlow(true)}
-                className="w-full py-3 bg-white text-slate-900 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all active:scale-95 flex items-center justify-center"
+                className="w-full py-3 bg-white text-slate-900 rounded-xl text-2xs font-black uppercase tracking-widest hover:bg-slate-50 transition active:scale-95 flex items-center justify-center"
               >
-                <i className="fas fa-rocket mr-2 text-emerald-500"></i> Concluir Agora
+                <FaIcon name="fa-rocket" className="mr-2 text-emerald-500" /> Concluir Agora
               </button>
             </div>
             
@@ -313,38 +314,38 @@ const ProjectsModule: React.FC = () => {
 
       {showModal && (
         <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-md z-[200] grid place-items-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in duration-300 my-auto">
+          <div className="bg-white rounded-panel shadow-2xl w-full max-w-2xl overflow-hidden animate-in zoom-in duration-300 my-auto">
             <div className="p-10 border-b border-slate-50 relative bg-slate-50/20 text-center">
               <button 
                 onClick={() => setShowModal(false)} 
                 className="absolute right-8 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-900 transition-colors"
               >
-                <i className="fas fa-times text-sm"></i>
+                <FaIcon name="fa-times" className="text-sm" />
               </button>
               <h3 className="font-bold text-slate-900 tracking-tight text-xl font-display">Registar Novo Projeto</h3>
-              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Gestão de Obras & Engenharia Industrial</p>
+              <p className="text-2xs text-slate-400 font-bold uppercase tracking-widest mt-1">Gestão de Obras & Engenharia Industrial</p>
             </div>
 
             <form onSubmit={handleCreateProject} className="p-8 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-1.5">
-                  <label className="flex items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">
-                    <i className="fas fa-tag mr-2 text-slate-300"></i> Designação da Obra
+                  <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                    <FaIcon name="fa-tag" className="mr-2 text-slate-300" /> Designação da Obra
                   </label>
                   <input 
                     required 
-                    className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition-all font-display" 
+                    className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition font-display" 
                     placeholder="Ex: Central Termoelétrica - Fase 2" 
                     value={formData.designacao}
                     onChange={(e) => setFormData({...formData, designacao: e.target.value})}
                   />
                 </div>
                 <div className="space-y-1.5 font-display">
-                  <label className="flex items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">
-                    <i className="fas fa-hard-hat mr-2 text-slate-300"></i> Tipo de Intervenção
+                  <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                    <FaIcon name="fa-hard-hat" className="mr-2 text-slate-300" /> Tipo de Intervenção
                   </label>
                   <select 
-                    className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition-all appearance-none"
+                    className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition appearance-none"
                     value={formData.type}
                     onChange={(e) => setFormData({...formData, type: e.target.value})}
                   >
@@ -357,13 +358,13 @@ const ProjectsModule: React.FC = () => {
               </div>
 
               <div className="space-y-1.5">
-                <label className="flex items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">
-                  <i className="fas fa-building mr-2 text-slate-300"></i> Cliente Associado
+                <label className="flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest ml-1">
+                  <FaIcon name="fa-building" className="mr-2 text-slate-300" /> Cliente Associado
                 </label>
                 <div className="relative">
                   <select 
                     required
-                    className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition-all appearance-none pr-10"
+                    className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-5 py-4 text-xs font-medium focus:outline-none focus:border-slate-900 transition appearance-none pr-10"
                     value={formData.clientId}
                     onChange={(e) => setFormData({...formData, clientId: e.target.value})}
                   >
@@ -373,7 +374,7 @@ const ProjectsModule: React.FC = () => {
                     ))}
                   </select>
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                    <i className="fas fa-chevron-down text-[10px]"></i>
+                    <FaIcon name="fa-chevron-down" className="text-2xs" />
                   </div>
                 </div>
               </div>
@@ -382,13 +383,13 @@ const ProjectsModule: React.FC = () => {
                 <button 
                   type="button" 
                   onClick={() => setShowModal(false)} 
-                  className="flex-1 px-4 py-4 border border-slate-100 text-slate-400 rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:bg-slate-50 transition-all font-display"
+                  className="flex-1 px-4 py-4 border border-slate-100 text-slate-400 rounded-2xl text-2xs font-bold uppercase tracking-widest hover:bg-slate-50 transition font-display"
                 >
                   Cancelar
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-[2] px-4 py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-bold uppercase tracking-widest shadow-xl shadow-slate-200 hover:bg-slate-800 transition-all active:scale-95 font-display"
+                  className="flex-[2] px-4 py-4 bg-slate-900 text-white rounded-2xl text-2xs font-bold uppercase tracking-widest shadow-xl shadow-slate-200 hover:bg-slate-800 transition active:scale-95 font-display"
                 >
                   Confirmar e Iniciar Projeto
                 </button>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaIcon } from './common/FaIcon';
 import { api } from '../../connectors/api/client';
 import { syncService } from '../../connectors/api/sync';
 import SSTFormsPreOS from './SSTFormsPreOS';
@@ -155,15 +156,15 @@ const SSTModule: React.FC = () => {
         <div className="flex gap-2 w-full sm:w-auto">
           <button 
             onClick={() => { setFormData({...formData, tipo: 'NC'}); setShowReportModal(true); }}
-            className="flex-1 sm:flex-none bg-slate-100 text-slate-900 border border-slate-200 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-white shadow-sm transition-all flex items-center justify-center"
+            className="flex-1 sm:flex-none bg-slate-100 text-slate-900 border border-slate-200 px-5 py-2.5 rounded-xl text-2xs font-black uppercase tracking-widest hover:bg-white shadow-sm transition flex items-center justify-center"
           >
-            <i className="fas fa-clipboard-check mr-2 text-slate-400"></i> Reportar NC
+            <FaIcon name="fa-clipboard-check" className="mr-2 text-slate-400" /> Reportar NC
           </button>
           <button 
             onClick={() => { setFormData({...formData, tipo: 'INCIDENTE'}); setShowReportModal(true); }}
-            className="flex-1 sm:flex-none bg-red-600 text-white px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-red-700 shadow-lg shadow-red-100 transition-all flex items-center justify-center"
+            className="flex-1 sm:flex-none bg-red-600 text-white px-5 py-2.5 rounded-xl text-2xs font-black uppercase tracking-widest hover:bg-red-700 shadow-lg shadow-red-100 transition flex items-center justify-center"
           >
-            <i className="fas fa-biohazard mr-2"></i> Reportar Incidente
+            <FaIcon name="fa-biohazard" className="mr-2" /> Reportar Incidente
           </button>
         </div>
       </div>
@@ -171,43 +172,43 @@ const SSTModule: React.FC = () => {
       {/* Top Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Dias sem Acidentes</p>
+          <p className="text-2xs font-black text-slate-400 uppercase tracking-widest mb-1">Dias sem Acidentes</p>
           <div className="flex items-center gap-3">
              <h4 className="text-2xl font-bold text-emerald-600">428</h4>
-             <span className="text-[9px] font-black bg-emerald-50 text-emerald-500 px-2 py-0.5 rounded-lg border border-emerald-100">RECORDE</span>
+             <span className="text-3xs font-black bg-emerald-50 text-emerald-500 px-2 py-0.5 rounded-lg border border-emerald-100">RECORDE</span>
           </div>
         </div>
         <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">NCs Pendentes</p>
+          <p className="text-2xs font-black text-slate-400 uppercase tracking-widest mb-1">NCs Pendentes</p>
           <h4 className="text-2xl font-bold text-amber-600">{incidents.filter(i => i.status !== 'FECHADO').length}</h4>
         </div>
         <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Auditorias Mês</p>
+          <p className="text-2xs font-black text-slate-400 uppercase tracking-widest mb-1">Auditorias Mês</p>
           <h4 className="text-2xl font-bold text-slate-800">12</h4>
         </div>
         <div className="bg-white border border-slate-200 p-5 rounded-2xl shadow-sm">
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Conformidade ISO</p>
+          <p className="text-2xs font-black text-slate-400 uppercase tracking-widest mb-1">Conformidade ISO</p>
           <h4 className="text-2xl font-bold text-blue-600">98.2%</h4>
         </div>
       </div>
 
       {/* Digital Form Hub - Requested By User */}
-      <div className="bg-white border border-slate-200 rounded-[2rem] shadow-sm overflow-hidden flex flex-col">
+      <div className="bg-white border border-slate-200 rounded-panel shadow-sm overflow-hidden flex flex-col">
         <div className="p-8 border-b border-slate-100 bg-slate-50/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div className="flex items-center gap-5">
             <div className="w-14 h-14 bg-slate-900 rounded-2xl flex items-center justify-center text-emerald-400 text-xl shadow-xl shadow-slate-200">
-              <i className="fas fa-folder-tree"></i>
+              <FaIcon name="fa-folder-tree" />
             </div>
             <div>
               <h3 className="text-lg font-bold text-slate-900 tracking-tight">Hub de Formulários Digitais</h3>
-              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">Associação de Documentação AQS por Obra</p>
+              <p className="text-2xs text-slate-400 font-bold uppercase tracking-widest mt-0.5">Associação de Documentação AQS por Obra</p>
             </div>
           </div>
 
           <div className="w-full md:w-auto">
-             <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2 block ml-1">Selecionar Obra para Registro</label>
+             <label className="text-3xs font-black text-slate-400 uppercase tracking-widest mb-2 block ml-1">Selecionar Obra para Registro</label>
              <select 
-               className="w-full md:w-80 bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-700 focus:outline-none focus:border-emerald-500 shadow-sm transition-all"
+               className="w-full md:w-80 bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-700 focus:outline-none focus:border-emerald-500 shadow-sm transition"
                value={selectedProject?.id || ''}
                onChange={(e) => setSelectedProject(projects.find(p => p.id === e.target.value) || null)}
              >
@@ -225,9 +226,9 @@ const SSTModule: React.FC = () => {
           {!selectedProject ? (
             <div className="py-20 text-center border-2 border-dashed border-slate-100 rounded-3xl">
               <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto mb-4 text-slate-200">
-                <i className="fas fa-hand-pointer text-3xl"></i>
+                <FaIcon name="fa-hand-pointer" className="text-3xl" />
               </div>
-              <p className="text-slate-400 font-bold uppercase text-[11px] tracking-widest">Nenhuma Obra Selecionada</p>
+              <p className="text-slate-400 font-bold uppercase text-2xs tracking-widest">Nenhuma Obra Selecionada</p>
               <p className="text-slate-300 text-xs mt-1 italic">Selecione uma obra acima para associar os formulários AQS.</p>
             </div>
           ) : (
@@ -236,19 +237,19 @@ const SSTModule: React.FC = () => {
                  <button 
                    key={doc.code}
                    onClick={() => setShowSSTFlow(true)}
-                   className="flex flex-col items-center p-6 bg-slate-50/50 border border-slate-100 rounded-3xl hover:bg-white hover:border-emerald-500 hover:shadow-xl transition-all group relative border-b-4 hover:border-b-emerald-500"
+                   className="flex flex-col items-center p-6 bg-slate-50/50 border border-slate-100 rounded-3xl hover:bg-white hover:border-emerald-500 hover:shadow-xl transition group relative border-b-4 hover:border-b-emerald-500"
                  >
                    <div className={`w-12 h-12 ${doc.color} text-white rounded-2xl flex items-center justify-center text-xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-500`}>
-                     <i className={`fas ${doc.icon}`}></i>
+                     <FaIcon name={doc.icon} />
                    </div>
-                   <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.1em] mb-1">{doc.code}</p>
-                   <span className="text-[10px] font-bold text-slate-800 uppercase tracking-tight text-center leading-tight group-hover:text-emerald-600 transition-colors">
+                   <p className="text-3xs font-black text-slate-400 uppercase tracking-widest mb-1">{doc.code}</p>
+                   <span className="text-2xs font-bold text-slate-800 uppercase tracking-tight text-center leading-tight group-hover:text-emerald-600 transition-colors">
                      {doc.title}
                    </span>
                    <div className="mt-4 w-full h-1 bg-slate-200 rounded-full overflow-hidden">
                       <div className="w-1/3 h-full bg-slate-300"></div>
                    </div>
-                   <div className="absolute top-4 right-4 text-[8px] font-black text-slate-300 uppercase italic">OBRA: {selectedProject.codigoObra}</div>
+                   <div className="absolute top-4 right-4 text-3xs font-black text-slate-300 uppercase italic">OBRA: {selectedProject.codigoObra}</div>
                  </button>
                ))}
             </div>
@@ -258,14 +259,14 @@ const SSTModule: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          <div className="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm overflow-hidden">
+          <div className="bg-white p-8 rounded-panel border border-slate-200 shadow-sm overflow-hidden">
             <div className="flex justify-between items-center mb-8">
               <h3 className="font-black text-slate-800 uppercase text-xs tracking-widest flex items-center">
-                <i className="fas fa-list-check mr-3 text-red-500"></i> Gestão de Ocorrências e NCs
+                <FaIcon name="fa-list-check" className="mr-3 text-red-500" /> Gestão de Ocorrências e NCs
               </h3>
               <div className="flex items-center gap-3">
-                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest border-r pr-3 border-slate-200">Filtro Rápido</span>
-                <button className="text-[9px] font-black text-emerald-600 uppercase hover:underline">Todos os Registros</button>
+                <span className="text-3xs font-black text-slate-400 uppercase tracking-widest border-r pr-3 border-slate-200">Filtro Rápido</span>
+                <button className="text-3xs font-black text-emerald-600 uppercase hover:underline">Todos os Registros</button>
               </div>
             </div>
             
@@ -273,34 +274,34 @@ const SSTModule: React.FC = () => {
               {incidents.length === 0 ? (
                 <div className="py-20 text-center bg-slate-50 border border-dashed border-slate-200 rounded-3xl">
                   <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 text-emerald-100 shadow-sm">
-                    <i className="fas fa-shield-check text-3xl"></i>
+                    <FaIcon name="fa-shield-check" className="text-3xl" />
                   </div>
-                  <p className="text-slate-400 font-bold uppercase text-[11px] tracking-widest italic">Conformidade Total Verificada</p>
-                  <p className="text-slate-300 text-[10px] mt-1">Nenhuma ocorrência reportada no período selecionado.</p>
+                  <p className="text-slate-400 font-bold uppercase text-2xs tracking-widest italic">Conformidade Total Verificada</p>
+                  <p className="text-slate-300 text-2xs mt-1">Nenhuma ocorrência reportada no período selecionado.</p>
                 </div>
               ) : incidents.map((inc) => (
-                <div key={inc.id} className={`p-6 border rounded-[1.8rem] transition-all hover:shadow-lg group flex flex-col md:flex-row gap-6 ${
+                <div key={inc.id} className={`p-6 border rounded-panel transition hover:shadow-lg group flex flex-col md:flex-row gap-6 ${
                   inc.tipo === 'NC' ? 'bg-slate-50/30 border-slate-100' : 'bg-red-50/20 border-red-100'
                 }`}>
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className={`text-[8px] font-black uppercase px-3 py-1 rounded-lg border shadow-sm ${getSeverityStyle(inc.severidade)}`}>
+                      <span className={`text-3xs font-black uppercase px-3 py-1 rounded-lg border shadow-sm ${getSeverityStyle(inc.severidade)}`}>
                         {inc.severidade}
                       </span>
-                      <span className="text-[10px] font-black text-slate-300 tracking-widest uppercase">ID: {inc.id.slice(-6).toUpperCase()}</span>
+                      <span className="text-2xs font-black text-slate-300 tracking-widest uppercase">ID: {inc.id.slice(-6).toUpperCase()}</span>
                     </div>
                     <h4 className="text-sm font-bold text-slate-800 mb-2 font-display flex items-center">
                       {getTypeLabel(inc.tipo)}
                       <span className="mx-2 w-1 h-1 bg-slate-300 rounded-full"></span>
-                      <span className="text-slate-400 font-medium text-[11px]">{new Date(inc.dataOcorrencia).toLocaleDateString()}</span>
+                      <span className="text-slate-400 font-medium text-2xs">{new Date(inc.dataOcorrencia).toLocaleDateString()}</span>
                     </h4>
-                    <p className="text-[11px] text-slate-600 leading-relaxed font-medium bg-white/50 p-4 rounded-xl border border-slate-100/50 shadow-inner">
+                    <p className="text-2xs text-slate-600 leading-relaxed font-medium bg-white/50 p-4 rounded-xl border border-slate-100/50 shadow-inner">
                       "{inc.descricao}"
                     </p>
                     {inc.localOcorrencia && (
-                      <div className="mt-4 flex items-center text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                      <div className="mt-4 flex items-center text-2xs font-bold text-slate-400 uppercase tracking-widest">
                         <div className="w-6 h-6 bg-slate-100 rounded-lg flex items-center justify-center mr-2 text-slate-400">
-                          <i className="fas fa-location-dot"></i>
+                          <FaIcon name="fa-location-dot" />
                         </div>
                         {inc.localOcorrencia}
                       </div>
@@ -309,8 +310,8 @@ const SSTModule: React.FC = () => {
                   
                   <div className="md:w-48 flex flex-col justify-between py-1">
                     <div className="bg-white border border-slate-100 rounded-xl p-3 shadow-sm text-center">
-                      <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest mb-1">Estado Atual</p>
-                      <span className={`text-[9px] font-black uppercase inline-block w-full py-1.5 rounded-lg border ${
+                      <p className="text-3xs font-black text-slate-400 uppercase tracking-widest mb-1">Estado Atual</p>
+                      <span className={`text-3xs font-black uppercase inline-block w-full py-1.5 rounded-lg border ${
                         inc.status === 'FECHADO' 
                         ? 'bg-emerald-50 text-emerald-600 border-emerald-100' 
                         : 'bg-amber-50 text-amber-600 border-amber-100'
@@ -319,10 +320,10 @@ const SSTModule: React.FC = () => {
                       </span>
                     </div>
                     <div className="mt-4 flex flex-col gap-2">
-                       <button className="w-full py-2.5 bg-slate-900 text-white rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-slate-800 transition-all active:scale-95 shadow-lg shadow-slate-200">
+                       <button className="w-full py-2.5 bg-slate-900 text-white rounded-xl text-3xs font-black uppercase tracking-widest hover:bg-slate-800 transition active:scale-95 shadow-lg shadow-slate-200">
                          Plano de Ação
                        </button>
-                       <button className="w-full py-2.5 bg-white border border-slate-200 text-slate-400 rounded-xl text-[9px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all">
+                       <button className="w-full py-2.5 bg-white border border-slate-200 text-slate-400 rounded-xl text-3xs font-black uppercase tracking-widest hover:bg-slate-50 transition">
                          Resolver
                        </button>
                     </div>
@@ -334,39 +335,39 @@ const SSTModule: React.FC = () => {
         </div>
 
         <div className="space-y-6">
-          <div className="bg-slate-900 p-8 rounded-[2rem] text-white relative overflow-hidden group shadow-2xl shadow-slate-200">
-            <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/10 rounded-full -mr-24 -mt-24 blur-3xl group-hover:bg-emerald-500/20 transition-all duration-1000"></div>
+          <div className="bg-slate-900 p-8 rounded-panel text-white relative overflow-hidden group shadow-2xl shadow-slate-200">
+            <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-500/10 rounded-full -mr-24 -mt-24 blur-3xl group-hover:bg-emerald-500/20 transition duration-1000"></div>
             <div className="relative z-10 flex items-center gap-4 mb-8">
                <div className="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center text-xl shadow-xl shadow-emerald-500/20">
-                 <i className="fas fa-chart-line"></i>
+                 <FaIcon name="fa-chart-line" />
                </div>
                <div>
-                 <h3 className="text-sm font-black uppercase tracking-[0.2em] text-emerald-400">KPI Segurança</h3>
-                 <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Dashboard Mensal</p>
+                 <h3 className="text-sm font-black uppercase tracking-widest text-emerald-400">KPI Segurança</h3>
+                 <p className="text-slate-500 text-2xs font-bold uppercase tracking-widest">Dashboard Mensal</p>
                </div>
             </div>
             <div className="space-y-4">
-              <div className="p-5 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-sm group-hover:border-white/20 transition-all">
-                <p className="text-[10px] text-slate-400 font-bold uppercase mb-2">Acidentes Registrados</p>
+              <div className="p-5 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-sm group-hover:border-white/20 transition">
+                <p className="text-2xs text-slate-400 font-bold uppercase mb-2">Acidentes Registrados</p>
                 <div className="flex items-end justify-between">
                    <p className="text-3xl font-black text-emerald-400">0</p>
-                   <p className="text-[9px] font-bold text-emerald-400/50 uppercase italic tracking-widest">META ATINGIDA</p>
+                   <p className="text-3xs font-bold text-emerald-400/50 uppercase italic tracking-widest">META ATINGIDA</p>
                 </div>
               </div>
-              <div className="p-5 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-sm group-hover:border-white/20 transition-all text-amber-500/80">
-                <p className="text-[10px] text-slate-400 font-bold uppercase mb-2">Alertas de Auditoria</p>
+              <div className="p-5 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-sm group-hover:border-white/20 transition text-amber-500/80">
+                <p className="text-2xs text-slate-400 font-bold uppercase mb-2">Alertas de Auditoria</p>
                 <div className="flex items-end justify-between">
                    <p className="text-3xl font-black text-amber-400">2</p>
-                   <p className="text-[9px] font-bold text-amber-400/50 uppercase italic tracking-widest">REVISÃO PENDENTE</p>
+                   <p className="text-3xs font-bold text-amber-400/50 uppercase italic tracking-widest">REVISÃO PENDENTE</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm overflow-hidden group">
+          <div className="bg-white p-8 rounded-panel border border-slate-200 shadow-sm overflow-hidden group">
             <div className="flex items-center justify-between mb-6">
-              <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Repositório ISO</h4>
-              <i className="fas fa-shield-alt text-blue-500 group-hover:rotate-12 transition-transform duration-500"></i>
+              <h4 className="text-2xs font-black text-slate-400 uppercase tracking-widest">Repositório ISO</h4>
+              <FaIcon name="fa-shield-alt" className="text-blue-500 group-hover:rotate-12 transition-transform duration-500" />
             </div>
             <div className="space-y-3">
               {[
@@ -374,17 +375,17 @@ const SSTModule: React.FC = () => {
                 { name: 'Plano Emergência (Oficina)', date: '2024-FEV' },
                 { name: 'Mapa de Riscos (SGIS)', date: '2023-OUT' }
               ].map(doc => (
-                <div key={doc.name} className="flex items-center justify-between p-4 bg-slate-50/50 border border-slate-100 rounded-2xl cursor-pointer hover:bg-white hover:border-blue-500 hover:shadow-md transition-all group/item">
+                <div key={doc.name} className="flex items-center justify-between p-4 bg-slate-50/50 border border-slate-100 rounded-2xl cursor-pointer hover:bg-white hover:border-blue-500 hover:shadow-md transition group/item">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center text-blue-500 text-xs shadow-sm">
-                      <i className="fas fa-file-pdf"></i>
+                      <FaIcon name="fa-file-pdf" />
                     </div>
                     <div>
-                      <p className="text-[11px] font-bold text-slate-700 tracking-tight">{doc.name}</p>
-                      <p className="text-[8px] text-slate-400 font-black uppercase tracking-widest">{doc.date}</p>
+                      <p className="text-2xs font-bold text-slate-700 tracking-tight">{doc.name}</p>
+                      <p className="text-3xs text-slate-400 font-black uppercase tracking-widest">{doc.date}</p>
                     </div>
                   </div>
-                  <i className="fas fa-arrow-down-to-bracket text-[10px] text-slate-300 group-hover/item:text-blue-500 transition-colors"></i>
+                  <FaIcon name="fa-arrow-down-to-bracket" className="text-2xs text-slate-300 group-hover/item:text-blue-500 transition-colors" />
                 </div>
               ))}
             </div>
@@ -401,79 +402,79 @@ const SSTModule: React.FC = () => {
 
     {showReportModal && (
       <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md z-[200] grid place-items-center p-4 overflow-y-auto">
-        <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in duration-300 my-auto">
+        <div className="bg-white rounded-panel shadow-2xl w-full max-w-md overflow-hidden animate-in zoom-in duration-300 my-auto">
           <div className="p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/20 relative">
             <div>
               <h3 className="font-bold text-slate-900 tracking-tight text-xl font-display">
                 {formData.tipo === 'NC' ? 'Reportar NC' : 'Reportar Incidente'}
               </h3>
-              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1 italic">ISO 45001 • SEGURANÇA NO TRABALHO</p>
+              <p className="text-2xs text-slate-400 font-bold uppercase tracking-widest mt-1 italic">ISO 45001 • SEGURANÇA NO TRABALHO</p>
             </div>
             <button 
               onClick={() => setShowReportModal(false)} 
-              className="absolute right-8 top-1/2 -translate-y-1/2 w-10 h-10 bg-slate-100 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-full flex items-center justify-center transition-all"
+              className="absolute right-8 top-1/2 -translate-y-1/2 w-10 h-10 bg-slate-100 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-full flex items-center justify-center transition"
             >
-              <i className="fas fa-times text-sm"></i>
+              <FaIcon name="fa-times" className="text-sm" />
             </button>
           </div>
           <form onSubmit={handleReport} className="p-8 space-y-6">
             <div className="grid grid-cols-2 gap-5">
               <div className="space-y-2">
-                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Tipo de Registro</label>
+                <label className="block text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Tipo de Registro</label>
                 <div className="relative">
                   <select 
                     value={formData.tipo}
                     onChange={(e) => setFormData({...formData, tipo: e.target.value})}
-                    className="w-full bg-slate-50/50 border border-slate-200 rounded-2xl px-5 py-4 text-xs font-bold focus:outline-none focus:border-slate-900 transition-all appearance-none text-slate-900 shadow-sm"
+                    className="w-full bg-slate-50/50 border border-slate-200 rounded-2xl px-5 py-4 text-xs font-bold focus:outline-none focus:border-slate-900 transition appearance-none text-slate-900 shadow-sm"
                   >
                     <option value="NC">N.C. (Qualidade)</option>
                     <option value="INCIDENTE">Incidente (SST)</option>
                     <option value="ACIDENTE">Acidente (SST)</option>
                     <option value="CONDICAO_INSEGURA">Condição Insegura</option>
                   </select>
-                  <i className="fas fa-chevron-down absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 text-[10px] pointer-events-none"></i>
+                  <FaIcon name="fa-chevron-down" className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 text-2xs pointer-events-none" />
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Severidade (ISO)</label>
+                <label className="block text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Severidade (ISO)</label>
                 <div className="relative">
                   <select 
                     value={formData.severidade}
                     onChange={(e) => setFormData({...formData, severidade: e.target.value})}
-                    className="w-full bg-slate-50/50 border border-slate-200 rounded-2xl px-5 py-4 text-xs font-bold focus:outline-none focus:border-slate-900 transition-all appearance-none text-slate-900 shadow-sm"
+                    className="w-full bg-slate-50/50 border border-slate-200 rounded-2xl px-5 py-4 text-xs font-bold focus:outline-none focus:border-slate-900 transition appearance-none text-slate-900 shadow-sm"
                   >
                     <option value="LEVE">Leve</option>
                     <option value="MODERADO">Moderada</option>
                     <option value="GRAVE">Grave / Crítica</option>
                     <option value="FATAL">Emergência / Fatal</option>
                   </select>
-                  <i className="fas fa-chevron-down absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 text-[10px] pointer-events-none"></i>
+                  <FaIcon name="fa-chevron-down" className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-300 text-2xs pointer-events-none" />
                 </div>
               </div>
             </div>
             
             <div className="space-y-2">
-              <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Local da Ocorrência</label>
+              <label className="block text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Local da Ocorrência</label>
               <div className="relative">
-                <i className="fas fa-location-arrow absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 text-xs"></i>
+                <FaIcon name="fa-location-arrow" className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300 text-xs" />
                 <input 
                   type="text" 
                   value={formData.localOcorrencia}
                   onChange={(e) => setFormData({...formData, localOcorrencia: e.target.value})}
-                  className="w-full bg-slate-50/50 border border-slate-200 rounded-2xl pl-12 pr-5 py-4 text-xs font-bold focus:outline-none focus:border-slate-900 transition-all shadow-sm"
+                  className="w-full bg-slate-50/50 border border-slate-200 rounded-2xl pl-12 pr-5 py-4 text-xs font-bold focus:outline-none focus:border-slate-900 transition shadow-sm"
                   placeholder="Ex: Área de Produção, Estaleiro..."
                 />
               </div>
             </div>
             
             <div className="space-y-2">
-              <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Relatórios / Descrição Detalhada</label>
+              <label className="block text-2xs font-black text-slate-400 uppercase tracking-widest ml-1">Relatórios / Descrição Detalhada</label>
               <textarea 
                 required
                 rows={4}
                 value={formData.descricao}
                 onChange={(e) => setFormData({...formData, descricao: e.target.value})}
-                className="w-full bg-slate-50/50 border border-slate-200 rounded-2xl px-6 py-5 text-xs font-medium focus:outline-none focus:border-slate-900 transition-all resize-none shadow-sm placeholder:italic"
+                className="w-full bg-slate-50/50 border border-slate-200 rounded-2xl px-6 py-5 text-xs font-medium focus:outline-none focus:border-slate-900 transition resize-none shadow-sm placeholder:italic"
                 placeholder="Descreva detalhadamente o ocorrido e causas imediatas..."
               />
             </div>
@@ -482,13 +483,13 @@ const SSTModule: React.FC = () => {
               <button 
                 type="button"
                 onClick={() => setShowReportModal(false)}
-                className="flex-1 py-4 border border-slate-200 text-slate-400 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-50 transition-all"
+                className="flex-1 py-4 border border-slate-200 text-slate-400 rounded-2xl text-2xs font-black uppercase tracking-widest hover:bg-slate-50 transition"
               >
                 Anular
               </button>
               <button 
                 type="submit"
-                className="flex-[2] py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-2xl shadow-slate-200 hover:bg-black transition-all active:scale-95"
+                className="flex-[2] py-4 bg-slate-900 text-white rounded-2xl text-2xs font-black uppercase tracking-widest shadow-2xl shadow-slate-200 hover:bg-black transition active:scale-95"
               >
                 Validar e Enviar
               </button>

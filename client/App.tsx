@@ -99,7 +99,7 @@ const App: React.FC = () => {
           onNewOS={() => setShowNewOSModal(true)}
         />
 
-        <main className="flex-1 overflow-y-auto p-4 lg:p-8 custom-scrollbar relative z-10 transition-all duration-300">
+        <main className="flex-1 overflow-y-auto p-4 lg:p-8 custom-scrollbar relative z-10 transition duration-300">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/crm" element={<RoleGuard roles={['ADMIN', 'MANAGER']}><CRMModule /></RoleGuard>} />

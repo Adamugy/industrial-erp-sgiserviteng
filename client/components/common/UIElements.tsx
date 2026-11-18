@@ -82,7 +82,7 @@ export const StatsCard: React.FC<{
             <div className="flex items-end justify-between">
                 <span className="text-2xl font-bold text-slate-900 dark:text-white leading-none">{value}</span>
                 {trend && (
-                    <span className={`text-[10px] font-semibold flex items-center ${trend.positive ? 'text-green-600' : 'text-red-600'}`}>
+                    <span className={`text-2xs font-semibold flex items-center ${trend.positive ? 'text-green-600' : 'text-red-600'}`}>
                         {trend.positive ? '↑' : '↓'} {trend.value}
                     </span>
                 )}
@@ -132,7 +132,7 @@ export const Button: React.FC<{
             type={type}
             onClick={onClick}
             disabled={disabled}
-            className={`inline-flex items-center justify-center font-semibold rounded-lg transition-all active:scale-95 disabled:opacity-50 disabled:pointer-events-none ${variants[variant]} ${sizes[size]} ${className}`}
+            className={`inline-flex items-center justify-center font-semibold rounded-lg transition active:scale-95 disabled:opacity-50 disabled:pointer-events-none ${variants[variant]} ${sizes[size]} ${className}`}
         >
             {icon && <span className="mr-2">{icon}</span>}
             {children}
