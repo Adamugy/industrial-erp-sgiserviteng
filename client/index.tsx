@@ -16,3 +16,10 @@ root.render(
     </AuthProvider>
   </React.StrictMode>
 );
+
+// Instalação como app (desktop/telemóvel): só em produção, para não interferir com o HMR do Vite
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch((err) => console.warn('SW não registado:', err));
+  });
+}
